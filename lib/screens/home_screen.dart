@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lbs/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String id = 'home_screen';
@@ -12,17 +13,23 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text('Library Books'),
-                      ],
+                child: GestureDetector(
+                  onTap: () {
+//                    Navigator.push(context, route)
+                  },
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                         Image.asset('images/book.png'),
+                          Text('Library Books'),
+                        ],
+                      ),
                     ),
+                    color: kSecondaryColor,
                   ),
-                  color: Colors.yellow,
                 ),
               ),
               Expanded(
@@ -35,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  color: Colors.yellow,
+                  color: kSecondaryColor,
                 ),
               ),
               Expanded(
@@ -48,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  color: Colors.yellow,
+                  color: kSecondaryColor,
                 ),
               ),
             ],
