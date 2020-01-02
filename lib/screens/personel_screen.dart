@@ -36,12 +36,12 @@ class PersonalScreen extends StatelessWidget {
               backgroundColor: Colors.red,
               label: 'Barcode',
               labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => print('FIRST CHILD')
+              onTap: () => print('Barcode')
           ),
           SpeedDialChild(
             child: Icon(FontAwesomeIcons.search),
             backgroundColor: Colors.blue,
-            label: 'Second',
+            label: 'From the web',
             labelStyle: TextStyle(fontSize: 18.0),
             onTap: () => print('From the web'),
           ),
@@ -50,14 +50,14 @@ class PersonalScreen extends StatelessWidget {
             backgroundColor: Colors.green,
             label: 'Manually',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('THIRD CHILD'),
+            onTap: () => print('Manually'),
           ),
           SpeedDialChild(
             child: Icon(Icons.keyboard_voice),
             backgroundColor: Colors.green,
             label: 'ISBN',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('THIRD CHILD'),
+            onTap: () => print('ISBN'),
           )
         ],
       ),
