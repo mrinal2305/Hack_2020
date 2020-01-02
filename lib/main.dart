@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lbs/screens/home_screen.dart';
-
+import 'package:lbs/screens/login_screen.dart';
+import 'package:lbs/screens/home_screen2.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,12 +9,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          textTheme: TextTheme(
-            body1: TextStyle(color: Colors.black),
+
+          theme: ThemeData(
+            primarySwatch: Colors.deepPurple,
+            accentColor: Colors.orange,
+            cursorColor: Colors.orange,
+            textTheme: TextTheme(
+              display2: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 45.0,
+                color: Colors.orange,
+              ),
+              button: TextStyle(
+                fontFamily: 'OpenSans',
+              ),
+              subhead: TextStyle(fontFamily: 'NotoSans'),
+              body1: TextStyle(fontFamily: 'NotoSans'),
+            ),
           ),
-        ),
-        initialRoute: HomeScreen.id,
-        routes: {HomeScreen.id: (context) => HomeScreen()});
+
+        initialRoute: HomePage.id,
+        routes: {HomeScreen.id: (context) => HomeScreen(),
+                 LoginScreen.id: (context) =>LoginScreen(),
+                 HomePage.id: (context) =>HomePage()
+                 });
   }
 }
