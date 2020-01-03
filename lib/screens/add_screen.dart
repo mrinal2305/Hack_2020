@@ -6,7 +6,9 @@ class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar: AppBar(
+        title: Text('Add Book'),
+      ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red,
           child: Icon(

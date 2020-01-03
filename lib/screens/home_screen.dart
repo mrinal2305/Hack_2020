@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/screens/add_screen.dart';
 import 'package:librarian/screens/issue_screen.dart';
+import 'package:librarian/screens/search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = 'home_screen';
@@ -9,6 +10,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
         body: Column(
           children: <Widget>[
             MyCard(
@@ -25,7 +29,9 @@ class HomeScreen extends StatelessWidget {
             ),
             MyCard(
               'Search',
-              () {},
+              () {
+                Navigator.pushNamed(context,SearchScreen.id);
+              },
             ),
           ],
         ),
@@ -46,7 +52,7 @@ class MyCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         child: Container(
-          height: 180,
+          height: 150,
           width: 350,
           child: Text(title),
         ),

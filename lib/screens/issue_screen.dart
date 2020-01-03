@@ -7,7 +7,9 @@ class IssueScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar: AppBar(
+        title: Text('Issue'),
+      ),
         backgroundColor: Colors.teal,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -7,6 +7,9 @@ class BookInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Book Details'),
+        ),
         body: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -25,13 +28,11 @@ class BookInput extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: Colors.red,
                 child: IconButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pop(context);
                   },
                   color: Colors.black,
-                  icon: Icon(
-                    Icons.add
-                  ),
+                  icon: Icon(Icons.add),
                 ),
               )
             ],

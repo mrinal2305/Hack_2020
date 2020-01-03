@@ -4,6 +4,7 @@ import 'package:librarian/screens/book_input.dart';
 import 'package:librarian/screens/home_screen.dart';
 import 'package:librarian/screens/issue_screen.dart';
 import 'package:librarian/screens/login_screen.dart';
+import 'package:librarian/screens/search_screen.dart';
 import 'package:librarian/screens/student_info.dart';
 
 void main() {
@@ -23,10 +24,11 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
-        AddScreen.id: (context)=>AddScreen(),
-        BookInput.id: (context)=>BookInput(),
-        IssueScreen.id: (context)=>IssueScreen(),
-        StudentInfo.id: (context)=>StudentInfo()
+        AddScreen.id: (context) => AddScreen(),
+        BookInput.id: (context) => BookInput(),
+        IssueScreen.id: (context) => IssueScreen(),
+        StudentInfo.id: (context) => StudentInfo(),
+        SearchScreen.id: (context) => SearchScreen(),
       },
     );
   }

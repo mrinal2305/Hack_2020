@@ -7,6 +7,9 @@ class StudentInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Student'),
+        ),
         backgroundColor: Colors.lightGreenAccent,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
