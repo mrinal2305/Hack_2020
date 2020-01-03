@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/elements/background.dart';
 import 'package:librarian/elements/inputWidget.dart';
+import 'package:librarian/screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   static const id = 'login_screen';
@@ -10,15 +11,17 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: <Widget>[
-            Background(),
-            Login(),
-          ],
-        ));
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          backgroundColor: Colors.white,
+          body: Stack(
+            children: <Widget>[
+              Background(),
+              Login(),
+            ],
+          )),
+    );
   }
 }
 
@@ -71,10 +74,15 @@ class Login extends StatelessWidget {
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight),
                               ),
-                              child: ImageIcon(
-                                AssetImage("images/ic_forward.png"),
-                                size: 40,
-                                color: Colors.white,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pushNamed(context, HomeScreen.id);
+                                },
+                                child: ImageIcon(
+                                  AssetImage("images/ic_forward.png"),
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ],
@@ -87,7 +95,6 @@ class Login extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 50),
             ),
             roundedRectButton("Let's get Started", signInGradients, false),
-            roundedRectButton("Create an Account", signUpGradients, false),
           ],
         )
       ],
