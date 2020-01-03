@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/screens/add_screen.dart';
+import 'package:librarian/screens/issue_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = 'home_screen';
@@ -9,9 +11,22 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: <Widget>[
-            MyCard('Add\nBook'),
-            MyCard('Issue\nReissue\nReturn'),
-            MyCard('Search'),
+            MyCard(
+              'Add\nBook',
+              () {
+                Navigator.pushNamed(context, AddScreen.id);
+              },
+            ),
+            MyCard(
+              'Issue\nReissue\nReturn',
+              () {
+                Navigator.pushNamed(context, IssueScreen.id);
+              },
+            ),
+            MyCard(
+              'Search',
+              () {},
+            ),
           ],
         ),
       ),
@@ -19,19 +34,24 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-
 class MyCard extends StatelessWidget {
   final String title;
-  MyCard(this.title);
+  final Function onTap;
+
+  MyCard(this.title, this.onTap);
+
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
         child: Container(
           height: 180,
-            width: 350,
-            child: Text(title),
+          width: 350,
+          child: Text(title),
         ),
-      color: Colors.blue,
+        color: Colors.blue,
+      ),
     );
   }
 }

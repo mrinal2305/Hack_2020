@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/screens/book_input.dart';
 
 class AddScreen extends StatelessWidget {
   static const id = 'add_screen';
@@ -15,7 +16,7 @@ class AddScreen extends StatelessWidget {
         body: ListView(
         children: <Widget>[
           MyCard('Think and grow rich',(){
-
+                Navigator.pushNamed(context, BookInput.id);
           }),
           MyCard('Think and grow rich',(){
 

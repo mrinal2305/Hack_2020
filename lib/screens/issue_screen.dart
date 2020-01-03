@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/screens/student_info.dart';
 
 class IssueScreen extends StatelessWidget {
   static const id = 'issue_screen';
@@ -24,7 +25,7 @@ class IssueScreen extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: (){
-
+                      Navigator.pushNamed(context,StudentInfo.id);
                   },
                   icon: Icon(
                     Icons.search

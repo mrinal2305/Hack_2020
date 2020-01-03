@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/screens/add_screen.dart';
+import 'package:librarian/screens/book_input.dart';
+import 'package:librarian/screens/home_screen.dart';
+import 'package:librarian/screens/issue_screen.dart';
 import 'package:librarian/screens/login_screen.dart';
+import 'package:librarian/screens/student_info.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,9 +22,11 @@ class MyApp extends StatelessWidget {
       initialRoute: LoginScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
-//        HomeScreen.id: (context) => HomeScreen(),
-//        HomePage.id: (context) => HomePage(),
-//        PersonalScreen.id: (context) => PersonalScreen()
+        HomeScreen.id: (context) => HomeScreen(),
+        AddScreen.id: (context)=>AddScreen(),
+        BookInput.id: (context)=>BookInput(),
+        IssueScreen.id: (context)=>IssueScreen(),
+        StudentInfo.id: (context)=>StudentInfo()
       },
     );
   }
