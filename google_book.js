@@ -55,19 +55,21 @@ app.get('/:input/',(req,res,next)=>{
             else cat = 'null';
             if(x.volumeInfo.averageRating) avgR = x.volumeInfo.averageRating;
             else avgR = 'null';
-
+            var tS  = x.searchInfo;
                var out = {
-                   id           : x.id,
-                   title        : tit,
-                   author       : aut,
-                   publisher    : publ,
-                   description  : desc,
-                   isbn         : iD,
-                   pageCount    : pC,
-                   imageLinks   : img,
-                   categories   : cat,
-                   averageRating: avgR
+                   "id"           : x.id,
+                   "title"        : tit,
+                   "author"       : aut,
+                   "publisher"    : publ,
+                   "description"  : desc,
+                   "isbn"         : iD,
+                   "pageCount"    : pC,
+                   "imageLinks"   : img,
+                   "categories"   : cat,
+                   "averageRating": avgR,
+                   "textSnippet"  : tS
                }
+
                output.push(out);
             }
             res.send(output);
