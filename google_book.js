@@ -7,6 +7,10 @@ const app = express();
 //Array of object ,size 10 to store the filtered data
 var output = [];
 
+app.get('/',(req,res,next)=>{
+    res.status(200).json({message : "Add title or author or isbn number"});
+})
+
 //Sending filtered Google Book data
 app.get('/:input/',(req,res,next)=>{
     var input = req.params.input;   // taking title or author or isbn as optional parameter
@@ -71,6 +75,13 @@ app.get('/:input/',(req,res,next)=>{
 });
 
 });
+
+app.get("*",(req,res,next)=>{
+    res.status(200).json({
+        message : "No Page Found",
+        error   : "Add valid URL name"
+    })
+})
 
 app.listen(port,()=>{
     console.log('App listening on port'+port);
