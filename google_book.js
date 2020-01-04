@@ -4,15 +4,15 @@ var port    = process.env.PORT || 3000;
 
 const app = express();
 
-//Array of object ,size 10 to store the filtered data
-var output = [];
-
 app.get('/',(req,res,next)=>{
     res.status(200).json({message : "Add title or author or isbn number"});
 })
 
 //Sending filtered Google Book data
 app.get('/:input/',(req,res,next)=>{
+    //Array of object ,size 10 to store the filtered data
+    var output = [];
+
     var input = req.params.input;   // taking title or author or isbn as optional parameter
     var input_modf = "";            // formatted input
 
@@ -25,7 +25,7 @@ app.get('/:input/',(req,res,next)=>{
     i++;
     }
 
-    const url = "https://www.googleapis.com/books/v1/volumes?q="+input_modf+"&printType=books&orderBy=relevance&maxResults=15&key=AIzaSyC-7USJjf7fOg0-5FKR3PsnKeK9vh10JuE"; 
+    const url = "https://www.googleapis.com/books/v1/volumes?q="+input_modf+"&printType=books&orderBy=relevance&maxResults=10&key=AIzaSyC-7USJjf7fOg0-5FKR3PsnKeK9vh10JuE"; 
     console.log(url);
 
     request(url,(error,response,body)=>{
