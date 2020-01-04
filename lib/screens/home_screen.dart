@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:librarian/screens/add_screen.dart';
 import 'package:librarian/screens/issue_screen.dart';
 import 'package:librarian/screens/search_screen.dart';
+import 'package:librarian/elements/my_card.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = 'home_screen';
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Home'),
-        ),
-        body: Column(
+    return Scaffold(
+      backgroundColor: Colors.blue,
+//        appBar: AppBar(
+//          title: Text('Home'),
+//        ),
+      body: Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 100),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MyCard(
               'Add\nBook',
@@ -30,33 +39,11 @@ class HomeScreen extends StatelessWidget {
             MyCard(
               'Search',
               () {
-                Navigator.pushNamed(context,SearchScreen.id);
+                Navigator.pushNamed(context, SearchScreen.id);
               },
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MyCard extends StatelessWidget {
-  final String title;
-  final Function onTap;
-
-  MyCard(this.title, this.onTap);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        child: Container(
-          height: 150,
-          width: 350,
-          child: Text(title),
-        ),
-        color: Colors.blue,
       ),
     );
   }

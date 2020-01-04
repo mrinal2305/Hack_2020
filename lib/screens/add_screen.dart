@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/screens/book_input.dart';
+import 'package:librarian/elements/my_card.dart';
 
 class AddScreen extends StatelessWidget {
   static const id = 'add_screen';
@@ -33,24 +34,3 @@ class AddScreen extends StatelessWidget {
   }
 }
 
-class MyCard extends StatelessWidget {
-  final String title;
-  final Function onTap;
-
-  MyCard(this.title, this.onTap);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        child: Container(
-          height: 180,
-          width: 350,
-          child: Text(title),
-        ),
-        color: Colors.blue,
-      ),
-    );
-  }
-}
