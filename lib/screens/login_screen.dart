@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/constants.dart';
 import 'package:librarian/elements/round_icon_button.dart';
 import 'package:librarian/screens/home_screen.dart';
 
@@ -30,12 +31,9 @@ class LoginScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your username',
-                        icon: Icon(
-                          Icons.email,
-                          color: Colors.grey,
-                        ),
+                      decoration: kTextFieldDecoration.copyWith(
+//                          icon: Icon(Icons.email),
+                          hintText: 'Enter your User ID'
                       ),
                       onChanged: (value) {
 //                    print(value);
@@ -50,12 +48,9 @@ class LoginScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your password',
-                        icon: Icon(
-                          Icons.lock_outline,
-                          color: Colors.grey,
-                        ),
+                      decoration: kTextFieldDecoration.copyWith(
+//                        icon: Icon(Icons.lock_outline),
+                        hintText: 'Enter your Password',
                       ),
                       onChanged: (value) {
 //                    print(value);

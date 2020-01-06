@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class RoundIconButton extends StatelessWidget {
   final Function onPress;
   final String title;
@@ -10,10 +9,12 @@ class RoundIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      child: Text(title,
-      style: TextStyle(
-        color: Colors.white,
-      ),),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
       onPressed: onPress,
       elevation: 6.0,
       constraints: BoxConstraints.tightFor(
