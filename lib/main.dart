@@ -6,6 +6,7 @@ import 'package:librarian/screens/issue_screen.dart';
 import 'package:librarian/screens/login_screen.dart';
 import 'package:librarian/screens/search_screen.dart';
 import 'package:librarian/screens/student_info.dart';
+import 'package:librarian/screens/welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: LoginScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         IssueScreen.id: (context) => IssueScreen(),
         StudentInfo.id: (context) => StudentInfo(),
         SearchScreen.id: (context) => SearchScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
       },
     );
   }
