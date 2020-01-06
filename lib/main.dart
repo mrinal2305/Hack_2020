@@ -3,10 +3,9 @@ import 'package:lbs/screens/home_screen.dart';
 import 'package:lbs/screens/login_screen.dart';
 import 'package:lbs/screens/home_screen2.dart';
 import 'package:lbs/screens/personel_screen.dart';
+import 'package:lbs/screens/issued_screen.dart';
+import 'screens/personel_screen.dart';
 
-import 'screens/personel_screen.dart';
-import 'screens/personel_screen.dart';
-import 'screens/personel_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -33,11 +32,12 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-        initialRoute: PersonalScreen.id,
+        initialRoute: HomePage.id,
         routes: {HomeScreen.id: (context) => HomeScreen(),
                  LoginScreen.id: (context) =>LoginScreen(),
                  HomePage.id: (context) =>HomePage(),
-                 PersonalScreen.id: (context)=>PersonalScreen()
+                 PersonalScreen.id: (context)=>PersonalScreen(),
+                 SwipeList.id: (context)=> SwipeList()
 
                  });
   }
