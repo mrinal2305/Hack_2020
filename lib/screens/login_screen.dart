@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
 import 'package:librarian/elements/round_icon_button.dart';
 import 'package:librarian/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatelessWidget {
   static const id = 'login_screen';
+  final _auth = FirebaseAuth.instance;
+
+  String email;
+  String password;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +38,10 @@ class LoginScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       decoration: kTextFieldDecoration.copyWith(
 //                          icon: Icon(Icons.email),
-                          hintText: 'Enter your User ID'
-                      ),
+                          hintText: 'Enter your User ID'),
                       onChanged: (value) {
 //                    print(value);
+                        email = value;
                       },
                     ),
                   ),
@@ -47,6 +52,7 @@ class LoginScreen extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: TextField(
+//                      obscureText: true,
                       textAlign: TextAlign.center,
                       decoration: kTextFieldDecoration.copyWith(
 //                        icon: Icon(Icons.lock_outline),
@@ -54,14 +60,26 @@ class LoginScreen extends StatelessWidget {
                       ),
                       onChanged: (value) {
 //                    print(value);
+                        password = value;
                       },
                     ),
                   ),
                 ),
                 RoundIconButton(
                   title: 'SIGN IN',
-                  onPress: () {
-                    Navigator.pushNamed(context, HomeScreen.id);
+                  onPress: () async {
+                    print(email);
+                    print(password);
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      if (user != null) {
+                        Navigator.pushNamed(context, HomeScreen.id);
+                      }
+                    } catch (e) {
+                      print('here in exception');
+                      print(e);
+                    }
                   },
                 ),
               ],
