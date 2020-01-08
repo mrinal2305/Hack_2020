@@ -1,0 +1,22 @@
+{
+  "name": "ddc_api",
+  "version": "1.0.0",
+  "description": "DDC api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "12.13.0"
+  },
+  "author": "Mrinal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "0.0.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "xml-js": "^1.6.11"
+  }
+}
