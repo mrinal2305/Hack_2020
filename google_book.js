@@ -39,7 +39,7 @@ app.get('/title_author/:input/',(req,res,next)=>{
 
             for (x of data.items){
 
-            var tit,aut,iD,img;
+            var tit,aut,iD,img,cat;
             if(x.volumeInfo.title) tit = x.volumeInfo.title;
             else tit = 'null';
 
@@ -52,12 +52,16 @@ app.get('/title_author/:input/',(req,res,next)=>{
             if(x.volumeInfo.imageLinks) img = x.volumeInfo.imageLinks;
             else img = 'null';
         
+            if(x.volumeInfo.categories) cat = x.volumeInfo.categories;
+            else cat = 'null';
+
                var out = {
                   
                    "title"        : tit,
                    "author"       : aut,
                    "isbn"         : iD,
                    "imageLinks"   : img,
+                   "categories"   : cat
                }
                output.push(out);
             }
