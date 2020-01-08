@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: SearchScreen.id,
+      initialRoute: AddBookScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
-        AddScreen.id: (context) => AddScreen(),
+        AddBookScreen.id: (context) => AddBookScreen(),
         BookInput.id: (context) => BookInput(),
         IssueScreen.id: (context) => IssueScreen(),
         StudentInfo.id: (context) => StudentInfo(),

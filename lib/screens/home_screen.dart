@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                   MyCard(
                     'Add\nBook',
                     () {
-                      Navigator.pushNamed(context, AddScreen.id);
+                      Navigator.pushNamed(context, AddBookScreen.id);
                     },
                   ),
                   MyCard(
