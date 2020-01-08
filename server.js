@@ -1,6 +1,6 @@
 var express = require('express');
 var app     = express();
-var port    = 4000 || process.env.PORT;
+var port    = process.env.PORT || 3000;
 
 const conceptRoutes = require('./concept');
 const emotionRoutes = require('./emotion');
