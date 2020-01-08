@@ -1,15 +1,19 @@
 var express = require('express');
 var request = require('request');
 var port    = process.env.PORT || 3000;
-
-const app = express();
+var convert  = require('xml-js');
+const app   = express();
 
 app.get('/',(req,res,next)=>{
-    res.status(200).json({message : "Add title or author or isbn number"});
+    res.status(200).json({message : "Add title_author or isbn"});
+})
+
+app.get('/title_author',(req,res,next)=>{
+    res.status(200).json({message : "Author author or title"})
 })
 
 //Sending filtered Google Book data
-app.get('/:input/',(req,res,next)=>{
+app.get('/title_author/:input/',(req,res,next)=>{
     //Array of object ,size 10 to store the filtered data
     var output = [];
 
@@ -26,7 +30,6 @@ app.get('/:input/',(req,res,next)=>{
     }
 
     const url = "https://www.googleapis.com/books/v1/volumes?q="+input_modf+"&printType=books&orderBy=relevance&maxResults=10&key=AIzaSyC-7USJjf7fOg0-5FKR3PsnKeK9vh10JuE"; 
-    console.log(url);
 
     request(url,(error,response,body)=>{
         if(!error && response.statusCode == 200){ // requesting unfiltered google book data
@@ -36,40 +39,26 @@ app.get('/:input/',(req,res,next)=>{
 
             for (x of data.items){
 
-            var tit,aut,publ,desc,iD,pC,img,cat,avgR;
+            var tit,aut,iD,img;
             if(x.volumeInfo.title) tit = x.volumeInfo.title;
             else tit = 'null';
+
             if(x.volumeInfo.authors) aut = x.volumeInfo.authors;
             else aut = 'null';
-            if(x.volumeInfo.publisher) publ = x.volumeInfo.publisher;
-            else publ = 'null';
-            if(x.volumeInfo.description) desc = x.volumeInfo.description;
-            else desc = 'null';
+           
             if(x.volumeInfo.industryIdentifiers) iD = x.volumeInfo.industryIdentifiers;
             else iD = 'null';
-            if(x.volumeInfo.pageCount) pC = x.volumeInfo.pageCount;
-            else pC = 'null';
+           
             if(x.volumeInfo.imageLinks) img = x.volumeInfo.imageLinks;
             else img = 'null';
-            if(x.volumeInfo.categories) cat = x.volumeInfo.categories;
-            else cat = 'null';
-            if(x.volumeInfo.averageRating) avgR = x.volumeInfo.averageRating;
-            else avgR = 'null';
-            var tS  = x.searchInfo;
+        
                var out = {
-                   "id"           : x.id,
+                  
                    "title"        : tit,
                    "author"       : aut,
-                   "publisher"    : publ,
-                   "description"  : desc,
                    "isbn"         : iD,
-                   "pageCount"    : pC,
                    "imageLinks"   : img,
-                   "categories"   : cat,
-                   "averageRating": avgR,
-                   "textSnippet"  : tS
                }
-
                output.push(out);
             }
             res.send(output);
@@ -77,6 +66,38 @@ app.get('/:input/',(req,res,next)=>{
 });
 
 });
+
+app.get('/isbn',(req,res,next)=>{
+    res.send({
+        message : "Write book isbn number"
+    });
+})
+
+app.get('/isbn/:isbn',(req,res,next)=>{
+    var isbn = req.params.isbn;
+    var url = 'http://www.goodreads.com/book/isbn/'+isbn+'?key=ifarwBcSBlBsKGwcF5wLQ';
+    request(url,(error,response,body)=>{
+        if(!error && response.statusCode == 200){
+            var json = convert.xml2json(body,{compact:true})
+            var output = JSON.parse(json);
+            
+            data = {
+                title : output.GoodreadsResponse.book.title,
+                author :output.GoodreadsResponse.book.authors.author.name,
+                isbn   : {
+                        isbn_10 : output.GoodreadsResponse.book.isbn,
+                        isbn_13 : output.GoodreadsResponse.book.isbn13
+                },
+                image :  {
+                    smallThumbnails : output.GoodreadsResponse.book.small_image_url,
+                    thumbnail       : output.GoodreadsResponse.book.image_url,
+                }
+            }
+            res.send(data);
+            
+        }
+    })
+})
 
 app.get("*",(req,res,next)=>{
     res.status(200).json({
