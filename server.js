@@ -11,7 +11,7 @@ var ddcRoutes      = require('./ddc');
 
 app.get('/',(req,res,next)=>{
     res.send({
-        message : 'Add  /details or /ddc or /category'
+        message : 'Add  /details or /ddc_lcc or /category'
     })
 })
 

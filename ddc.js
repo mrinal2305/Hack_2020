@@ -34,18 +34,33 @@ router.get('/:title_author',(req,res,next)=>{
                     var output = JSON.parse(json);
                 // checking if then ddc the sending
                 if(output.classify.recommendations) {
+                    var ddc_ ,lcc,final_ddc,final_lcc;
+                    if(output.classify.recommendations.ddc.mostPopular)
+                    {
+                         ddc_ = output.classify.recommendations.ddc.mostPopular;
+                         if(Array.isArray(ddc_)) final_ddc = output.classify.recommendations.ddc.mostPopular[0]
+                         else final_ddc = output.classify.recommendations.ddc.mostPopular;
+                    }
+                    if(output.classify.recommendations.lcc)
+                    {
+                         lcc = output.classify.recommendations.lcc.mostPopular;
+                         if(Array.isArray(lcc)) final_lcc = output.classify.recommendations.lcc.mostPopular[0]
+                         else final_lcc = output.classify.recommendations.lcc.mostPopular;
+                    }                    
                     var result = {
-                        ddc : output.classify.recommendations.ddc.mostPopular._attributes.sfa,
-                        lcc : output.classify.recommendations.lcc.mostPopular._attributes.sfa
+                        ddc : final_ddc,
+                        lcc : final_lcc
                     }
                     ddc.push(result);
-                    console.log("finally"+result);
+                    console.log(final_ddc);
+                    // console.log("finally"+result);
+                    
                 }
             })
         }
         function myFunc() {
             res.send(ddc);
-            console.log(ddc);
+            
           }
           setTimeout(myFunc, 2000);
     })
