@@ -63,6 +63,11 @@ app.get('/title_author/:input/',(req,res,next)=>{
             }
             res.send(output);
     }
+    else{
+        res.send({
+            error : 'No Page found'
+        })
+    }
 });
 
 });
@@ -83,7 +88,7 @@ app.get('/isbn/:isbn',(req,res,next)=>{
             
             data = {
                 title : output.GoodreadsResponse.book.title,
-                author :output.GoodreadsResponse.book.authors.author.name,
+                author :output.GoodreadsResponse.book.authors.author,
                 isbn   : {
                         isbn_10 : output.GoodreadsResponse.book.isbn,
                         isbn_13 : output.GoodreadsResponse.book.isbn13
