@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Colors.transparent,
 //        appBar: AppBar(
+//          backgroundColor: Colors.white,
 //          title: Text('Home'),
 //        ),
             body: Container(
