@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
-import 'package:librarian/screens/book_input.dart';
-import 'package:librarian/elements/my_card.dart';
 import 'package:librarian/services/book_model.dart';
 
 class BookInfo {
@@ -24,15 +22,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
 
-//  List<BookCard> books = [
-//    BookCard(
-//      imgURL:
-//          'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api',
-//      bookTitle: 'hello',
-//    )
-//  ];
-
-  List<BookInfo> bookInfos = [];
+  List<BookInfo> booksInfo = [];
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +52,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                     var bookData =
                         await BookModel().getBookDetails(bookTitleField);
                     for (int i = 0; i < 5; i++) {
-//                      setState(() {
-//                        title = bookData[i]['title'];
-//                        url = bookData[i]['imageLinks']['smallThumbnail'];
-//                      });
+//
                     try {
                       title = bookData[i]['title'];
                       url = bookData[i]['imageLinks']['smallThumbnail'];
@@ -74,21 +61,11 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       continue;
                     }
                       setState(() {
-                        bookInfos.add(BookInfo(title, url));
+                        booksInfo.add(BookInfo(title, url));
 
                       });
-                      print(title);
-                      print(url);
-//                      setState(() {
-//                        books.add(
-//                          BookCard(
-//                            imgURL: url,
-//                            bookTitle: title,
-//                          ),
-//                        );
-//                      });
-//                    }
-//                    print(bookdata);
+//                      print(title);
+//                      print(url);
                     }
                   },
                 ),
@@ -99,11 +76,11 @@ class _AddBookScreenState extends State<AddBookScreen> {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return BookCard(
-                    bookTitle: bookInfos[index].bookName,
-                    imgURL: bookInfos[index].bookURL,
+                    bookTitle: booksInfo[index].bookName,
+                    imgURL: booksInfo[index].bookURL,
                   );
                 },
-                itemCount: bookInfos.length,
+                itemCount: booksInfo.length,
               ),
             ),
           ],
