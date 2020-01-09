@@ -120,6 +120,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  flare_dart:
+    dependency: transitive
+    description:
+      name: flare_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.2"
+  flare_flutter:
+    dependency: transitive
+    description:
+      name: flare_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.3"
   flushbar:
     dependency: transitive
     description:
@@ -139,6 +153,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.10+1"
+  flutter_speed_dial:
+    dependency: "direct main"
+    description:
+      name: flutter_speed_dial
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -150,12 +171,19 @@ packages:
     source: sdk
     version: "0.0.0"
   font_awesome_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.5.0"
+  giffy_dialog:
+    dependency: "direct main"
+    description:
+      name: giffy_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.1"
   http:
     dependency: "direct main"
     description:

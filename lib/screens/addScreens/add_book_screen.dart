@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
+import 'package:librarian/elements/custom_speed_dial.dart';
 import 'package:librarian/services/book_model.dart';
 
 class BookInfo {
@@ -32,45 +33,35 @@ class _AddBookScreenState extends State<AddBookScreen> {
           backgroundColor: Color(0xff3ab397),
           title: Text('Add Book'),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red,
-          child: Icon(Icons.add),
+        floatingActionButton: CustomSpeedDial(
+          onPressedBarCode: (onValue) async {
+            bookTitleField=onValue;
+            var bookData =
+                await BookModel().getBookDetails(bookTitleField);
+            for (int i = 0; i < 5; i++) {
+//
+              try { //
+                print(i);
+                title = bookData[i]['title'];
+                url = bookData[i]['imageLinks']['smallThumbnail'];
+                print(title);
+                print(url);
+              } catch (e) {
+                print(e);
+                continue;
+              }
+              setState(() {
+                booksInfo.add(BookInfo(title, url));
+              });
+//                      print(title);
+//                      print(url);
+            }
+          },
         ),
         body: Column(
           children: <Widget>[
             SizedBox(
               height: 10,
-            ),
-            TextField(
-              onChanged: (value) {
-                bookTitleField = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () async {
-                    var bookData =
-                        await BookModel().getBookDetails(bookTitleField);
-                    for (int i = 0; i < 5; i++) {
-//
-                    try {
-                      title = bookData[i]['title'];
-                      url = bookData[i]['imageLinks']['smallThumbnail'];
-                    } catch(e){
-                      print(e);
-                      continue;
-                    }
-                      setState(() {
-                        booksInfo.add(BookInfo(title, url));
-
-                      });
-//                      print(title);
-//                      print(url);
-                    }
-                  },
-                ),
-                hintText: 'Enter book title',
-              ),
             ),
             Expanded(
               child: ListView.builder(
