@@ -11,6 +11,7 @@ import { ManBookComponent } from './man-book/man-book.component';
 import { BookSerComponent } from './book-ser/book-ser.component';
 import { RegComponent } from './reg/reg.component';
 import { StuInfoComponent } from './stu-info/stu-info.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { StuInfoComponent } from './stu-info/stu-info.component';
     ManBookComponent,
     BookSerComponent,
     RegComponent,
-    StuInfoComponent
+    StuInfoComponent,
+    AuthComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
