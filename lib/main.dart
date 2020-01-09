@@ -5,7 +5,7 @@ import 'package:lbs/screens/home_screen2.dart';
 import 'package:lbs/screens/personel_screen.dart';
 import 'package:lbs/screens/issued_screen.dart';
 import 'package:lbs/screens/search_screen.dart';
-
+import 'package:lbs/screens/pdfViewer.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -32,13 +32,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-        initialRoute: HomePage.id,
+        initialRoute: PdfViewer.id,
         routes: {HomeScreen.id: (context) => HomeScreen(),
                  LoginScreen.id: (context) =>LoginScreen(),
                  HomePage.id: (context) =>HomePage(),
                  PersonalScreen.id: (context)=>PersonalScreen(),
                  SwipeList.id: (context)=> SwipeList(),
-                 SearchBar.id: (context)=>SearchBar()
+                 SearchBar.id: (context)=>SearchBar(),
+                 PdfViewer.id: (context)=>PdfViewer()
 
                  });
   }
