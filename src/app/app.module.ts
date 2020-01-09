@@ -6,10 +6,20 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TitleBarComponent } from './title-bar/title-bar.component';
+import { ManBookComponent } from './man-book/man-book.component';
+import { BookSerComponent } from './book-ser/book-ser.component';
+import { RegComponent } from './reg/reg.component';
+import { StuInfoComponent } from './stu-info/stu-info.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TitleBarComponent,
+    ManBookComponent,
+    BookSerComponent,
+    RegComponent,
+    StuInfoComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
