@@ -10,11 +10,11 @@ import { HompageComponent } from './hompage/hompage.component';
 
 const routes: Routes = [
   {path :"",   component : HompageComponent},
-  {path :"/auth",   component : AuthComponent},
-  {path :"/stu_info",   component : StuInfoComponent},
-  {path :"/man_book",   component : ManBookComponent},
-  {path :"/book_ser",   component : BookSerComponent},
-  {path :"/regs",   component : RegComponent},  
+  {path :"auth",   component : AuthComponent},
+  {path :"stu_info",   component : StuInfoComponent},
+  {path :"man_book",   component : ManBookComponent},
+  {path :"book_ser",   component : BookSerComponent},
+  {path :"regs",   component : RegComponent},  
 ];
 
 @NgModule({
