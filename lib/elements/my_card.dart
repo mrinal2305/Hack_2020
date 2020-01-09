@@ -10,6 +10,7 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data=MediaQuery.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -17,6 +18,8 @@ class MyCard extends StatelessWidget {
         elevation: 8,
 //        borderOnForeground: false,
         child: Container(
+          width:data.size.width-50.0,
+          height: data.size.height/6,
           margin: EdgeInsets.only(left: 8, top: 8, bottom: 8),
           padding: EdgeInsets.all(12),
           child: Row(
@@ -32,8 +35,8 @@ class MyCard extends StatelessWidget {
               ),),
             ],
           ),
-          height: 120.00,
-          width: 300,
+//          height: 120.00,
+//          width: 300,
         ),
       ),
     );

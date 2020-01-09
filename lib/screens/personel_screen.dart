@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:async';
 
 class PersonalScreen extends StatelessWidget {
   static const String id="personel_screen.dart";
+
+  Future<String> createAlertDialog(BuildContext context){
+    TextEditingController customController =TextEditingController();
+    return showDialog(context: context,builder: (context){
+      return AlertDialog(
+          title: Text('ISBN'),
+          content: TextField(
+            controller: customController,
+          ),
+          actions:<Widget>[
+            MaterialButton(
+              elevation: 5.0,
+              child: Text('Submit'),
+              onPressed: (){
+                Navigator.of(context).pop(customController.text.toString());
+              },
+            )
+          ]
+      );});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,45 +43,48 @@ class PersonalScreen extends StatelessWidget {
         curve: Curves.bounceIn,
         overlayColor: Colors.black,
         overlayOpacity: 0.5,
-        onOpen: () => print('OPENING DIAL'),
-        onClose: () => print('DIAL CLOSED'),
-        tooltip: 'Speed Dial',
-        heroTag: 'speed-dial-hero-tag',
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        //onOpen: () => print('OPENING DIAL'),
+        //onClose: () => print('DIAL CLOSED'),
+        //tooltip: 'Speed Dial',
+        //heroTag: 'speed-dial-hero-tag',
+        backgroundColor: Color(0xFF21BFBD),
+        foregroundColor: Colors.white,
         elevation: 8.0,
         shape: CircleBorder(),
         children: [
           SpeedDialChild(
               child: Icon(FontAwesomeIcons.barcode),
-              backgroundColor: Colors.red,
+              backgroundColor: Color(0x9521BFBD),
               label: 'Barcode',
               labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => print('Barcode')
+              onTap: (){}
           ),
           SpeedDialChild(
             child: Icon(FontAwesomeIcons.search),
-            backgroundColor: Colors.blue,
+            backgroundColor: Color(0x9521BFBD),
             label: 'From the web',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('From the web'),
+            onTap: (){}
           ),
-          SpeedDialChild(
-            child: Icon(FontAwesomeIcons.pen),
-            backgroundColor: Colors.green,
-            label: 'Manually',
-            labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('Manually'),
-          ),
+//          SpeedDialChild(
+//            child: Icon(FontAwesomeIcons.pen),
+//            backgroundColor: Color(0x9521BFBD),
+//            label: 'Manually',
+//            labelStyle: TextStyle(fontSize: 18.0),
+//            onTap: (){}
+//          ),
           SpeedDialChild(
             child: Icon(Icons.keyboard_voice),
-            backgroundColor: Colors.green,
+            backgroundColor: Color(0x9521BFBD),
             label: 'ISBN',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('ISBN'),
-          )
-        ],
-      ),
-    );
+            onTap: (){
+                createAlertDialog(context).then((onValue){
+                     print(onValue);
+                    });}
+
+    ),
+      ],
+    ));
   }
 }

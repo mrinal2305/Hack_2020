@@ -6,14 +6,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data=MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Color(0xff3ab397),
 //        appBar: AppBar(
 //          title: Text('Home'),
 //        ),
       body: Container(
-        width: double.infinity,
-        margin: EdgeInsets.only(top: 100),
+        height: data.size.height,
+        width: data.size.width,
+        margin: EdgeInsets.only(top: data.size.height/6),
         decoration: BoxDecoration(
             color: Color(0xfff7f7f7),
             borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
@@ -21,7 +23,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MyCard('Library',(){},'images/libr.png'),
+            MyCard('Library',(){},'images/libr.png',),
             MyCard('Personal',(){},'images/personal.png'),
 
             MyCard('Search',(){},'images/search.png'),

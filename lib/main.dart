@@ -4,7 +4,7 @@ import 'package:lbs/screens/login_screen.dart';
 import 'package:lbs/screens/home_screen2.dart';
 import 'package:lbs/screens/personel_screen.dart';
 import 'package:lbs/screens/issued_screen.dart';
-import 'screens/personel_screen.dart';
+import 'package:lbs/screens/search_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
                  LoginScreen.id: (context) =>LoginScreen(),
                  HomePage.id: (context) =>HomePage(),
                  PersonalScreen.id: (context)=>PersonalScreen(),
-                 SwipeList.id: (context)=> SwipeList()
+                 SwipeList.id: (context)=> SwipeList(),
+                 SearchBar.id: (context)=>SearchBar()
 
                  });
   }
