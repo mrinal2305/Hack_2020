@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:librarian/constants.dart';
 import 'package:librarian/elements/custom_speed_dial.dart';
 import 'package:librarian/services/book_model.dart';
 
@@ -35,6 +34,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
         ),
         floatingActionButton: CustomSpeedDial(
           onPressedBarCode: (onValue) async {
+            setState(() {
+              booksInfo=[];
+            });
             bookTitleField=onValue;
             var bookData =
                 await BookModel().getBookDetails(bookTitleField);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:librarian/screens/addScreens/add_book_manually.dart';
 import 'package:librarian/screens/addScreens/add_book_screen.dart';
 import 'package:librarian/screens/book_input.dart';
 import 'package:librarian/screens/home_screen.dart';
@@ -24,7 +23,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: AddBookScreen.id,
       routes: {
-        AddBookManually.id: (context) => AddBookManually(),
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         AddBookScreen.id: (context) => AddBookScreen(),
