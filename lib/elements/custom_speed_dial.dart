@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:librarian/constants.dart';
 
 class CustomSpeedDial extends StatelessWidget{
 
   final Function onPressedBarCode;
   CustomSpeedDial({this.onPressedBarCode});
-  Future<String> createAlertDialog(BuildContext context) {
+  Future<String> createAlertDialog(BuildContext context,String heading) {
     TextEditingController customController = TextEditingController();
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text('Enter Book Title'),
+              title: Text(heading),
               content: TextField(
                 controller: customController,
               ),
@@ -45,8 +46,8 @@ class CustomSpeedDial extends StatelessWidget{
       curve: Curves.bounceIn,
       overlayColor: Colors.black,
       overlayOpacity: 0.5,
-      onOpen: () => print('OPENING DIAL'),
-      onClose: () => print('DIAL CLOSED'),
+      onOpen: () {},
+      onClose: () {},
       tooltip: 'Speed Dial',
       heroTag: 'speed-dial-hero-tag',
       backgroundColor: Colors.white,
@@ -55,21 +56,21 @@ class CustomSpeedDial extends StatelessWidget{
       shape: CircleBorder(),
       children: [
         SpeedDialChild(
-          child: Icon(FontAwesomeIcons.barcode),
+          child: Icon(Icons.edit),
           backgroundColor: Colors.red,
 //            label: 'First',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
-            createAlertDialog(context).then(onPressedBarCode);
+            createAlertDialog(context,'Enter book title').then(onPressedBarCode);
           },
         ),
         SpeedDialChild(
-          child: Icon(Icons.edit),
+          child: Icon(FontAwesomeIcons.barcode),
           backgroundColor: Colors.blue,
 //          label: 'Second',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
-//            var bookTitle = Navigator.pushNamed(context, AddBookManually.id);
+
           },
         ),
         SpeedDialChild(
@@ -78,6 +79,13 @@ class CustomSpeedDial extends StatelessWidget{
 //          label: 'Third',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () => print('THIRD CHILD'),
+        ),
+        SpeedDialChild(
+          child: Icon(FontAwesomeIcons.windows),
+          backgroundColor: Colors.teal,
+          onTap: (){
+
+          }
         ),
       ],
     );

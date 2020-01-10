@@ -24,6 +24,34 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   List<BookInfo> booksInfo = [];
 
+  void getBooks(String onValue) async {
+    setState(() {
+      booksInfo = [];
+    });
+
+    //if is added as book for null is shown if not checked
+    if (onValue != null) {
+      bookTitleField = onValue;
+      var bookData = await BookModel().getBookDetails(bookTitleField);
+      for (int i = 0; i < 5; i++) {
+        try {
+          //
+          print(i);
+          title = bookData[i]['title'];
+          url = bookData[i]['imageLinks']['smallThumbnail'];
+          print(title);
+          print(url);
+        } catch (e) {
+          print(e);
+          continue;
+        }
+        setState(() {
+          booksInfo.add(BookInfo(title, url));
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,31 +61,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
           title: Text('Add Book'),
         ),
         floatingActionButton: CustomSpeedDial(
-          onPressedBarCode: (onValue) async {
-            setState(() {
-              booksInfo=[];
-            });
-            bookTitleField=onValue;
-            var bookData =
-                await BookModel().getBookDetails(bookTitleField);
-            for (int i = 0; i < 5; i++) {
-//
-              try { //
-                print(i);
-                title = bookData[i]['title'];
-                url = bookData[i]['imageLinks']['smallThumbnail'];
-                print(title);
-                print(url);
-              } catch (e) {
-                print(e);
-                continue;
-              }
-              setState(() {
-                booksInfo.add(BookInfo(title, url));
-              });
-//                      print(title);
-//                      print(url);
-            }
+          onPressedBarCode: (onValue) {
+            getBooks(onValue);
           },
         ),
         body: Column(
