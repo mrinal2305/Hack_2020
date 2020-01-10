@@ -24,15 +24,15 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   List<BookInfo> booksInfo = [];
 
-  void getBooks(String onValue) async {
+  void getBooksByTitle(String bookTitle) async {
     setState(() {
       booksInfo = [];
     });
 
     //if is added as book for null is shown if not checked
-    if (onValue != null) {
-      bookTitleField = onValue;
-      var bookData = await BookModel().getBookDetails(bookTitleField);
+    if (bookTitle != null) {
+//      bookTitleField = onValue;
+      var bookData = await BookModel().getBookDetailsByTitle(bookTitle);
       for (int i = 0; i < 5; i++) {
         try {
           //
@@ -52,6 +52,33 @@ class _AddBookScreenState extends State<AddBookScreen> {
     }
   }
 
+  void getBooksByIsbn(String bookISBN) async {
+    setState(() {
+      booksInfo = [];
+    });
+
+    //if is added as book for null is shown if not checked
+    if (bookISBN != null) {
+      var bookData = await BookModel().getBookDetailsByISBN(bookISBN);
+      try {
+        title = bookData['title']['_text'];
+        if (title == null) {
+          title = bookData['title']['_cdata'];
+          if (title == null) title = 'hello';
+        }
+        url = bookData['image']['smallThumbnails']['_text'];
+        print(title);
+        print(url);
+      } catch (e) {
+        print('in outer try');
+        print(e);
+      }
+      setState(() {
+        booksInfo.add(BookInfo(title, url));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,8 +88,11 @@ class _AddBookScreenState extends State<AddBookScreen> {
           title: Text('Add Book'),
         ),
         floatingActionButton: CustomSpeedDial(
-          onPressedBarCode: (onValue) {
-            getBooks(onValue);
+          onISBNPressed: (value) {
+            getBooksByIsbn(value);
+          },
+          onTitlePressed: (value) {
+            getBooksByTitle(value);
           },
         ),
         body: Column(
@@ -108,6 +138,7 @@ class BookCard extends StatelessWidget {
           ),
           Text(
             bookTitle,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
