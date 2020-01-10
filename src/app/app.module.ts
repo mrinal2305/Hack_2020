@@ -7,7 +7,9 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule ,routingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
-
+import { AuthService } from './auth.service';
+import { FormsModule } from  '@angular/forms';
+// import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [ // It happen for components
@@ -20,9 +22,10 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     BrowserModule,
+    FormsModule,
     AppRoutingModule
   ],
-  providers: [],       // It happens for services
+  providers: [AuthService],       // It happens for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }
