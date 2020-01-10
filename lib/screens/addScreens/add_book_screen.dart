@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/elements/custom_speed_dial.dart';
 import 'package:librarian/services/book_model.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class BookInfo {
   String bookName;
@@ -21,11 +22,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
   String url =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
+  bool showSpinner=false;//used to check whether to show spinner or not
 
   List<BookInfo> booksInfo = [];
 
   void getBooksByTitle(String bookTitle) async {
     setState(() {
+      showSpinner=true;
       booksInfo = [];
     });
 
@@ -46,6 +49,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
           continue;
         }
         setState(() {
+          showSpinner=false;
           booksInfo.add(BookInfo(title, url));
         });
       }
@@ -54,6 +58,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   void getBooksByIsbn(String bookISBN) async {
     setState(() {
+      showSpinner=true;
       booksInfo = [];
     });
 
@@ -74,6 +79,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         print(e);
       }
       setState(() {
+        showSpinner=false;
         booksInfo.add(BookInfo(title, url));
       });
     }
@@ -95,23 +101,26 @@ class _AddBookScreenState extends State<AddBookScreen> {
             getBooksByTitle(value);
           },
         ),
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return BookCard(
-                    bookTitle: booksInfo[index].bookName,
-                    imgURL: booksInfo[index].bookURL,
-                  );
-                },
-                itemCount: booksInfo.length,
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
               ),
-            ),
-          ],
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return BookCard(
+                      bookTitle: booksInfo[index].bookName,
+                      imgURL: booksInfo[index].bookURL,
+                    );
+                  },
+                  itemCount: booksInfo.length,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
