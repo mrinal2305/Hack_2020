@@ -32,8 +32,9 @@ class _BookInputState extends State<BookInput> {
     if (title != null) {
       var bookData = await BookModel().getBookDDC(title);
       try {
+        print(title);
         setState(() {
-          ddc = bookData[0]['ddc']['_attributes']['sfa'];
+          ddc = bookData[0]['ddc'];
           ddcController.text = ddc;
           print(ddc);
         });
@@ -59,9 +60,10 @@ class _BookInputState extends State<BookInput> {
     final bookData = ModalRoute.of(context).settings.arguments as Map;
     try {
       title = bookData['title'];
-      author = bookData['author'][0];
-      isbn = bookData['isbn'][1]['identifier'];
-      imgUrl=bookData['imageLinks']['smallThumbnail'];
+      author = bookData['author'];
+      isbn = bookData['isbn']['isbn_10'];
+      imgUrl=bookData['imageLinks']['smallThumbnail']??'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
+
       titleController.value = TextEditingValue(
         text: title,
         selection: TextSelection.fromPosition(
@@ -74,6 +76,7 @@ class _BookInputState extends State<BookInput> {
     } catch (e) {}
     return new Scaffold(
         appBar: AppBar(
+          backgroundColor: kPrimaryColor,
           title: Text('Book Details'),
         ),
         body: ModalProgressHUD(

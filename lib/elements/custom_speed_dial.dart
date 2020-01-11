@@ -6,9 +6,11 @@ import 'package:librarian/constants.dart';
 class CustomSpeedDial extends StatelessWidget {
   final Function onISBNPressed;
   final Function onTitlePressed;
+  final Function onBarPressed;
 
-  CustomSpeedDial({this.onISBNPressed,this.onTitlePressed});
+  CustomSpeedDial({this.onISBNPressed,this.onTitlePressed,this.onBarPressed});
 
+  //Dialog box
   Future<String> createAlertDialog(
       BuildContext context, String heading, InputDecoration deco) {
     TextEditingController customController = TextEditingController();
@@ -83,7 +85,7 @@ class CustomSpeedDial extends StatelessWidget {
           backgroundColor: Colors.blueGrey,
 //          label: 'Second',
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () {},
+          onTap: onBarPressed,
         ),
         //adding book by speech
         SpeedDialChild(

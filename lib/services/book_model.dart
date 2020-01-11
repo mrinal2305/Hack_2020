@@ -1,8 +1,11 @@
 import 'networking.dart';
 
 class BookModel{
+  //for basic details
   static const String TitleUrl='https://peaceful-river-61209.herokuapp.com/title_author/';
   static const String IsbnUrl='https://peaceful-river-61209.herokuapp.com/isbn/';
+
+  //for ddc only
   static const String DdcUrl='https://nameless-fortress-08601.herokuapp.com/ddc_lcc/';
 
   Future<dynamic> getBookDetailsByTitle(String bookTitle) async {
