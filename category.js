@@ -12,6 +12,7 @@ router.get('/:title_author',(req,res,next)=>{
     var title_author = req.params.title_author;
     url = 'https://peaceful-river-61209.herokuapp.com/title_author/'+title_author;
     request(url,(error,response,body)=>{
+        if(response.statusCode == 200 && !error){
         var data = JSON.parse(body);
         var category = [];
         for(x of data){
@@ -21,6 +22,7 @@ router.get('/:title_author',(req,res,next)=>{
             message : 'These are most relevant category of '+ title_author,
             categories : category
         })
+    }
     })
 })
 

@@ -14,20 +14,23 @@ router.get('/:isbn',(req,res,next)=>{
     var isbn = req.params.isbn;
     var url = 'http://www.goodreads.com/book/isbn/'+isbn+'?key=ifarwBcSBlBsKGwcF5wLQ';
     request(url,(error,response,body)=>{
-        if(response.statusCode == 404 || error) res.send({error : "Page not found"});
-        if(!error && response.statusCode==200){
+        if(response.statusCode == 404 ) res.send({error : "Page not found"});
+        if(!error && response.statusCode == 200){
             var json = convert.xml2json(body,{compact:true})
             var output = JSON.parse(json);
+            var title;
+            if(output.GoodreadsResponse.book.title._text) title = output.GoodreadsResponse.book.title._text;
+            if(output.GoodreadsResponse.book.title._cdata) title = output.GoodreadsResponse.book.title._cdata;
             result = {
-                title : output.GoodreadsResponse.book.title,
-                author :output.GoodreadsResponse.book.authors.author,
+                title : title,
+                author :output.GoodreadsResponse.book.authors.author.name._text,
                 isbn   : {
-                        isbn_10 : output.GoodreadsResponse.book.isbn,
-                        isbn_13 : output.GoodreadsResponse.book.isbn13
+                        isbn_10 : output.GoodreadsResponse.book.isbn._cdata,
+                        isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
                 },
                 image :  {
-                    smallThumbnails : output.GoodreadsResponse.book.small_image_url,
-                    thumbnail       : output.GoodreadsResponse.book.image_url,
+                    smallThumbnails : output.GoodreadsResponse.book.small_image_url._text,
+                    thumbnail       : output.GoodreadsResponse.book.image_url._text,
                 },
                 publisher     : output.GoodreadsResponse.book.publisher,
                 description   : output.GoodreadsResponse.book.description,
@@ -37,6 +40,7 @@ router.get('/:isbn',(req,res,next)=>{
             }
             res.send(result);
         }
+    
     })
 })
 

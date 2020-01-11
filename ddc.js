@@ -48,7 +48,7 @@ router.get('/:title_author',(req,res,next)=>{
                          if(Array.isArray(lcc)) final_lcc = output.classify.recommendations.lcc.mostPopular[0]._attributes.sfa
                          else final_lcc = output.classify.recommendations.lcc.mostPopular._attributes.sfa;
                     }                    
-                    var result = {
+                    var result = { 
                         ddc : final_ddc,
                         lcc : final_lcc
                     }
