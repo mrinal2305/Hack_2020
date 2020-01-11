@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
-import 'package:path_provider/path_provider.dart';
 class PdfViewer extends StatefulWidget {
   static const String id="pdfViewer.dart";
   @override

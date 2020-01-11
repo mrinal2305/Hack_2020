@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lbs/screens/home_screen.dart';
 import 'package:lbs/screens/login_screen.dart';
 import 'package:lbs/screens/home_screen2.dart';
 import 'package:lbs/screens/personel_screen.dart';
 import 'package:lbs/screens/issued_screen.dart';
 import 'package:lbs/screens/search_screen.dart';
 import 'package:lbs/screens/pdfViewer.dart';
+import 'package:lbs/screens/book_input.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -32,11 +32,12 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-        initialRoute: PdfViewer.id,
-        routes: {HomeScreen.id: (context) => HomeScreen(),
+        initialRoute: AddBookScreen.id,
+        routes: {
                  LoginScreen.id: (context) =>LoginScreen(),
                  HomePage.id: (context) =>HomePage(),
-                 PersonalScreen.id: (context)=>PersonalScreen(),
+                 AddBookScreen.id: (context)=>AddBookScreen(),
+                 BookInput.id: (context) => BookInput(),
                  SwipeList.id: (context)=> SwipeList(),
                  SearchBar.id: (context)=>SearchBar(),
                  PdfViewer.id: (context)=>PdfViewer()
