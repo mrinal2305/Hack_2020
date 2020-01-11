@@ -59,11 +59,18 @@ class _BookInputState extends State<BookInput> {
   Widget build(BuildContext context) {
     final bookData = ModalRoute.of(context).settings.arguments as Map;
     try {
+//      print(bookData);
       title = bookData['title'];
       author = bookData['author'];
       isbn = bookData['isbn']['isbn_10'];
-      imgUrl=bookData['imageLinks']['smallThumbnail']??'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
-
+      try {
+        imgUrl = bookData['imageLinks']['smallThumbnail'];
+      } catch(e){
+        print('in inner try');
+        print(e);
+        imgUrl=bookData['image']['smallThumbnail'];
+        print('inner try close');
+      }
       titleController.value = TextEditingValue(
         text: title,
         selection: TextSelection.fromPosition(
@@ -73,7 +80,10 @@ class _BookInputState extends State<BookInput> {
 //      print(title);
 //      print(author);
 //      print(isbn);
-    } catch (e) {}
+    } catch (e) {
+      print('in outer bookinput');
+      print(e);
+    }
     return new Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,

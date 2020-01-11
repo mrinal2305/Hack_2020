@@ -9,7 +9,6 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 class BookInfo {
   String bookName;
   String bookURL;
-
   BookInfo(this.bookName, this.bookURL);
 }
 
@@ -20,9 +19,16 @@ class AddBookScreen extends StatefulWidget {
   _AddBookScreenState createState() => _AddBookScreenState();
 }
 
+class Book{
+  String title;
+  String imgUrl;
+  String isbn;
+  String author;
+}
+
 class _AddBookScreenState extends State<AddBookScreen> {
   var bookData;//added for taking json data
-  String bookTitleField;
+//  String bookTitleField;
   String imgUrl =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
@@ -136,7 +142,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       onTap: (){
 //                        print(index);
 //                        print(bookData[index]);
-                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]);
+                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]??bookData);
                       },
                       child: BookCard(
                         bookTitle: booksInfo[index].bookName,
