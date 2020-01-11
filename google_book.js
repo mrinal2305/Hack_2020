@@ -45,8 +45,15 @@ app.get('/title_author/:input/',(req,res,next)=>{
 
             if(x.volumeInfo.authors) aut = x.volumeInfo.authors;
             else aut = 'null';
-           
-            if(x.volumeInfo.industryIdentifiers) iD = x.volumeInfo.industryIdentifiers;
+            var id_10 ,id_13;
+            if(x.volumeInfo.industryIdentifiers) {
+                iD = x.volumeInfo.industryIdentifiers;
+                if(iD[0]) id_10 = iD[0].identifier;
+                else id_10 = 'null';
+                if(iD[1]) id_13 = iD[1].identifier;
+                else id_13 = 'null';
+                
+            }
             else iD = 'null';
            
             if(x.volumeInfo.imageLinks) img = x.volumeInfo.imageLinks;
@@ -55,11 +62,15 @@ app.get('/title_author/:input/',(req,res,next)=>{
             if(x.volumeInfo.categories) cat = x.volumeInfo.categories;
             else cat = 'null';
 
+
                var out = {
                   
                    "title"        : tit,
                    "author"       : aut[0],
-                   "isbn"         : iD,
+                   "isbn"         : {
+                       isbn_10 : id_10,
+                       isbn_13 : id_13
+                   },
                    "imageLinks"   : img,
                    "categories"   : cat
                }
@@ -104,7 +115,7 @@ app.get('/isbn/:isbn',(req,res,next)=>{
                         isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
                 },
                 image :  {
-                    smallThumbnails : output.GoodreadsResponse.book.small_image_url._text,
+                    smallThumbnail : output.GoodreadsResponse.book.small_image_url._text,
                     thumbnail       : output.GoodreadsResponse.book.image_url._text,
                 }
             }
