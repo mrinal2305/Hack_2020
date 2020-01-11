@@ -36,7 +36,7 @@ router.get('/:title_author',(req,res,next)=>{
                 // checking if then ddc the sending
                 if(output.classify.recommendations) {
                     var ddc_ ,lcc,final_ddc,final_lcc;
-                    if(output.classify.recommendations.ddc.mostPopular)
+                    if(output.classify.recommendations.ddc)
                     {
                          ddc_ = output.classify.recommendations.ddc.mostPopular;
                          if(Array.isArray(ddc_)) final_ddc = output.classify.recommendations.ddc.mostPopular[0]._attributes.sfa     
