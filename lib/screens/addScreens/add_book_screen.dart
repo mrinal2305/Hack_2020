@@ -41,11 +41,11 @@ class _AddBookScreenState extends State<AddBookScreen> {
       for (int i = 0; i < 5; i++) {
         try {
           //
-          print(i);
+//          print(i);
           title = bookData[i]['title'];
           url = bookData[i]['imageLinks']['smallThumbnail'];
-          print(title);
-          print(url);
+//          print(title);
+//          print(url);
         } catch (e) {
           print(e);
           continue;
@@ -74,8 +74,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
           if (title == null) title = 'hello';
         }
         url = bookData['image']['smallThumbnails']['_text'];
-        print(title);
-        print(url);
+//        print(title);
+//        print(url);
       } catch (e) {
         print('in outer try');
         print(e);
@@ -115,8 +115,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
-                        print(index);
-                        print(bookData[index]);
+//                        print(index);
+//                        print(bookData[index]);
                         Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]);
                       },
                       child: BookCard(

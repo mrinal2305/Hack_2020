@@ -2,9 +2,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper{
-  NetworkHelper({this.titleURL,this.isbnURl});
+  NetworkHelper({this.titleURL,this.isbnURl,this.ddcURL});
   final String titleURL;
   final String isbnURl;
+  final String ddcURL;
 
   //work on json array and return list of json
   Future getBookDataByTitle() async{
@@ -37,6 +38,25 @@ class NetworkHelper{
         print(response.statusCode);
       }
     } catch (e) {
+      print(e);
+    }
+  }
+  
+  //for getting ddc
+  Future getBookDDc() async{
+    try{
+      http.Response response =await http.get(ddcURL);
+      if(response.statusCode==200){
+        String jsonArrayData=response.body;
+        if(jsonArrayData!=null)
+          return jsonDecode(jsonArrayData) as List;
+        else
+          print('null received');
+      } else {
+        print('response code erroe');
+        print(response.statusCode);
+      }
+    } catch(e){
       print(e);
     }
   }
