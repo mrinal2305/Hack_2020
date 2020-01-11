@@ -86,6 +86,9 @@ app.get('/isbn/:isbn',(req,res,next)=>{
     var isbn = req.params.isbn;
     var url = 'http://www.goodreads.com/book/isbn/'+isbn+'?key=ifarwBcSBlBsKGwcF5wLQ';
     request(url,(error,response,body)=>{
+
+        if(response.statusCode == 404) res.send({error : "Page not found"});
+
         if(!error && response.statusCode == 200){
             var json = convert.xml2json(body,{compact:true})
             var output = JSON.parse(json);
@@ -103,8 +106,8 @@ app.get('/isbn/:isbn',(req,res,next)=>{
                 }
             }
             res.send(data);
-            
         }
+    
     })
 })
 
