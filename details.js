@@ -14,6 +14,7 @@ router.get('/:isbn',(req,res,next)=>{
     var isbn = req.params.isbn;
     var url = 'http://www.goodreads.com/book/isbn/'+isbn+'?key=ifarwBcSBlBsKGwcF5wLQ';
     request(url,(error,response,body)=>{
+        if(response.statusCode == 404 || error) res.send({error : "Page not found"});
         if(!error && response.statusCode==200){
             var json = convert.xml2json(body,{compact:true})
             var output = JSON.parse(json);

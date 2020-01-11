@@ -16,6 +16,7 @@ router.get('/:title_author',(req,res,next)=>{
     url = 'https://peaceful-river-61209.herokuapp.com/title_author/'+title_author;
     request(url,(error,response,body)=>{
         var data = JSON.parse(body);
+
         var isbn = [];      
         for(x of data){
         if(x.isbn[0].type != "OTHER") {
