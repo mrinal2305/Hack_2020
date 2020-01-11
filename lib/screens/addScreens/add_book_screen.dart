@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/elements/custom_speed_dial.dart';
+import 'package:librarian/screens/addScreens/book_input.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -18,24 +19,25 @@ class AddBookScreen extends StatefulWidget {
 }
 
 class _AddBookScreenState extends State<AddBookScreen> {
+  var bookData;//added for taking json data
   String bookTitleField;
   String url =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
-  bool showSpinner=false;//used to check whether to show spinner or not
+  bool showSpinner = false; //used to check whether to show spinner or not
 
   List<BookInfo> booksInfo = [];
 
   void getBooksByTitle(String bookTitle) async {
     setState(() {
-      showSpinner=true;
+      showSpinner = true;
       booksInfo = [];
     });
 
     //if is added as book for null is shown if not checked
     if (bookTitle != null) {
 //      bookTitleField = onValue;
-      var bookData = await BookModel().getBookDetailsByTitle(bookTitle);
+       bookData = await BookModel().getBookDetailsByTitle(bookTitle);
       for (int i = 0; i < 5; i++) {
         try {
           //
@@ -49,7 +51,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
           continue;
         }
         setState(() {
-          showSpinner=false;
+          showSpinner = false;
           booksInfo.add(BookInfo(title, url));
         });
       }
@@ -58,13 +60,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   void getBooksByIsbn(String bookISBN) async {
     setState(() {
-      showSpinner=true;
+      showSpinner = true;
       booksInfo = [];
     });
 
     //if is added as book for null is shown if not checked
     if (bookISBN != null) {
-      var bookData = await BookModel().getBookDetailsByISBN(bookISBN);
+       bookData = await BookModel().getBookDetailsByISBN(bookISBN);
       try {
         title = bookData['title']['_text'];
         if (title == null) {
@@ -79,7 +81,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         print(e);
       }
       setState(() {
-        showSpinner=false;
+        showSpinner = false;
         booksInfo.add(BookInfo(title, url));
       });
     }
@@ -111,9 +113,16 @@ class _AddBookScreenState extends State<AddBookScreen> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    return BookCard(
-                      bookTitle: booksInfo[index].bookName,
-                      imgURL: booksInfo[index].bookURL,
+                    return GestureDetector(
+                      onTap: (){
+                        print(index);
+                        print(bookData[index]);
+                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]);
+                      },
+                      child: BookCard(
+                        bookTitle: booksInfo[index].bookName,
+                        imgURL: booksInfo[index].bookURL,
+                      ),
                     );
                   },
                   itemCount: booksInfo.length,

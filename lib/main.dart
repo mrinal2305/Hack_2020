@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:librarian/elements/speech_app.dart';
 import 'package:librarian/screens/addScreens/add_book_screen.dart';
-import 'package:librarian/screens/book_input.dart';
 import 'package:librarian/screens/home_screen.dart';
 import 'package:librarian/screens/issue_screen.dart';
 import 'package:librarian/screens/login_screen.dart';
 import 'package:librarian/screens/search_screen.dart';
 import 'package:librarian/screens/student_info.dart';
 import 'package:librarian/screens/welcome_screen.dart';
+import 'package:librarian/screens/addScreens/book_input.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,9 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AddBookScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
-//        SpeechApp.id: (context)=>SpeechApp(),
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         AddBookScreen.id: (context) => AddBookScreen(),
