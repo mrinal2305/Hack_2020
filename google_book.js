@@ -36,7 +36,7 @@ app.get('/title_author/:input/',(req,res,next)=>{
             //Main logic of code
             var data = JSON.parse(body);
             //check if present or not
-
+            console.log(data.length);
             for (x of data.items){
 
             var tit,aut,iD,img,cat;
