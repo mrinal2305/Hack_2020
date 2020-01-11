@@ -19,9 +19,9 @@ router.get('/:title_author',(req,res,next)=>{
 
         var isbn = [];      
         for(x of data){
-        if(x.isbn[0].type != "OTHER") {
-        if(x.isbn[1].identifier != 'n') isbn.push(x.isbn[1].identifier);
-        }
+         
+        if(x.isbn.isbn_13) isbn.push(x.isbn.isbn_13);
+        
         }
        
         var ddc = []; //ddc array
