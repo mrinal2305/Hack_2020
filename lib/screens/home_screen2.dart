@@ -1,6 +1,9 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:lbs/elements/my_card.dart';
-
+import 'package:lbs/screens/issuedbooks_screens.dart';
+import 'package:lbs/screens/personel_screen.dart';
 class HomePage extends StatelessWidget {
   static const id = 'home_screen';
 
@@ -23,8 +26,12 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MyCard('Library',(){},'images/libr.png',),
-            MyCard('Personal',(){},'images/personal.png'),
+            MyCard('Library',(){
+              Navigator.pushNamed(context,IssuedPage.id );
+            },'images/libr.png',),
+            MyCard('Personal',(){
+              Navigator.pushNamed(context,AddBookScreen.id);
+            },'images/personal.png'),
 
             MyCard('Search',(){},'images/search.png'),
           ],

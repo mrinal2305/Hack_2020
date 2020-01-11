@@ -1,4 +1,6 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lbs/elements/custom_speed_dial.dart';
 import 'package:lbs/screens/book_input.dart';
 import 'package:lbs/services/book_model.dart';
@@ -21,7 +23,7 @@ class AddBookScreen extends StatefulWidget {
 class _AddBookScreenState extends State<AddBookScreen> {
   var bookData;//added for taking json data
   String bookTitleField;
-  String url =
+  String imgUrl =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
   bool showSpinner = false; //used to check whether to show spinner or not
@@ -41,18 +43,18 @@ class _AddBookScreenState extends State<AddBookScreen> {
       for (int i = 0; i < 5; i++) {
         try {
           //
-          print(i);
+//          print(i);
           title = bookData[i]['title'];
-          url = bookData[i]['imageLinks']['smallThumbnail'];
-          print(title);
-          print(url);
+          imgUrl = bookData[i]['imageLinks']['smallThumbnail'];
+//          print(title);
+//          print(url);
         } catch (e) {
           print(e);
           continue;
         }
         setState(() {
           showSpinner = false;
-          booksInfo.add(BookInfo(title, url));
+          booksInfo.add(BookInfo(title, imgUrl));
         });
       }
     }
@@ -68,22 +70,36 @@ class _AddBookScreenState extends State<AddBookScreen> {
     if (bookISBN != null) {
       bookData = await BookModel().getBookDetailsByISBN(bookISBN);
       try {
-        title = bookData['title']['_text'];
-        if (title == null) {
-          title = bookData['title']['_cdata'];
-          if (title == null) title = 'hello';
-        }
-        url = bookData['image']['smallThumbnails']['_text'];
-        print(title);
-        print(url);
+        title = bookData['title'];
+        imgUrl = bookData['image']['smallThumbnail'];
+//        print(title);
+//        print(url);
       } catch (e) {
         print('in outer try');
         print(e);
       }
       setState(() {
         showSpinner = false;
-        booksInfo.add(BookInfo(title, url));
+        booksInfo.add(BookInfo(title, imgUrl));
       });
+    }
+  }
+
+  void getBookByBar() async{
+    try{
+      String result=await BarcodeScanner.scan();
+      print(result);
+      getBooksByIsbn(result);
+    } on PlatformException catch(e){
+      if(e.code==BarcodeScanner.CameraAccessDenied){
+        print('camera acces denied');
+      } else {
+        print(e);
+      }
+    } on FormatException{
+      print('You pressed the back button before scanning anything');
+    } catch (e){
+      print(e);
     }
   }
 
@@ -102,6 +118,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
           onTitlePressed: (value) {
             getBooksByTitle(value);
           },
+          onBarPressed: (){
+            getBookByBar();
+          },
         ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
@@ -115,9 +134,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
-                        print(index);
-                        print(bookData[index]);
-                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]);
+//                        print(index);
+//                        print(bookData[index]);
+                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]??bookData);
                       },
                       child: BookCard(
                         bookTitle: booksInfo[index].bookName,

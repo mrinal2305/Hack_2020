@@ -6,6 +6,8 @@ import 'package:lbs/screens/issued_screen.dart';
 import 'package:lbs/screens/search_screen.dart';
 import 'package:lbs/screens/pdfViewer.dart';
 import 'package:lbs/screens/book_input.dart';
+import 'package:lbs/screens/issuedbooks_screens.dart';
+import 'package:lbs/screens/book_display.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -32,15 +34,17 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-        initialRoute: AddBookScreen.id,
+        initialRoute: HomePage.id,
         routes: {
+                 IssuedPage.id: (context) =>IssuedPage(),
                  LoginScreen.id: (context) =>LoginScreen(),
                  HomePage.id: (context) =>HomePage(),
                  AddBookScreen.id: (context)=>AddBookScreen(),
                  BookInput.id: (context) => BookInput(),
                  SwipeList.id: (context)=> SwipeList(),
                  SearchBar.id: (context)=>SearchBar(),
-                 PdfViewer.id: (context)=>PdfViewer()
+                 PdfViewer.id: (context)=>PdfViewer(),
+                 BookDisplay.id: (context)=>BookDisplay()
 
                  });
   }

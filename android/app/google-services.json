@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1003411059082",
+    "firebase_url": "https://smart-library-55e4d.firebaseio.com",
+    "project_id": "smart-library-55e4d",
+    "storage_bucket": "smart-library-55e4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003411059082:android:f68956446506e047761873",
+        "android_client_info": {
+          "package_name": "com.devsinghindra.librarian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003411059082-75i2g4nf8cmp1nok1g4jctnv0k7pnua6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC52oWSNADF75xZH6iZ_YjeJVS1fW2wHXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003411059082-75i2g4nf8cmp1nok1g4jctnv0k7pnua6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003411059082:android:d1a4b72541088394761873",
+        "android_client_info": {
+          "package_name": "com.surajkumar.lbs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003411059082-75i2g4nf8cmp1nok1g4jctnv0k7pnua6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC52oWSNADF75xZH6iZ_YjeJVS1fW2wHXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003411059082-75i2g4nf8cmp1nok1g4jctnv0k7pnua6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
