@@ -39,14 +39,14 @@ router.get('/:title_author',(req,res,next)=>{
                     if(output.classify.recommendations.ddc.mostPopular)
                     {
                          ddc_ = output.classify.recommendations.ddc.mostPopular;
-                         if(Array.isArray(ddc_)) final_ddc = output.classify.recommendations.ddc.mostPopular[0]
-                         else final_ddc = output.classify.recommendations.ddc.mostPopular;
+                         if(Array.isArray(ddc_)) final_ddc = output.classify.recommendations.ddc.mostPopular[0]._attributes.sfa     
+                         else final_ddc = output.classify.recommendations.ddc.mostPopular._attributes.sfa;
                     }
                     if(output.classify.recommendations.lcc)
                     {
                          lcc = output.classify.recommendations.lcc.mostPopular;
-                         if(Array.isArray(lcc)) final_lcc = output.classify.recommendations.lcc.mostPopular[0]
-                         else final_lcc = output.classify.recommendations.lcc.mostPopular;
+                         if(Array.isArray(lcc)) final_lcc = output.classify.recommendations.lcc.mostPopular[0]._attributes.sfa
+                         else final_lcc = output.classify.recommendations.lcc.mostPopular._attributes.sfa;
                     }                    
                     var result = {
                         ddc : final_ddc,
