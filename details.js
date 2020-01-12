@@ -37,7 +37,7 @@ router.get('/:isbn',(req,res,next)=>{
             if(output.GoodreadsResponse.book.average_rating._text) avgR = output.GoodreadsResponse.book.average_rating._text;
             result = {
                 title : title,
-                author :output.GoodreadsResponse.book.authors.author.name._text,
+                author :output.GoodreadsResponse.book.authors.author.name,
                 isbn   : {
                         isbn_10 : output.GoodreadsResponse.book.isbn._cdata,
                         isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
