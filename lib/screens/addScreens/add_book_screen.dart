@@ -142,6 +142,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       onTap: (){
 //                        print(index);
 //                        print(bookData[index]);
+                      //checking for null
                         Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]??bookData);
                       },
                       child: BookCard(

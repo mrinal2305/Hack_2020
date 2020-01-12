@@ -33,6 +33,7 @@ class _StudentInfoState extends State<StudentInfo> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: kPrimaryColor,
           title: Text('Student'),
         ),
         backgroundColor: Colors.white,
@@ -97,7 +98,7 @@ class CustomWidget extends StatelessWidget {
 }
 
 
-//class for holding firebase db table
+//class for holding FireBase db table student
 class Student {
   String regNo;
   String cl; //class
