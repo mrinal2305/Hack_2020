@@ -27,81 +27,83 @@ class _LoginScreenState extends State<LoginScreen> {
           inAsyncCall: showSpinner,
           child: Container(
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Sign in to Librarian',
-                    style: TextStyle(
-                      color: Color(0xff3ab397),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Sign in to Librarian',
+                      style: TextStyle(
+                        color: Color(0xff3ab397),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 8.0, top: 32, right: 8, bottom: 8),
-                    child: Container(
-                      color: Colors.white70,
-                      padding: EdgeInsets.symmetric(horizontal: 30.0),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: kTextFieldDecoration.copyWith(
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 8.0, top: 32, right: 8, bottom: 8),
+                      child: Container(
+                        color: Colors.white70,
+                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          decoration: kTextFieldDecoration.copyWith(
 //                          icon: Icon(Icons.email),
-                            hintText: 'Enter your User ID'),
-                        onChanged: (value) {
+                              hintText: 'Enter your User ID'),
+                          onChanged: (value) {
 //                    print(value);
-                          email = value;
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 8.0, top: 8, right: 8, bottom: 32),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30.0),
-                      child: TextField(
-//                      obscureText: true,
-                        textAlign: TextAlign.center,
-                        decoration: kTextFieldDecoration.copyWith(
-//                        icon: Icon(Icons.lock_outline),
-                          hintText: 'Enter your Password',
+                            email = value;
+                          },
                         ),
-                        onChanged: (value) {
-//                    print(value);
-                          password = value;
-                        },
                       ),
                     ),
-                  ),
-                  RoundIconButton(
-                    title: 'SIGN IN',
-                    onPress: () async {
-                      setState(() {
-                        showSpinner = true;
-                      });
-                      print(email);
-                      print(password);
-                      try {
-                        final user = await _auth.signInWithEmailAndPassword(
-                            email: email, password: password);
-                        if (user != null) {
-                          Navigator.pushNamed(context, HomeScreen.id);
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 8.0, top: 8, right: 8, bottom: 32),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        child: TextField(
+//                      obscureText: true,
+                          textAlign: TextAlign.center,
+                          decoration: kTextFieldDecoration.copyWith(
+//                        icon: Icon(Icons.lock_outline),
+                            hintText: 'Enter your Password',
+                          ),
+                          onChanged: (value) {
+//                    print(value);
+                            password = value;
+                          },
+                        ),
+                      ),
+                    ),
+                    RoundIconButton(
+                      title: 'SIGN IN',
+                      onPress: () async {
+                        setState(() {
+                          showSpinner = true;
+                        });
+                        print(email);
+                        print(password);
+                        try {
+                          final user = await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
+                          if (user != null) {
+                            Navigator.pushNamed(context, HomeScreen.id);
+                          }
+                          setState(() {
+                            showSpinner = false;
+                          });
+                        } catch (e) {
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          print('here in exception');
+                          print(e);
                         }
-                        setState(() {
-                          showSpinner = false;
-                        });
-                      } catch (e) {
-                        setState(() {
-                          showSpinner = false;
-                        });
-                        print('here in exception');
-                        print(e);
-                      }
-                    },
-                  ),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

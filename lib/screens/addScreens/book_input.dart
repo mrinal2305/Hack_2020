@@ -96,91 +96,95 @@ class _BookInputState extends State<BookInput> {
               padding: EdgeInsets.all(8.0),
               child: Form(
                 key: formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Flexible(child: Image.network(imgUrl)),
-                    Flexible(
-                      child: TextFormField(
-                        controller: titleController,
-                        decoration: InputDecoration(
-                          labelText: 'Title:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) =>
-                            input.contains('') ? 'Not a valid Title' : null,
-                        onChanged: (value) {
-//                          title = value;
-                        },
-//                      onSaved: (input) => _email = input,
-                      ),
-                    ),
-                    Flexible(
-                      child: TextFormField(
-                        initialValue: author,
-                        decoration: InputDecoration(
-                          labelText: 'Author:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                    ),
-                    Flexible(
-                      child: TextFormField(
-                        initialValue: isbn,
-                        decoration: InputDecoration(
-                          labelText: 'ISBN:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                    ),
-                    Flexible(
-                      child: TextFormField(
-                        controller: ddcController,
-                        decoration: InputDecoration(
-                          labelText: 'DDC:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                child: Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: RaisedButton(
-                            onPressed: () {
-                              getDDC();
+                        Flexible(child: Image.network(imgUrl)),
+                        Flexible(
+                          child: TextFormField(
+                            controller: titleController,
+                            decoration: InputDecoration(
+                              labelText: 'Title:',
+                              alignLabelWithHint: true,
+                            ),
+                            validator: (input) =>
+                            input.contains('') ? 'Not a valid Title' : null,
+                            onChanged: (value) {
+//                          title = value;
                             },
-                            color: Colors.yellowAccent,
-                            child: Text('Get DDC'),
+//                      onSaved: (input) => _email = input,
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: RaisedButton(
-                            onPressed: () {
+                        Flexible(
+                          child: TextFormField(
+                            initialValue: author,
+                            decoration: InputDecoration(
+                              labelText: 'Author:',
+                              alignLabelWithHint: true,
+                            ),
+                            validator: (input) => input.length < 8
+                                ? 'You need at least 8 characters'
+                                : null,
+//                      onSaved: (input) => _password = input,
+                          ),
+                        ),
+                        Flexible(
+                          child: TextFormField(
+                            initialValue: isbn,
+                            decoration: InputDecoration(
+                              labelText: 'ISBN:',
+                              alignLabelWithHint: true,
+                            ),
+                            validator: (input) => input.length < 8
+                                ? 'You need at least 8 characters'
+                                : null,
+//                      onSaved: (input) => _password = input,
+                          ),
+                        ),
+                        Flexible(
+                          child: TextFormField(
+                            controller: ddcController,
+                            decoration: InputDecoration(
+                              labelText: 'DDC:',
+                              alignLabelWithHint: true,
+                            ),
+                            validator: (input) => input.length < 8
+                                ? 'You need at least 8 characters'
+                                : null,
+//                      onSaved: (input) => _password = input,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: RaisedButton(
+                                onPressed: () {
+                                  getDDC();
+                                },
+                                color: Colors.yellowAccent,
+                                child: Text('Get DDC'),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: RaisedButton(
+                                onPressed: () {
 //                            print(bookData);
 //                            print(title);
-                            },
-                            color: Colors.red,
-                            child: Text('Add'),
-                          ),
-                        ),
+                                },
+                                color: Colors.red,
+                                child: Text('Add'),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ),
             ),
