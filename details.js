@@ -19,7 +19,11 @@ router.get('/:isbn',(req,res,next)=>{
             var json = convert.xml2json(body,{compact:true})
             var output = JSON.parse(json);
 
-            var title,desc,publisher,pC,avgR;
+            var title,desc,publisher,pC,avgR,author;
+
+            if(output.GoodreadsResponse.book.authors.author.name._text)  author = output.GoodreadsResponse.book.authors.author.name._text;
+            if(output.GoodreadsResponse.book.authors.author.name._cdata) author = output.GoodreadsResponse.book.authors.author.name._cdata;
+          
 
             if(output.GoodreadsResponse.book.title._text) title = output.GoodreadsResponse.book.title._text;
             if(output.GoodreadsResponse.book.title._cdata) title = output.GoodreadsResponse.book.title._cdata;
@@ -37,7 +41,7 @@ router.get('/:isbn',(req,res,next)=>{
             if(output.GoodreadsResponse.book.average_rating._text) avgR = output.GoodreadsResponse.book.average_rating._text;
             result = {
                 title : title,
-                author :output.GoodreadsResponse.book.authors.author.name,
+                author : author,
                 isbn   : {
                         isbn_10 : output.GoodreadsResponse.book.isbn._cdata,
                         isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
