@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { AuthService } from './../auth.service';
 
 @Component({
@@ -6,10 +6,12 @@ import { AuthService } from './../auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent{
+export class AuthComponent implements OnInit{
   email    : string;
   password : string;  
+  
   constructor(public authService : AuthService) { }
+
   // SIGN UP
   signup() {
     this.authService.signup(this.email, this.password);
@@ -17,12 +19,22 @@ export class AuthComponent{
   }
   // LOGIN
   login() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = '';    
+    this.authService.login(this.email, this.password).then(value => { 
+      console.log('Nice, it worked!');
+      // window.alert('Wow! Success')
+      console.log("yay", value);
+    }).catch(err => {
+      console.log(err);
+    });
+    this.email = this.password = '';
   }
   // LOGOUT
   logout() {
     this.authService.logout();
+  }
+
+  ngOnInit(){
+
   }
 
 }
