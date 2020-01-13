@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lbs/services/book_model.dart';
 import 'package:lbs/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:lbs/elements/book_models.dart';
+import 'package:lbs/elements/books.dart';
+import 'package:lbs/providers/saved_books.dart';
+import 'package:provider/provider.dart';
+import 'package:lbs/screens/saved_books/personal_book_screen.dart';
+
+
+
+
+
 
 class BookInput extends StatefulWidget {
   static const id = 'book_input';
-
   @override
   _BookInputState createState() => _BookInputState();
 }
@@ -17,6 +23,7 @@ class _BookInputState extends State<BookInput> {
 
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+
 
   bool showSpinner = false;
   String title;
@@ -29,6 +36,7 @@ class _BookInputState extends State<BookInput> {
     setState(() {
       showSpinner = true;
     });
+
 
     //if is added as book for null is shown if not checked
     if (isbn != null) {
@@ -48,6 +56,12 @@ class _BookInputState extends State<BookInput> {
         showSpinner = false;
       });
     }
+  }
+
+  void saveBook(){
+    Books books=Books(imgUrl: imgUrl,isbn: isbn,description: description,title: title,author: author);
+    Provider.of<SavedBooks>(context, listen :false).addBook(books);
+    Navigator.pushNamed(context, BookListScreen.id);
   }
 
   @override
@@ -83,7 +97,7 @@ class _BookInputState extends State<BookInput> {
 //      print(author);
 //      print(isbn);
     } catch (e) {}
-    return new Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text('Book Details'),
@@ -164,11 +178,23 @@ class _BookInputState extends State<BookInput> {
 //                            print(bookData);
 //                            print(title);
                               getDDC();
+                              print(description);
+                              //onAdd();
+                            },
+                            color: Colors.red,
+                            child: Text('Description'),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: RaisedButton(
+                            onPressed: () {
+                                 saveBook();
                             },
                             color: Colors.red,
                             child: Text('Add'),
                           ),
-                        ),
+                        )
                       ],
                     )
                   ],

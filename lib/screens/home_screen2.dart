@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final data=MediaQuery.of(context);
     return Scaffold(
+
       backgroundColor: Color(0xff3ab397),
 //        appBar: AppBar(
 //          title: Text('Home'),
