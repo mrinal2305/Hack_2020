@@ -12,16 +12,12 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
     url: 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/d757a019-2724-460f-b8a0-0605a1ad7dcf',
   });
 
-router.get('/',(req,res,next)=>{
-  res.send({
-    message : "Add text field"
-  })
-})
 
-router.get('/:text',(req,res,next)=>{
+router.get('/',(req,res,next)=>{
+  var text =   req.query.text;
   //Analyzing text
   const analyzeParams = {
-    text:req.params.text,
+    text:text,
     'features': {
     'concepts': {
       'limit': 5

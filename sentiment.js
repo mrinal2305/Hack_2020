@@ -13,16 +13,13 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
 });
 
 
-router.get('/',(req,res,next)=>{
-  res.send({
-    message : "Add text field"
-  })
-})
 
-router.get('/:text',(req,res,next)=>{
+
+router.get('/',(req,res,next)=>{
+  var text =   req.query.text;
 //Analyzing params
 const analyzeParams = {
-  text:req.params.text,
+  text:text,
   'features': {
   'sentiment': {
   }
