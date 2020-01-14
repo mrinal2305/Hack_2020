@@ -165,18 +165,53 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      //height: 100,
 //      width: 200,
-      child: Column(
+    width: double.infinity,
+      child: Row(
         children: <Widget>[
           Flexible(
-            child: Image(
-              image: NetworkImage(imgURL),
+            flex: 4,
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Column(
+//              child: Image(
+//                image: NetworkImage(imgURL),
+//              ),
+
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(24.0),
+                  child: Card(
+                    elevation:5.0,
+                    child: Image(
+                      image: NetworkImage(imgURL),
+
+
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Colors.grey.withOpacity(0.3),
+                  height: 20.0,
+                )
+
+
+              ],
+              ),
             ),
           ),
-          Text(
-            bookTitle,
-            textAlign: TextAlign.center,
+          Flexible(
+            flex: 6,
+            child: Text(
+              bookTitle,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                 fontFamily: ('Nunito'),
+                 fontWeight: FontWeight.w700,
+                fontSize: 18.0
+              ),
+            ),
           ),
         ],
       ),
