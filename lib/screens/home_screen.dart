@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
               MyCard(
                   'Search',
                       () {
-                    Navigator.pushNamed(context, SearchScreen.id);
+//                    Navigator.pushNamed(context, SearchScreen.id);
                   },'images/collaboration.png'
               )
 

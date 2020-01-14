@@ -24,7 +24,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   #firebase dependencies
-  firebase_database: ^3.1.1
+#  firebase_database: ^3.1.1
+  cloud_firestore: ^0.13.0+1
   firebase_auth: ^0.15.3
   firebase_core: ^0.4.3+1
   #modal spinner

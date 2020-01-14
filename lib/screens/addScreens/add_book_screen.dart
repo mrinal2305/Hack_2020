@@ -5,12 +5,7 @@ import 'package:librarian/elements/custom_speed_dial.dart';
 import 'package:librarian/screens/addScreens/book_input.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
-class BookInfo {
-  String bookName;
-  String bookURL;
-  BookInfo(this.bookName, this.bookURL);
-}
+import 'package:librarian/models/book.dart';
 
 class AddBookScreen extends StatefulWidget {
   static const id = 'add_book_screen';
@@ -19,12 +14,7 @@ class AddBookScreen extends StatefulWidget {
   _AddBookScreenState createState() => _AddBookScreenState();
 }
 
-class Book{
-  String title;
-  String imgUrl;
-  String isbn;
-  String author;
-}
+
 
 class _AddBookScreenState extends State<AddBookScreen> {
   var bookData;//added for taking json data
@@ -34,7 +24,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
   String title = 'hello';
   bool showSpinner = false; //used to check whether to show spinner or not
 
-  List<BookInfo> booksInfo = [];
+  List<Book> booksInfo = [];
 
   void getBooksByTitle(String bookTitle) async {
     setState(() {
@@ -60,7 +50,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         }
         setState(() {
           showSpinner = false;
-          booksInfo.add(BookInfo(title, imgUrl));
+          booksInfo.add(Book(title: title,imgUrl: imgUrl));
         });
       }
     }
@@ -86,7 +76,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       }
       setState(() {
         showSpinner = false;
-        booksInfo.add(BookInfo(title, imgUrl));
+        booksInfo.add(Book(title:title, imgUrl: imgUrl));
       });
     }
   }
@@ -146,8 +136,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
                         Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]??bookData);
                       },
                       child: BookCard(
-                        bookTitle: booksInfo[index].bookName,
-                        imgURL: booksInfo[index].bookURL,
+                        bookTitle: booksInfo[index].title,
+                        imgURL: booksInfo[index].imgUrl,
                       ),
                     );
                   },

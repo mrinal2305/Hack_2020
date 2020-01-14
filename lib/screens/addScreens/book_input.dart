@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/models/book.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:librarian/constants.dart';
+import 'package:librarian/services/firebase_helpers.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class BookInput extends StatefulWidget {
@@ -17,11 +19,26 @@ class _BookInputState extends State<BookInput> {
   final ddcController = TextEditingController();
 
   bool showSpinner = false;
-  String title;
-  String author;
-  String isbn;
-  String ddc;
-  String imgUrl;
+
+//  String title;
+//  String author;
+//  String isbn;
+//  String ddc;
+//  String imgUrl;
+  Book book;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    book = Book(
+        title: 'hellodev',
+        imgUrl: 'nothing',
+        isbn: '123456',
+        author: 'devsinghindra',
+        description: 'nothing',
+        ddc: 'dec');
+  }
 
   void getDDC() async {
     setState(() {
@@ -29,14 +46,14 @@ class _BookInputState extends State<BookInput> {
     });
 
     //if is added as book for null is shown if not checked
-    if (title != null) {
-      var bookData = await BookModel().getBookDDC(title);
+    if (book.title != null) {
+      var bookData = await BookModel().getBookDDC(book.title);
       try {
-        print(title);
+        print(book.title);
         setState(() {
-          ddc = bookData[0]['ddc'];
-          ddcController.text = ddc;
-          print(ddc);
+          book.ddc = bookData[0]['ddc'];
+          ddcController.text = book.ddc;
+          print(book.ddc);
         });
       } catch (e) {
         print(e);
@@ -60,21 +77,21 @@ class _BookInputState extends State<BookInput> {
     final bookData = ModalRoute.of(context).settings.arguments as Map;
     try {
 //      print(bookData);
-      title = bookData['title'];
-      author = bookData['author'];
-      isbn = bookData['isbn']['isbn_10'];
+      book.title = bookData['title'];
+      book.author = bookData['author'];
+      book.isbn = bookData['isbn']['isbn_10'];
       try {
-        imgUrl = bookData['imageLinks']['smallThumbnail'];
-      } catch(e){
+        book.imgUrl = bookData['imageLinks']['smallThumbnail'];
+      } catch (e) {
         print('in inner try');
         print(e);
-        imgUrl=bookData['image']['smallThumbnail'];
+        book.imgUrl = bookData['image']['smallThumbnail'];
         print('inner try close');
       }
       titleController.value = TextEditingValue(
-        text: title,
+        text: book.title,
         selection: TextSelection.fromPosition(
-          TextPosition(offset: title.length),
+          TextPosition(offset: book.title.length),
         ),
       );
 //      print(title);
@@ -101,7 +118,7 @@ class _BookInputState extends State<BookInput> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Flexible(child: Image.network(imgUrl)),
+//                        Flexible(child: Image.network(imgUrl)),
                         Flexible(
                           child: TextFormField(
                             controller: titleController,
@@ -110,7 +127,7 @@ class _BookInputState extends State<BookInput> {
                               alignLabelWithHint: true,
                             ),
                             validator: (input) =>
-                            input.contains('') ? 'Not a valid Title' : null,
+                                input.contains('') ? 'Not a valid Title' : null,
                             onChanged: (value) {
 //                          title = value;
                             },
@@ -119,7 +136,7 @@ class _BookInputState extends State<BookInput> {
                         ),
                         Flexible(
                           child: TextFormField(
-                            initialValue: author,
+                            initialValue: book.author,
                             decoration: InputDecoration(
                               labelText: 'Author:',
                               alignLabelWithHint: true,
@@ -132,7 +149,7 @@ class _BookInputState extends State<BookInput> {
                         ),
                         Flexible(
                           child: TextFormField(
-                            initialValue: isbn,
+                            initialValue: book.isbn,
                             decoration: InputDecoration(
                               labelText: 'ISBN:',
                               alignLabelWithHint: true,
@@ -172,7 +189,10 @@ class _BookInputState extends State<BookInput> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: RaisedButton(
-                                onPressed: () {
+                                onPressed: () async {
+//                                  DatabaseService().getBookData();
+                                DatabaseService().booksStream();
+                                  await DatabaseService().updateBookData(book);
 //                            print(bookData);
 //                            print(title);
                                 },

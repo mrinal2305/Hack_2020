@@ -3,6 +3,7 @@ import 'package:librarian/constants.dart';
 import 'package:librarian/elements/round_icon_button.dart';
 import 'package:librarian/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:librarian/services/firebase_helpers.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _auth = FirebaseAuth.instance;
-
+//  final _auth = FirebaseAuth.instance;
+//
   String email;
   String password;
   bool showSpinner = false;
@@ -84,20 +85,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         print(email);
                         print(password);
-                        try {
-                          final user = await _auth.signInWithEmailAndPassword(
-                              email: email, password: password);
-                          if (user != null) {
-                            Navigator.pushNamed(context, HomeScreen.id);
-                          }
+                        try{
+                          await AuthService.signInWithEmailAndPassword(email, password);
+                          Navigator.pushNamed(context, HomeScreen.id);
                           setState(() {
-                            showSpinner = false;
+                            showSpinner=false;
                           });
-                        } catch (e) {
+                        } catch(e){
                           setState(() {
-                            showSpinner = false;
+                            showSpinner=false;
                           });
-                          print('here in exception');
+                          print('here in email sign in exception');
                           print(e);
                         }
                       },

@@ -31,7 +31,7 @@ class IssueScreen extends StatelessWidget {
                         suffixIcon: IconButton(
                           icon: Icon(Icons.search),
                             onPressed: (){
-                            Navigator.pushNamed(context, StudentInfo.id);
+//                            Navigator.pushNamed(context, StudentInfo.id);
                             },
                         ),
                       ),
