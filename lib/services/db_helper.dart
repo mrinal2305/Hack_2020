@@ -9,7 +9,7 @@ class DBHelper {
     final sqlDb = await sql.openDatabase(path.join(dbPath, 'books.db'),
         onCreate: (db, version) async{
           await db.execute(
-              'CREATE TABLE user_books (isbn TEXT PRIMARY KEY,title TEXT,imageUrl TEXT,description TEXT,author TEXT)');
+              'CREATE TABLE user_books (isbn TEXT PRIMARY KEY,title TEXT,imgUrl TEXT,description TEXT,author TEXT)');
         }, version: 1);//carefully close brackets in sql query
     return sqlDb;
   }

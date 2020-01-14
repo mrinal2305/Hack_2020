@@ -18,7 +18,7 @@ class SavedBooks with ChangeNotifier {
       {
         'isbn': books.isbn,
         'title': books.title,
-        'imageUrl': books.imgUrl,
+        'imgUrl': books.imgUrl,
         'description': books.description,
         'author': books.author
       },

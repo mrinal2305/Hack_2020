@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:lbs/providers/saved_books.dart';
 
 class BookListScreen extends StatelessWidget {
+  static  String imageUrl;
   static const String id="personal_book_screen.dart";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Places'),
+        title: Text('Your Books'),
       ),
       body: Center(
         child: FutureBuilder(
@@ -26,7 +27,18 @@ class BookListScreen extends StatelessWidget {
                   ? child
                   : ListView.builder(
                 itemBuilder: (context, index) {
-                  return MyCard(title:savedBooks.items[index].title,imgPath: savedBooks.items[index].imgUrl,);
+                  try{
+                   imageUrl=savedBooks.items[index].imgUrl;
+                   print(imageUrl);
+
+                  }catch(e){
+                    imageUrl='https://d1lp72kdku3ux1.cloudfront.net/title_instance/329/small/20111.jpg';
+                  }
+                  return MyCard(title:savedBooks.items[index].title,
+                             author: savedBooks.items[index].author,
+                             isbn: savedBooks.items[index].isbn,
+                             imgUrl: imageUrl,
+                  );
 
                 },
                 itemCount: savedBooks.items.length,
@@ -41,10 +53,12 @@ class BookListScreen extends StatelessWidget {
 
 class MyCard extends StatelessWidget {
   final String title;
-  //final Function onTap;
-  final String imgPath;
+  final String author;
+  final String isbn;
+  //final String description;
+  final String imgUrl;
 
-  MyCard({this.title,this.imgPath});
+  MyCard({this.title,this.author,this.isbn,this.imgUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +75,29 @@ class MyCard extends StatelessWidget {
         child: Row(
 //          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Image.network(imgPath,scale: 10.0,),
-            SizedBox(
-              width: 50,
-            ),
+            Image(image: NetworkImage(imgUrl)),
             Text(title,style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w400
+            ),
+
+
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            Text(author,style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400
             ),),
+            SizedBox(
+              width: 20,
+            ),Text(
+              isbn,style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400
+            ),
+            )
           ],
         ),
 //          height: 120.00,

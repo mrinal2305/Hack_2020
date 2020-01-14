@@ -57,7 +57,7 @@ class _BookInputState extends State<BookInput> {
       });
     }
   }
-
+  //Function to pass the gathered information about the book to the book list screen
   void saveBook(){
     Books books=Books(imgUrl: imgUrl,isbn: isbn,description: description,title: title,author: author);
     Provider.of<SavedBooks>(context, listen :false).addBook(books);

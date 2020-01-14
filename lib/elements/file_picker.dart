@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:open_file/open_file.dart';
 
 
 class FilePickerDemo extends StatefulWidget {
@@ -180,6 +181,9 @@ class _FilePickerDemoState extends State<FilePickerDemo> {
                       )
                           : new Container(),
                     ),
+                    FlatButton.icon(onPressed:(){OpenFile.open('storage/emulated/0/Download/harry_potter_and_the_sorcerers_stone (1).pdf');}, icon: Icon(
+                      Icons.description
+                    ), label: Text('OpenPdf'))
                   ],
                 ),
               ),
@@ -188,3 +192,16 @@ class _FilePickerDemoState extends State<FilePickerDemo> {
     );
   }
 }
+
+class OpenPdf extends StatefulWidget {
+  @override
+  _OpenPdfState createState() => _OpenPdfState();
+}
+
+class _OpenPdfState extends State<OpenPdf> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+

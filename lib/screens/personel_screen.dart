@@ -131,6 +131,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
               ),
               Expanded(
                 child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
