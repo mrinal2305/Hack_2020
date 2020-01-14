@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute , Router} from '@angular/router';
 
 @Component({
   selector: 'app-stu-info',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StuInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(public route : ActivatedRoute) {
+    
+   }
 
   ngOnInit() {
+    console.log(this.route.snapshot.queryParamMap.get('message'));
   }
 
 }

@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'library';
-  constructor(){
+export class AppComponent implements OnInit{
+
+  constructor(public authService : AuthService){
+    this.authService.superUser(); // Setting isSuper / isLibrarian value
+  }
+
+  ngOnInit(){
    
   }
+   
 }
-

@@ -10,6 +10,8 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
 import { AuthService } from './auth.service';
 import { AuthGuardService } from './auth-guard.service';
 import { FormsModule } from  '@angular/forms';
+import { AuthComponent } from './auth/auth.component';
+
 // import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({

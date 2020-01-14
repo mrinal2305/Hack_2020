@@ -20,7 +20,7 @@ export class AuthGuardService implements CanActivate {
     var id = localStorage.getItem('uid');
     if(id) return true;
 
-    this.router.navigate(['/auth'],{queryParams : {return: state.url }});
+    this.router.navigate(['/auth'],{queryParams : {returnUrl: state.url }}); // STEP 1: Send URL
     return false;   
   }
 
