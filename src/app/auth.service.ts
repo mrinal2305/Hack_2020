@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
@@ -10,9 +11,10 @@ import { Observable } from 'rxjs';
 export class AuthService {
   user: Observable<firebase.User>;
   res = false;
-  constructor(private firebaseAuth: AngularFireAuth) {
-    this.user = firebaseAuth.authState;
+  constructor(private firebaseAuth: AngularFireAuth,private route : ActivatedRoute) {
+    this.user =firebaseAuth .authState;
   }
+
   // SIGN UP
   signup(email: string, password: string) {
     this.firebaseAuth
@@ -26,14 +28,21 @@ export class AuthService {
         console.log('Something went wrong:',err.message);
         window.alert(err.message);
       });    
-      return this.res;
+      
   }
+
   // LOGIN
   login(email: string, password: string) {
-     return this.firebaseAuth
+
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl',returnUrl);
+    console.log(returnUrl);
+
+     return this.firebaseAuth      //GREAT PRIYANSHU METHOD
       .auth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password);
   }
+
   // LOGOUT
   logout() {
     this.firebaseAuth

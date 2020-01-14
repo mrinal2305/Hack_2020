@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { AuthService } from './../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -10,19 +11,23 @@ export class AuthComponent implements OnInit{
   email    : string;
   password : string;  
   
-  constructor(public authService : AuthService) { }
+  constructor(public authService : AuthService,private route : Router) { }
 
   // SIGN UP
   signup() {
     this.authService.signup(this.email, this.password);
     this.email = this.password = '';
   }
+  
   // LOGIN
   login() {
-    this.authService.login(this.email, this.password).then(value => { 
-      console.log('Nice, it worked!');
-      // window.alert('Wow! Success')
-      console.log("yay", value);
+    this.authService.login(this.email, this.password).then(value => {  // .then and .catch GREAT PRIYANSHU METHOD 
+     console.log(value.user.uid);
+     localStorage.setItem('uid',value.user.uid);
+      let returnUrl = localStorage.getItem('returnUrl');  // Getting the URL
+      
+      this.route.navigateByUrl(returnUrl); // if return URL sending to url
+
     }).catch(err => {
       console.log(err);
     });
@@ -30,11 +35,11 @@ export class AuthComponent implements OnInit{
   }
   // LOGOUT
   logout() {
+    localStorage.removeItem('uid');
     this.authService.logout();
   }
 
   ngOnInit(){
-
   }
 
 }

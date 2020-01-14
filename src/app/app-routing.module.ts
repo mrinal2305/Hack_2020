@@ -6,15 +6,15 @@ import { RegComponent } from './reg/reg.component';
 import { StuInfoComponent } from './stu-info/stu-info.component';
 import { AuthComponent } from './auth/auth.component';
 import { HompageComponent } from './hompage/hompage.component';
-
+import { AuthGuardService } from './auth-guard.service';
 
 const routes: Routes = [
   {path :"",   component : HompageComponent},
-  {path :"auth",   component : AuthComponent},
-  {path :"stu_info",   component : StuInfoComponent},
-  {path :"man_book",   component : ManBookComponent},
-  {path :"book_ser",   component : BookSerComponent},
-  {path :"regs",   component : RegComponent},  
+  {path :"auth",   component : AuthComponent,},
+  {path :"stu_info",   component : StuInfoComponent ,canActivate :[AuthGuardService]},
+  {path :"man_book",   component : ManBookComponent,canActivate :[AuthGuardService]},
+  {path :"book_ser",   component : BookSerComponent,canActivate :[AuthGuardService]},
+  {path :"regs",   component : RegComponent,canActivate :[AuthGuardService]},  
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import { AppRoutingModule ,routingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { AuthService } from './auth.service';
+import { AuthGuardService } from './auth-guard.service';
 import { FormsModule } from  '@angular/forms';
 // import { CustomFormsModule } from 'ng2-validation';
 
@@ -25,7 +26,7 @@ import { FormsModule } from  '@angular/forms';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService],       // It happens for services
+  providers: [AuthService,AuthGuardService],       // It happens for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }
