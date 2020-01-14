@@ -16,51 +16,91 @@ class _BookInputState extends State<BookInput> {
   final formKey = GlobalKey<FormState>();
 
   final titleController = TextEditingController();
+  final isbnController = TextEditingController();
   final ddcController = TextEditingController();
 
   bool showSpinner = false;
-
-//  String title;
-//  String author;
-//  String isbn;
-//  String ddc;
-//  String imgUrl;
-  Book book;
+  Book book = Book();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    book = Book(
-        title: 'hellodev',
-        imgUrl: 'nothing',
-        isbn: '123456',
-        author: 'devsinghindra',
-        description: 'nothing',
-        ddc: 'dec');
-  }
 
-  void getDDC() async {
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+
+  }
+  void getBookFullDetails() async {
+
+    isbnController.text = book.isbn_10;
+    titleController.text = book.title;
+    ddcController.text = book.ddc1;
     setState(() {
       showSpinner = true;
     });
+    print('${book.isbn_10} in getfull');
+    if (book.isbn_10 != null) {
+      var bookData = await BookModel().getBookCompleteDetails(book.isbn_10);
+//      print(bookData);
+      try {
+        book.author = bookData['author'];
+        book.avgRating = bookData['averageRating'];
+        book.description = bookData['description'];
+        book.isbn_10 = bookData['isbn']['isbn_10'];
+        book.isbn_13 = bookData['isbn']['isbn_13'];
+//            book.issued=
+
+        book.pageCount = bookData['pageCount'];
+        book.publisher = bookData['publisher'];
+        book.title = bookData['title'];
+//        print(book.title);
+//            book.totalCopy=
+      } catch (e) {
+        print('in book full details exception in bookinput');
+        print(e);
+      }
+    }
+    getDDC();
+    setState(() {
+      showSpinner=false;
+    });
+  }
+
+  void getDDC() async {
+//    setState(() {
+//      showSpinner = true;
+//    });
 
     //if is added as book for null is shown if not checked
     if (book.title != null) {
       var bookData = await BookModel().getBookDDC(book.title);
       try {
-        print(book.title);
-        setState(() {
-          book.ddc = bookData[0]['ddc'];
-          ddcController.text = book.ddc;
-          print(book.ddc);
-        });
+//        print(book.title);
+          try {
+
+            book.ddc1=bookData[0]['ddc'];
+            book.ddc2=bookData[1]['ddc'];
+            book.lcc1=bookData[0]['lcc'];
+            book.lcc2=bookData[1]['lcc'];
+//          ddcController.text = book.ddc;
+          } catch (e){
+            print('in inner try');
+            print(bookData[0]);
+            print(e);
+          }
+          print(book.ddc1);
+
       } catch (e) {
+        print('in ddc');
         print(e);
       }
-      setState(() {
-        showSpinner = false;
-      });
+//      setState(() {
+//        showSpinner = false;
+//      });
     }
   }
 
@@ -70,37 +110,11 @@ class _BookInputState extends State<BookInput> {
     super.dispose();
     titleController.dispose();
     ddcController.dispose();
+    isbnController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final bookData = ModalRoute.of(context).settings.arguments as Map;
-    try {
-//      print(bookData);
-      book.title = bookData['title'];
-      book.author = bookData['author'];
-      book.isbn = bookData['isbn']['isbn_10'];
-      try {
-        book.imgUrl = bookData['imageLinks']['smallThumbnail'];
-      } catch (e) {
-        print('in inner try');
-        print(e);
-        book.imgUrl = bookData['image']['smallThumbnail'];
-        print('inner try close');
-      }
-      titleController.value = TextEditingValue(
-        text: book.title,
-        selection: TextSelection.fromPosition(
-          TextPosition(offset: book.title.length),
-        ),
-      );
-//      print(title);
-//      print(author);
-//      print(isbn);
-    } catch (e) {
-      print('in outer bookinput');
-      print(e);
-    }
     return new Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
@@ -114,96 +128,73 @@ class _BookInputState extends State<BookInput> {
               child: Form(
                 key: formKey,
                 child: Container(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-//                        Flexible(child: Image.network(imgUrl)),
-                        Flexible(
-                          child: TextFormField(
-                            controller: titleController,
-                            decoration: InputDecoration(
-                              labelText: 'Title:',
-                              alignLabelWithHint: true,
-                            ),
-                            validator: (input) =>
-                                input.contains('') ? 'Not a valid Title' : null,
-                            onChanged: (value) {
-//                          title = value;
-                            },
-//                      onSaved: (input) => _email = input,
-                          ),
+                  child: ListView(
+                    children: <Widget>[
+                      Image.network(book.smallThumbnail??'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
+                      BookField(titleController: titleController),
+                      TextFormField(
+                        initialValue: book.author,
+                        decoration: InputDecoration(
+                          labelText: 'Author:',
+                          alignLabelWithHint: true,
                         ),
-                        Flexible(
-                          child: TextFormField(
-                            initialValue: book.author,
-                            decoration: InputDecoration(
-                              labelText: 'Author:',
-                              alignLabelWithHint: true,
-                            ),
-                            validator: (input) => input.length < 8
-                                ? 'You need at least 8 characters'
-                                : null,
+                        validator: (input) => input.length < 8
+                            ? 'You need at least 8 characters'
+                            : null,
 //                      onSaved: (input) => _password = input,
-                          ),
+                      ),
+                      TextFormField(
+                        initialValue: book.isbn_10,
+                        decoration: InputDecoration(
+                          labelText: 'ISBN:',
+                          alignLabelWithHint: true,
                         ),
-                        Flexible(
-                          child: TextFormField(
-                            initialValue: book.isbn,
-                            decoration: InputDecoration(
-                              labelText: 'ISBN:',
-                              alignLabelWithHint: true,
-                            ),
-                            validator: (input) => input.length < 8
-                                ? 'You need at least 8 characters'
-                                : null,
+                        validator: (input) => input.length < 8
+                            ? 'You need at least 8 characters'
+                            : null,
 //                      onSaved: (input) => _password = input,
-                          ),
+                      ),
+                      TextFormField(
+                        controller: ddcController,
+                        decoration: InputDecoration(
+                          labelText: 'DDC:',
+                          alignLabelWithHint: true,
                         ),
-                        Flexible(
-                          child: TextFormField(
-                            controller: ddcController,
-                            decoration: InputDecoration(
-                              labelText: 'DDC:',
-                              alignLabelWithHint: true,
-                            ),
-                            validator: (input) => input.length < 8
-                                ? 'You need at least 8 characters'
-                                : null,
+                        validator: (input) => input.length < 8
+                            ? 'You need at least 8 characters'
+                            : null,
 //                      onSaved: (input) => _password = input,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: RaisedButton(
-                                onPressed: () {
-                                  getDDC();
-                                },
-                                color: Colors.yellowAccent,
-                                child: Text('Get DDC'),
-                              ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: RaisedButton(
+                              onPressed: () {
+                                getBookFullDetails();
+                              },
+                              color: Colors.yellowAccent,
+                              child: Text('Save'),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: RaisedButton(
-                                onPressed: () async {
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: RaisedButton(
+                              onPressed: () async {
 //                                  DatabaseService().getBookData();
                                 DatabaseService().booksStream();
-                                  await DatabaseService().updateBookData(book);
+                                await DatabaseService().updateBookData(book);
 //                            print(bookData);
 //                            print(title);
-                                },
-                                color: Colors.red,
-                                child: Text('Add'),
-                              ),
+                              },
+                              color: Colors.red,
+                              child: Text('Add'),
                             ),
-                          ],
-                        )
-                      ],
-                    ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -216,5 +207,27 @@ class _BookInputState extends State<BookInput> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
     }
+  }
+}
+
+class BookField extends StatelessWidget {
+  BookField({this.titleController});
+
+  final TextEditingController titleController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: titleController,
+      decoration: InputDecoration(
+        labelText: 'Title:',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Not a valid Title' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
   }
 }

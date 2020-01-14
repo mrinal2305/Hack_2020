@@ -91,11 +91,11 @@ class DatabaseService {
       Firestore.instance.collection('student');
 
   Future<void> updateBookData(Book book) async {
-    return await bookCollection.document(book.isbn).setData({
+    return await bookCollection.document(book.isbn_10).setData({
       'title': book.title,
       'author': book.author,
-      'isbn': book.isbn,
-      'imgUrl': book.imgUrl,
+      'isbn_10': book.isbn_10,
+      'smallThumbnail': book.smallThumbnail,
       'description': book.description
     });
   }
@@ -117,18 +117,18 @@ class DatabaseService {
   }
 
   // brew list from snapshot
-  List<Book> _bookListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      //print(doc.data);
-      return Book(
-        title: doc.data['name'] ?? '',
-        imgUrl: doc.data['strength'] ?? 0,
-        author: doc.data['sugars'] ?? '0',
-        description: doc.data[''] ?? '0',
-        isbn: doc.data[''] ?? '0',
-      );
-    }).toList();
-  }
+//  List<Book> _bookListFromSnapshot(QuerySnapshot snapshot) {
+//    return snapshot.documents.map((doc) {
+//      //print(doc.data);
+//      return Book(
+//        title: doc.data['name'] ?? '',
+//        imgUrl: doc.data['strength'] ?? 0,
+//        author: doc.data['sugars'] ?? '0',
+//        description: doc.data[''] ?? '0',
+//        isbn: doc.data[''] ?? '0',
+//      );
+//    }).toList();
+//  }
 
   // user data from snapshots
 //  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
@@ -141,9 +141,9 @@ class DatabaseService {
 //  }
 
   // get brews stream
-  Stream<List<Book>> get brews {
-    return bookCollection.snapshots().map(_bookListFromSnapshot);
-  }
+//  Stream<List<Book>> get brews {
+//    return bookCollection.snapshots().map(_bookListFromSnapshot);
+//  }
 
 // get user doc stream
 //  Stream<UserData> get userData {

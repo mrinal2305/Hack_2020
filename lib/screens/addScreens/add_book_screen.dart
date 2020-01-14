@@ -22,6 +22,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
   String imgUrl =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
+  String isbn;
   bool showSpinner = false; //used to check whether to show spinner or not
 
   List<Book> booksInfo = [];
@@ -42,6 +43,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 //          print(i);
           title = bookData[i]['title'];
           imgUrl = bookData[i]['imageLinks']['smallThumbnail'];
+          isbn=bookData[i]['isbn']['isbn_10'];
 //          print(title);
 //          print(url);
         } catch (e) {
@@ -50,7 +52,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         }
         setState(() {
           showSpinner = false;
-          booksInfo.add(Book(title: title,imgUrl: imgUrl));
+          booksInfo.add(Book(title: title,smallThumbnail: imgUrl,isbn_10: isbn));
         });
       }
     }
@@ -68,6 +70,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       try {
         title = bookData['title'];
         imgUrl = bookData['image']['smallThumbnail'];
+        isbn=bookData['isbn']['isbn_10'];
 //        print(title);
 //        print(url);
       } catch (e) {
@@ -76,7 +79,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       }
       setState(() {
         showSpinner = false;
-        booksInfo.add(Book(title:title, imgUrl: imgUrl));
+        booksInfo.add(Book(title:title, smallThumbnail: imgUrl,isbn_10: isbn));
       });
     }
   }
@@ -133,11 +136,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
 //                        print(index);
 //                        print(bookData[index]);
                       //checking for null
-                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]??bookData);
+                        print('isbn $isbn');
+                        print('isbn_10${booksInfo[index].isbn_10}');
+                        Navigator.pushNamed(context, BookInput.id,arguments: booksInfo[index]??'1585424331');
                       },
                       child: BookCard(
                         bookTitle: booksInfo[index].title,
-                        imgURL: booksInfo[index].imgUrl,
+                        imgURL: booksInfo[index].smallThumbnail,
                       ),
                     );
                   },
