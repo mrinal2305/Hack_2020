@@ -16,6 +16,7 @@ class BookInfo {
 class AddBookScreen extends StatefulWidget {
   static const id = 'add_book_screen';
 
+
   @override
   _AddBookScreenState createState() => _AddBookScreenState();
 }
@@ -105,6 +106,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final data=MediaQuery.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -164,40 +166,39 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Column(
+      children:<Widget>[
+      Container(
       //height: 100,
 //      width: 200,
-    width: double.infinity,
+      width: double.infinity,
       child: Row(
         children: <Widget>[
           Flexible(
             flex: 4,
             child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
               child: Column(
 //              child: Image(
 //                image: NetworkImage(imgURL),
 //              ),
 
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(24.0),
-                  child: Card(
-                    elevation:5.0,
-                    child: Image(
-                      image: NetworkImage(imgURL),
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(24.0),
+                    child: Card(
+                      elevation:5.0,
+                      child: Image(
+                        image: NetworkImage(imgURL),
 
 
+                      ),
                     ),
                   ),
-                ),
-                Divider(
-                  color: Colors.grey.withOpacity(0.3),
-                  height: 20.0,
-                )
 
 
-              ],
+
+                ],
               ),
             ),
           ),
@@ -207,14 +208,25 @@ class BookCard extends StatelessWidget {
               bookTitle,
               textAlign: TextAlign.justify,
               style: TextStyle(
-                 fontFamily: ('Nunito'),
-                 fontWeight: FontWeight.w700,
-                fontSize: 18.0
+                  fontFamily: ('Nunito'),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18.0
               ),
             ),
           ),
         ],
       ),
-    );
+    )
+      ,
+        Divider(
+          color: Colors.grey.withOpacity(0.5),
+          height: 20.0,
+          indent: 20.0,
+          endIndent: 20.0,
+
+        )
+      ]
+
+       );
   }
 }
