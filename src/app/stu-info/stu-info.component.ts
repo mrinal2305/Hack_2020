@@ -13,7 +13,7 @@ export class StuInfoComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.route.snapshot.queryParamMap.get('message'));
+    // console.log(this.route.snapshot.queryParamMap.get('message'));  // GETTING VALUE
   }
 
 }

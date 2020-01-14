@@ -10,7 +10,8 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
 import { AuthService } from './auth.service';
 import { AuthGuardService } from './auth-guard.service';
 import { FormsModule } from  '@angular/forms';
-import { AuthComponent } from './auth/auth.component';
+import { AdminAuthGuardService } from './admin-auth-guard.service';
+import { SuperAuthGuardService } from './super-auth-guard.service';
 
 // import { CustomFormsModule } from 'ng2-validation';
 
@@ -28,7 +29,7 @@ import { AuthComponent } from './auth/auth.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService,AuthGuardService],       // It happens for services
+  providers: [AuthService,AuthGuardService,AdminAuthGuardService,SuperAuthGuardService],       // It happens for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }
