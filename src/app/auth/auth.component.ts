@@ -22,7 +22,8 @@ export class AuthComponent implements OnInit{
   // LOGIN
   login() {
     this.authService.login(this.email, this.password).then(value => {  // .then and .catch GREAT PRIYANSHU METHOD 
-     console.log(value.user.uid);
+  
+     console.log(value.user);
      localStorage.setItem('uid',value.user.uid);
       let returnUrl = localStorage.getItem('returnUrl');  // Getting the URL
       
@@ -40,6 +41,7 @@ export class AuthComponent implements OnInit{
   }
 
   ngOnInit(){
+    
   }
 
 }
