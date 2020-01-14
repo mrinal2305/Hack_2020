@@ -104,100 +104,106 @@ class _BookInputState extends State<BookInput> {
         ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Flexible(child: Image.network(imgUrl)),
-                    Flexible(
-                      child: TextFormField(
-                        controller: titleController,
-                        decoration: InputDecoration(
-                          labelText: 'Title:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) =>
-                        input.contains('') ? 'Not a valid Title' : null,
-                        onChanged: (value) {
-//                          title = value;
-                        },
-//                      onSaved: (input) => _email = input,
-                      ),
-                    ),
-                    Flexible(
-                      child: TextFormField(
-                        initialValue: author,
-                        decoration: InputDecoration(
-                          labelText: 'Author:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                    ),
-                    Flexible(
-                      child: TextFormField(
-                        initialValue: isbn,
-                        decoration: InputDecoration(
-                          labelText: 'ISBN:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                    ),
-                    Flexible(
-                      child: TextFormField(
-                        controller: descriptionController,
-                        decoration: InputDecoration(
-                          labelText: 'Description:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(child: Image.network(imgUrl)),
+                      Flexible(
+                        child: Card(
 
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: RaisedButton(
-                            onPressed: () {
+                          child: TextFormField(
+                            controller: titleController,
+                            decoration: InputDecoration(
+                              labelText: 'Title:',
+                              alignLabelWithHint: true,
+                            ),
+                            validator: (input) =>
+                            input.contains('') ? 'Not a valid Title' : null,
+                            onChanged: (value) {
+//                          title = value;
+                            },
+//                      onSaved: (input) => _email = input,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: TextFormField(
+                          initialValue: author,
+                          decoration: InputDecoration(
+                            labelText: 'Author:',
+                            alignLabelWithHint: true,
+                          ),
+                          validator: (input) => input.length < 8
+                              ? 'You need at least 8 characters'
+                              : null,
+//                      onSaved: (input) => _password = input,
+                        ),
+                      ),
+                      Flexible(
+                        child: TextFormField(
+                          initialValue: isbn,
+                          decoration: InputDecoration(
+                            labelText: 'ISBN:',
+                            alignLabelWithHint: true,
+                          ),
+                          validator: (input) => input.length < 8
+                              ? 'You need at least 8 characters'
+                              : null,
+//                      onSaved: (input) => _password = input,
+                        ),
+                      ),
+                      Flexible(
+                        child: TextFormField(
+                          controller: descriptionController,
+                          decoration: InputDecoration(
+                            labelText: 'Description:',
+                            alignLabelWithHint: true,
+                          ),
+                          validator: (input) => input.length < 8
+                              ? 'You need at least 8 characters'
+                              : null,
+//                      onSaved: (input) => _password = input,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: RaisedButton(
+                              onPressed: () {
 //                            print(bookData);
 //                            print(title);
-                              getDDC();
-                              print(description);
-                              //onAdd();
-                            },
-                            color: Colors.red,
-                            child: Text('Description'),
+                                getDDC();
+                                print(description);
+                                //onAdd();
+                              },
+                              color: Colors.red,
+                              child: Text('Description'),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: RaisedButton(
-                            onPressed: () {
-                                 saveBook();
-                            },
-                            color: Colors.red,
-                            child: Text('Add'),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: RaisedButton(
+                              onPressed: () {
+                                   saveBook();
+                              },
+                              color: Colors.red,
+                              child: Text('Add'),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
