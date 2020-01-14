@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:librarian/models/book.dart';
@@ -91,13 +93,32 @@ class DatabaseService {
       Firestore.instance.collection('student');
 
   Future<void> updateBookData(Book book) async {
-    return await bookCollection.document(book.isbn_10).setData({
-      'title': book.title,
-      'author': book.author,
-      'isbn_10': book.isbn_10,
-      'smallThumbnail': book.smallThumbnail,
-      'description': book.description
-    });
+//   Book book = Book.initialize();
+    final singleBookCollection =  bookCollection.document(book.isbn_10);
+//    print(singleBookCollection.exists);
+  final checkExist=await singleBookCollection.get();
+    if (! checkExist.exists ) {
+      await singleBookCollection.setData({
+        'title': book.title,
+        'author': book.author,
+        'smallThumbnail': book.smallThumbnail,
+        'description': book.description,
+        'ddc': [book.ddc2, book.ddc2],
+        'description': book.description,
+        'isbn_10': book.isbn_10,
+        'isbn_13': book.isbn_13,
+        'issued': book.issued,
+        'lcc': [book.lcc1, book.lcc2],
+        'pageCount': book.pageCount,
+        'publisher': book.publisher,
+        'totalCopy': book.totalCopy,
+      });
+    } else {
+      await singleBookCollection.updateData({
+        'totalCopy':FieldValue.increment(1),
+      });
+      print('update');
+    }
   }
 
   void getBookData() async {
@@ -116,7 +137,7 @@ class DatabaseService {
     }
   }
 
-  // brew list from snapshot
+// brew list from snapshot
 //  List<Book> _bookListFromSnapshot(QuerySnapshot snapshot) {
 //    return snapshot.documents.map((doc) {
 //      //print(doc.data);
@@ -130,7 +151,7 @@ class DatabaseService {
 //    }).toList();
 //  }
 
-  // user data from snapshots
+// user data from snapshots
 //  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
 //    return UserData(
 //        uid: uid,
@@ -140,7 +161,7 @@ class DatabaseService {
 //    );
 //  }
 
-  // get brews stream
+// get brews stream
 //  Stream<List<Book>> get brews {
 //    return bookCollection.snapshots().map(_bookListFromSnapshot);
 //  }

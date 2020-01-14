@@ -137,7 +137,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 //                        print(bookData[index]);
                       //checking for null
                         print('isbn $isbn');
-                        print('isbn_10${booksInfo[index].isbn_10}');
+                        print('isbn_10 ${booksInfo[index].isbn_10}');
                         Navigator.pushNamed(context, BookInput.id,arguments: booksInfo[index]??'1585424331');
                       },
                       child: BookCard(

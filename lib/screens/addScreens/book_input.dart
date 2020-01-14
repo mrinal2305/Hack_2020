@@ -32,6 +32,12 @@ class _BookInputState extends State<BookInput> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
+    final bookInfoFromPeace = ModalRoute.of(context).settings.arguments as Book;
+    book.smallThumbnail=bookInfoFromPeace.smallThumbnail;
+    book.title=bookInfoFromPeace.title;
+    book.isbn_10=bookInfoFromPeace.isbn_10;
+    getBookFullDetails();
+
 
   }
   void getBookFullDetails() async {
@@ -183,8 +189,9 @@ class _BookInputState extends State<BookInput> {
                             child: RaisedButton(
                               onPressed: () async {
 //                                  DatabaseService().getBookData();
-                                DatabaseService().booksStream();
-                                await DatabaseService().updateBookData(book);
+//                                DatabaseService().booksStream();
+                              Book newBook=Book();
+//                                await DatabaseService().updateBookData(newBook);
 //                            print(bookData);
 //                            print(title);
                               },

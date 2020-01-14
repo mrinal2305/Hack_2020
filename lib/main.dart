@@ -7,6 +7,7 @@ import 'package:librarian/screens/search_screen.dart';
 import 'package:librarian/screens/student_info.dart';
 import 'package:librarian/screens/welcome_screen.dart';
 import 'package:librarian/screens/addScreens/book_input.dart';
+import 'package:librarian/services/firebase_helpers.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,15 +15,7 @@ void main() {
 
 //class MyApp1 extends StatelessWidget {
 //
-//  void getData() {
-//    final databaseReference = Firestore.instance;
-//    databaseReference
-//        .collection("student")
-//        .getDocuments()
-//        .then((QuerySnapshot snapshot) {
-//      snapshot.documents.forEach((f) => print('${f.data}}'));
-//    });
-//  }
+//
 //  @override
 //  Widget build(BuildContext context) {
 //    return MaterialApp(
@@ -32,7 +25,7 @@ void main() {
 //          child: Text('Press'),
 //          color: Colors.red,
 //          onPressed: (){
-//            getData();
+////            DatabaseService().updateBookData('123435225');
 ////            String qrResult = await BarcodeScanner.scan();
 ////            print(qrResult);
 //          },
