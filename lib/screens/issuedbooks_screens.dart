@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class IssuedPage extends StatefulWidget {
@@ -9,34 +9,38 @@ class IssuedPage extends StatefulWidget {
 }
 
 class _IssuedPageState extends State<IssuedPage> {
-  final db = FirebaseDatabase.instance.reference();
+  final databaseReference = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        body: Column(
-          children: <Widget>[
-            FlatButton(
+    return SafeArea(
+      child: Container(
+        child: Scaffold(
+          body: Column(
+            children: <Widget>[
+              FlatButton(
 
-              child: Text(
-                  'readData'
-              ),
-              onPressed: () {
-                readData();
-              },
-            )
-          ],
+                child: Text(
+                    'readData'
+                ),
+                onPressed: () {
+                  getData();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void readData() {
-    db.once().then((DataSnapshot datasnaphot) {
-      print(datasnaphot.value);
-    }
-    );
+  void getData() {
+    databaseReference
+        .collection('student')
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) => print('${f.data}}'));
+    });
   }
 
 }

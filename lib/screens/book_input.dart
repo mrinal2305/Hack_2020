@@ -160,18 +160,23 @@ class _BookInputState extends State<BookInput> {
                         ),
                       ),
                       Flexible(
-                        child: TextFormField(
-                          controller: descriptionController,
-                          decoration: InputDecoration(
-                            labelText: 'Description:',
-                            alignLabelWithHint: true,
-                          ),
-                          validator: (input) => input.length < 8
-                              ? 'You need at least 8 characters'
-                              : null,
+                        child: Wrap(
+                          children: <Widget>[
+                          TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: descriptionController,
+                            decoration: InputDecoration(
+                              labelText: 'Description:',
+                              alignLabelWithHint: true,
+                            ),
+                            validator: (input) => input.length < 8
+                                ? 'You need at least 8 characters'
+                                : null,
 //                      onSaved: (input) => _password = input,
-                        ),
-                      ),
+                          ),
+                        ]
+                      )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
