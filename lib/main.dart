@@ -10,7 +10,7 @@ import 'package:librarian/screens/addScreens/book_input.dart';
 import 'package:librarian/services/firebase_helpers.dart';
 
 void main() {
-  runApp(MyApp1());
+  runApp(MyApp());
 }
 
 class MyApp1 extends StatelessWidget {
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AddBookScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
