@@ -12,6 +12,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { FormsModule } from  '@angular/forms';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { SuperAuthGuardService } from './super-auth-guard.service';
+import { HamburgerComponent } from './hamburger/hamburger.component';
 
 // import { CustomFormsModule } from 'ng2-validation';
 
@@ -19,7 +20,8 @@ import { SuperAuthGuardService } from './super-auth-guard.service';
   declarations: [ // It happen for components
     AppComponent,
     TitleBarComponent,
-    routingComponents
+    routingComponents,
+    HamburgerComponent
   ],
   imports: [    // It happen for modules
     AngularFireModule.initializeApp(environment.firebase),

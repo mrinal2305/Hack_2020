@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "ng build && electron ."
+    "electron": "ng build --prod && electron ."
   },
   "private": true,
   "dependencies": {
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
     "angularfire2": "^5.3.0",
+    "bootstrap": "^4.4.1",
     "firebase": "^7.6.2",
     "firebase-tools": "^7.11.0",
     "ng2-validation": "^4.2.0",
