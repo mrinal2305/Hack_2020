@@ -2,55 +2,101 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:librarian/models/book.dart';
 import 'package:librarian/models/librarian.dart';
 import 'package:librarian/models/student.dart';
 import 'package:librarian/models/nlp.dart';
 
 class User {
-  final String uid;
+//  String uid;
+  bool isLibrarian;
+  FirebaseUser user;
+  String errorType;
 
-  User({this.uid});
+  User({this.user, this.errorType});
 }
 
 class AuthService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
-  }
+//  User _userFromFirebaseUser(FirebaseUser user) {
+//    return user != null ? User(uid: user.uid) : null;
+//  }
 
   // auth change user stream
-  Stream<User> get user {
-    return _auth.onAuthStateChanged
-        //.map((FirebaseUser user) => _userFromFirebaseUser(user));
-        .map(_userFromFirebaseUser);
-  }
+//  Stream<User> get user {
+//    return _auth.onAuthStateChanged
+//        //.map((FirebaseUser user) => _userFromFirebaseUser(user));
+//        .map(_userFromFirebaseUser);
+//  }
 
   // sign in anon
-  Future signInAnon() async {
-    try {
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
+//  Future signInAnon() async {
+//    try {
+//      AuthResult result = await _auth.signInAnonymously();
+//      FirebaseUser user = result.user;
+//      return _userFromFirebaseUser(user);
+//    } catch (e) {
+//      print(e.toString());
+//      return null;
+//    }
+//  }
 
   // sign in with email and password
+  Future<User> validate(String email,String password)async{
+    User u=await signInWithEmailAndPassword(email, password);
+    try{
+    if(u.user!=null) {
+      final CollectionReference checkCollection =
+      Firestore.instance.collection('check');
+      final checkExist = await checkCollection.document(u.user.uid).get();
+      print(u.user.email);
+      print(u.user.uid);
+      print(checkExist.exists);
+      if (checkExist.exists) {
+        print('inif');
+        u.isLibrarian=true;
+        return u;
+      } else {
+        print('inelse');
+        u.isLibrarian=false;
+        return u;
+      }
+    } else{
+      print('null');
+      u.isLibrarian=false;
+      return u;
+    }}catch(e){
+      print('invalidate try');
+      print(e);
+    }
+  }
   static Future signInWithEmailAndPassword(
       String email, String password) async {
+    User u;
     try {
+      //gives status of sign in whether success or error for more details ctrl+click
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+      print(result);
+      print('above result');
       FirebaseUser user = result.user;
-      return user;
-    } catch (error) {
-      print(error.toString());
-      return null;
+      print(user.email);
+      u.user=user;
+      u.errorType=null;
+      return u;
+    } on PlatformException catch (error) {
+      print('in catch of sign in');
+      print(error.message);
+      print(u);
+      u=User();//very important wasted 2 hrs
+      u.user=null;
+      u.errorType=error.message;
+      print('outro of sign in');
+      return u;
     }
   }
 
@@ -189,10 +235,8 @@ class DatabaseService {
 //    print(singleBookCollection.exists);
     final checkExist = await singleNlpCollection.get();
     if (!checkExist.exists) {
-      await singleNlpCollection.setData({
-        'concept': nlp.concept,
-        'sentiment':nlp.concept
-      });
+      await singleNlpCollection
+          .setData({'concept': nlp.concept, 'sentiment': nlp.concept});
     } else {
 //      await singleStudentCollection.updateData({
 //        'totalCopy':FieldValue.increment(1),
@@ -222,14 +266,15 @@ class DatabaseService {
   //for librarian collection
   Future<void> updateLibrarianData(Librarian librarian) async {
 //   Book book = Book.initialize();
-    final singleLibrarianCollection = librarianCollection.document(librarian.id);
+    final singleLibrarianCollection =
+        librarianCollection.document(librarian.id);
 //    print(singleBookCollection.exists);
     final checkExist = await singleLibrarianCollection.get();
     if (!checkExist.exists) {
       await singleLibrarianCollection.setData({
         'Name': librarian.name,
-        'Post':librarian.post,
-        'isLibrarian':librarian.isLibrarian
+        'Post': librarian.post,
+        'isLibrarian': librarian.isLibrarian
       });
     } else {
 //      await singleStudentCollection.updateData({
@@ -256,11 +301,7 @@ class DatabaseService {
       }
     }
   }
-
 }
-
-
-
 
 // brew list from snapshot
 //  List<Book> _bookListFromSnapshot(QuerySnapshot snapshot) {

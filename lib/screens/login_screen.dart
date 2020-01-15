@@ -16,6 +16,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 //  final _auth = FirebaseAuth.instance;
 //
+  bool isInvalid=false;
+  String validity='validity';
   String email;
   String password;
   bool showSpinner = false;
@@ -86,8 +88,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         print(email);
                         print(password);
                         try{
-                          await AuthService.signInWithEmailAndPassword(email, password);
-                          Navigator.pushNamed(context, HomeScreen.id);
+                          print('helloow1');
+                         User toNavigate= await AuthService().validate(email,password);
+                         print('hello');
+                         print('hello here $toNavigate');
+                         if(toNavigate.user!=null&&toNavigate.isLibrarian) {
+                           Navigator.pushNamed(context, HomeScreen.id);
+                         } else{
+                           setState(() {
+                             if(toNavigate.errorType==null)
+                             validity='You are not authorized Librarian';
+                             validity=toNavigate.errorType;
+                             isInvalid=true;
+                           });
+                         }
                           setState(() {
                             showSpinner=false;
                           });
@@ -99,6 +113,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           print(e);
                         }
                       },
+                    ),
+                    Visibility(
+                      child: Center(
+                        child: Text(
+                          validity,
+                          style: TextStyle(
+                            color: Color(0xff3ab397),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      visible: isInvalid,
                     ),
                   ],
                 ),
