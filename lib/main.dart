@@ -10,30 +10,31 @@ import 'package:librarian/screens/addScreens/book_input.dart';
 import 'package:librarian/services/firebase_helpers.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp1());
 }
 
-//class MyApp1 extends StatelessWidget {
-//
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      home: Container(
-//        color: Colors.yellowAccent,
-//        child:FlatButton(
-//          child: Text('Press'),
-//          color: Colors.red,
-//          onPressed: (){
-////            DatabaseService().updateBookData('123435225');
-////            String qrResult = await BarcodeScanner.scan();
-////            print(qrResult);
-//          },
-//        ),
-//      ),
-//    );
-//  }
-//}
+class MyApp1 extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Container(
+        color: Colors.yellowAccent,
+        child:FlatButton(
+          child: Text('Press'),
+          color: Colors.red,
+          onPressed: (){
+//            DatabaseService().updateBookData('123435225');
+//            String qrResult = await BarcodeScanner.scan();
+//            print(qrResult);
+           DatabaseService().getNlpData();
+          },
+        ),
+      ),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
