@@ -1,13 +1,22 @@
-import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:librarian/models/book.dart';
 import 'package:librarian/models/librarian.dart';
 import 'package:librarian/models/student.dart';
 import 'package:librarian/models/nlp.dart';
+
+class SearchService {
+  searchByTitle(String searchField) {
+    print('in searchbytitle $searchField');
+    return Firestore.instance
+        .collection('book')
+        .where('titleKey',
+        isEqualTo: searchField.substring(0, 1).toLowerCase())
+        .getDocuments();
+  }
+}
 
 class User {
 //  String uid;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:librarian/constants.dart';
 import 'package:librarian/screens/addScreens/add_book_screen.dart';
 import 'package:librarian/screens/issue_screen.dart';
 import 'package:librarian/screens/search_screen.dart';
@@ -13,19 +14,30 @@ class HomeScreen extends StatelessWidget {
     final data = MediaQuery.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff3ab397),
-//        appBar: AppBar(
-//          title: Text('Home'),
-//        ),
+        backgroundColor: kPrimaryColor,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text('Home'),
+        ),
         drawer: Drawer(
           child: ListView(
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
-                child: Text('Drawer Header'),
+//                curve: Curves.easeInCubic,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: kPrimaryColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Drawer Header'),
+                    Flexible(
+                      child: Image.asset('images/collaboration.png'),
+                    ),
+                  ],
                 ),
               ),
               ListTile(
@@ -49,11 +61,10 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-
         body: Container(
           height: data.size.height,
           width: data.size.width,
-          margin: EdgeInsets.only(top: data.size.height / 6),
+          margin: EdgeInsets.only(top: data.size.height / 7),
           decoration: BoxDecoration(
               color: Color(0xfff7f7f7),
               borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
@@ -71,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, IssueScreen.id);
               }, 'images/collaboration.png'),
               MyCard('Search', () {
-//                    Navigator.pushNamed(context, SearchScreen.id);
+                Navigator.pushNamed(context, SearchScreen.id);
               }, 'images/collaboration.png')
             ],
           ),

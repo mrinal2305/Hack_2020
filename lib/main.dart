@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: WelcomeScreen.id,
+      initialRoute: HomeScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         BookInput.id: (context) => BookInput(),
         IssueScreen.id: (context) => IssueScreen(),
 //        StudentInfo.id: (context) => StudentInfo(),
-//        SearchScreen.id: (context) => SearchScreen(),
+        SearchScreen.id: (context) => SearchScreen(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
       },
     );
