@@ -1,5 +1,4 @@
 import 'networking.dart';
-import 'dart:async';
 
 class BookModel{
   //for basic details
@@ -8,7 +7,11 @@ class BookModel{
 
   //for ddc only
   static const String DdcUrl='https://nameless-fortress-08601.herokuapp.com/ddc_lcc/';
-  static const String DescriptionUrl='https://nameless-fortress-08601.herokuapp.com/details/';
+
+  //for complete details
+  static const String detailsUrl='https://nameless-fortress-08601.herokuapp.com/details/';
+
+  static const String NLPUrl='https://intense-thicket-08147.herokuapp.com/';
 
   Future<dynamic> getBookDetailsByTitle(String bookTitle) async {
     NetworkHelper networkHelper=NetworkHelper(titleURL: TitleUrl+bookTitle);
@@ -22,11 +25,19 @@ class BookModel{
     return bookDetails;
   }
 
-  Future<dynamic> getBookDescription(String isbn) async {
-    NetworkHelper networkHelper=NetworkHelper(ddcURL: DescriptionUrl+isbn);
-    var bookDetails=await networkHelper.getBookDescription();
-    print(bookDetails);
+  Future<dynamic> getBookDDC(String bookDDC) async {
+    NetworkHelper networkHelper=NetworkHelper(ddcURL: DdcUrl+bookDDC);
+    var bookDetails=await networkHelper.getBookDDc();
     return bookDetails;
   }
+
+  //give complete details on the basis of nameless fortress
+  Future<dynamic> getBookCompleteDetails(String isbnForDetails) async{
+    NetworkHelper networkHelper=NetworkHelper(isbnForDetailsUrl: detailsUrl+isbnForDetails);
+    var bookDetails=await networkHelper.getBookDetails();//complete details
+    return bookDetails;
+  }
+
+
 
 }

@@ -5,31 +5,27 @@ import 'package:lbs/elements/custom_speed_dial.dart';
 import 'package:lbs/screens/book_input.dart';
 import 'package:lbs/services/book_model.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
-class BookInfo {
-  String bookName;
-  String bookURL;
-
-  BookInfo(this.bookName, this.bookURL);
-}
+import 'package:lbs/elements/books.dart';
 
 class AddBookScreen extends StatefulWidget {
   static const id = 'add_book_screen';
-
 
   @override
   _AddBookScreenState createState() => _AddBookScreenState();
 }
 
+
+
 class _AddBookScreenState extends State<AddBookScreen> {
   var bookData;//added for taking json data
-  String bookTitleField;
+//  String bookTitleField;
   String imgUrl =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
+  String isbn;
   bool showSpinner = false; //used to check whether to show spinner or not
 
-  List<BookInfo> booksInfo = [];
+  List<Book> booksInfo = [];
 
   void getBooksByTitle(String bookTitle) async {
     setState(() {
@@ -47,6 +43,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 //          print(i);
           title = bookData[i]['title'];
           imgUrl = bookData[i]['imageLinks']['smallThumbnail'];
+          isbn=bookData[i]['isbn']['isbn_10'];
 //          print(title);
 //          print(url);
         } catch (e) {
@@ -55,7 +52,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         }
         setState(() {
           showSpinner = false;
-          booksInfo.add(BookInfo(title, imgUrl));
+          booksInfo.add(Book(title: title,smallThumbnail: imgUrl,isbn_10: isbn));
         });
       }
     }
@@ -73,6 +70,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       try {
         title = bookData['title'];
         imgUrl = bookData['image']['smallThumbnail'];
+        isbn=bookData['isbn']['isbn_10'];
 //        print(title);
 //        print(url);
       } catch (e) {
@@ -81,7 +79,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       }
       setState(() {
         showSpinner = false;
-        booksInfo.add(BookInfo(title, imgUrl));
+        booksInfo.add(Book(title:title, smallThumbnail: imgUrl,isbn_10: isbn));
       });
     }
   }
@@ -106,7 +104,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final data=MediaQuery.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -133,17 +130,19 @@ class _AddBookScreenState extends State<AddBookScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
 //                        print(index);
 //                        print(bookData[index]);
-                        Navigator.pushNamed(context, BookInput.id,arguments: bookData[index]??bookData);
+                        //checking for null
+                        print('isbn $isbn');
+                        print('isbn_10 ${booksInfo[index].isbn_10}');
+                        Navigator.pushNamed(context, BookInput.id,arguments: booksInfo[index]??'1585424331');
                       },
                       child: BookCard(
-                        bookTitle: booksInfo[index].bookName,
-                        imgURL: booksInfo[index].bookURL,
+                        bookTitle: booksInfo[index].title,
+                        imgURL: booksInfo[index].smallThumbnail,
                       ),
                     );
                   },
@@ -167,66 +166,66 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:<Widget>[
-      Container(
-      //height: 100,
+        children:<Widget>[
+          Container(
+            //height: 100,
 //      width: 200,
-      width: double.infinity,
-      child: Row(
-        children: <Widget>[
-          Flexible(
-            flex: 4,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22.0),
-              child: Column(
+            width: double.infinity,
+            child: Row(
+              children: <Widget>[
+                Flexible(
+                  flex: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                    child: Column(
 //              child: Image(
 //                image: NetworkImage(imgURL),
 //              ),
 
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(24.0),
-                    child: Card(
-                      elevation:5.0,
-                      child: Image(
-                        image: NetworkImage(imgURL),
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(24.0),
+                          child: Card(
+                            elevation:5.0,
+                            child: Image(
+                              image: NetworkImage(imgURL),
 
 
-                      ),
+                            ),
+                          ),
+                        ),
+
+
+
+                      ],
                     ),
                   ),
-
-
-
-                ],
-              ),
+                ),
+                Flexible(
+                  flex: 6,
+                  child: Text(
+                    bookTitle,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                        fontFamily: ('Nunito'),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18.0
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Flexible(
-            flex: 6,
-            child: Text(
-              bookTitle,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                  fontFamily: ('Nunito'),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18.0
-              ),
-            ),
-          ),
-        ],
-      ),
-    )
-      ,
-        Divider(
-          color: Colors.grey.withOpacity(0.5),
-          height: 20.0,
-          indent: 20.0,
-          endIndent: 20.0,
+          )
+          ,
+          Divider(
+            color: Colors.grey.withOpacity(0.5),
+            height: 20.0,
+            indent: 20.0,
+            endIndent: 20.0,
 
-        )
-      ]
+          )
+        ]
 
-       );
+    );
   }
 }

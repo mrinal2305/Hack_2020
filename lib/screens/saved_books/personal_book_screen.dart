@@ -28,7 +28,7 @@ class BookListScreen extends StatelessWidget {
                   : ListView.builder(
                 itemBuilder: (context, index) {
                   try{
-                   imageUrl=savedBooks.items[index].imgUrl;
+                   imageUrl=savedBooks.items[index].smallThumbnail;
                    print(imageUrl);
 
                   }catch(e){
@@ -36,8 +36,8 @@ class BookListScreen extends StatelessWidget {
                   }
                   return MyCard(title:savedBooks.items[index].title,
                              author: savedBooks.items[index].author,
-                             isbn: savedBooks.items[index].isbn,
-                             imgUrl: imageUrl,
+                             isbn: savedBooks.items[index].isbn_10,
+                             //imgUrl: imageUrl,
                   );
 
                 },
@@ -75,7 +75,7 @@ class MyCard extends StatelessWidget {
         child: Row(
 //          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Image(image: NetworkImage(imgUrl)),
+            //Image(image: NetworkImage(imgUrl)),
             Text(title,style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w400

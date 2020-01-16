@@ -4,21 +4,21 @@ import 'package:lbs/elements/books.dart';
 import 'package:lbs/services/db_helper.dart';
 
 class SavedBooks with ChangeNotifier {
-  List<Books> _items = [];
+  List<Book> _items = [];
 
-  List<Books> get items {
+  List<Book> get items {
     return [..._items];
   }
 
-  void addBook(Books books ) {
+  void addBook(Book books ) {
     _items.add(books);
     notifyListeners();
     DBHelper.insert(
       'user_books',
       {
-        'isbn': books.isbn,
+        'isbn': books.isbn_10,
         'title': books.title,
-        'imgUrl': books.imgUrl,
+        'imgUrl': books.smallThumbnail,
         'description': books.description,
         'author': books.author
       },
@@ -29,10 +29,10 @@ class SavedBooks with ChangeNotifier {
     final dataList = await DBHelper.getData('user_books');
     _items = dataList.map(
           (item) {
-        return Books(
-          isbn: item['isbn'],
+        return Book(
+          isbn_10: item['isbn'],
           title: item['title'],
-          imgUrl: item['imgUrl'],
+          smallThumbnail: item['imgUrl'],
           description: item['description'],
           author: item['author']
         );
