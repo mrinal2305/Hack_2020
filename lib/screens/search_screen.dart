@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
 import 'package:librarian/services/firebase_helpers.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+
 
 class SearchScreen extends StatefulWidget {
   static const id='search_screen';

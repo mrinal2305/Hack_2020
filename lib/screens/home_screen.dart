@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
 import 'package:librarian/screens/addScreens/add_book_screen.dart';
-import 'package:librarian/screens/issue_screen.dart';
+import 'package:librarian/screens/issueScreens/issue_screen.dart';
 import 'package:librarian/screens/search_screen.dart';
-import 'package:librarian/elements/my_card.dart';
+import 'package:librarian/elements/custom_card.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = 'home_screen';
@@ -75,13 +75,13 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 20.0,
               ),
-              MyCard('Add\nBook', () {
+              HomeCard('Add\nBook', () {
                 Navigator.pushNamed(context, AddBookScreen.id);
               }, 'images/collaboration.png'),
-              MyCard('Issue\nReissue\nReturn', () {
+              HomeCard('Issue\nReissue\nReturn', () {
                 Navigator.pushNamed(context, IssueScreen.id);
               }, 'images/collaboration.png'),
-              MyCard('Search', () {
+              HomeCard('Search', () {
                 Navigator.pushNamed(context, SearchScreen.id);
               }, 'images/collaboration.png')
             ],

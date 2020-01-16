@@ -14,8 +14,6 @@ class AddBookScreen extends StatefulWidget {
   _AddBookScreenState createState() => _AddBookScreenState();
 }
 
-
-
 class _AddBookScreenState extends State<AddBookScreen> {
   var bookData;//added for taking json data
 //  String bookTitleField;

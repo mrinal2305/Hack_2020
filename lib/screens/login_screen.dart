@@ -16,8 +16,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 //  final _auth = FirebaseAuth.instance;
 //
-  bool isInvalid=false;
-  String validity='validity';
+  bool isInvalid = false;
+  String validity = 'validity';
   String email;
   String password;
   bool showSpinner = false;
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 30.0),
                         child: TextField(
-//                      obscureText: true,
+                          obscureText: true,
                           textAlign: TextAlign.center,
                           decoration: kTextFieldDecoration.copyWith(
 //                        icon: Icon(Icons.lock_outline),
@@ -87,27 +87,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         print(email);
                         print(password);
-                        try{
+                        try {
                           print('helloow1');
-                         User toNavigate= await AuthService().validate(email,password);
-                         print('hello');
+                          User toNavigate =
+                              await AuthService().validate(email, password);
+                          print('hello');
 //                         print('hello here $toNavigate');
-                         if(toNavigate.isUserAvailable&&toNavigate.isLibrarian) {
-                           Navigator.pushNamed(context, HomeScreen.id);
-                         } else{
-                           setState(() {
-                             if(toNavigate.errorType==null)
-                             validity='You are not authorized Librarian';
-                             validity=toNavigate.errorType;
-                             isInvalid=true;
-                           });
-                         }
+                          if (toNavigate.isUserAvailable &&
+                              toNavigate.isLibrarian) {
+                            Navigator.pushNamed(context, HomeScreen.id);
+                          } else {
+                            setState(() {
+                              if (toNavigate.errorType == null)
+                                validity = 'You are not authorized Librarian';
+                              validity = toNavigate.errorType;
+                              isInvalid = true;
+                            });
+                          }
                           setState(() {
-                            showSpinner=false;
+                            showSpinner = false;
                           });
-                        } catch(e){
+                        } catch (e) {
                           setState(() {
-                            showSpinner=false;
+                            showSpinner = false;
                           });
                           print('here in email sign in exception');
                           print(e);

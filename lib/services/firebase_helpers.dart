@@ -213,7 +213,7 @@ class DatabaseService {
         'Roll': student.roll,
         'Year': student.year,
         'Branch': student.branch,
-        'reg_No': student.bookIssued,
+        'reg_No': student.regNo,
       });
     } else {
 //      await singleStudentCollection.updateData({
@@ -340,10 +340,6 @@ class DatabaseService {
 //    );
 //  }
 
-// get brews stream
-//  Stream<List<Book>> get brews {
-//    return bookCollection.snapshots().map(_bookListFromSnapshot);
-//  }
 
 // get user doc stream
 //  Stream<UserData> get userData {

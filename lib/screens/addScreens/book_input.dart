@@ -45,6 +45,7 @@ class _BookInputState extends State<BookInput> {
     isbnController.text = book.isbn_10;
     titleController.text = book.title;
     ddcController.text = book.ddc1;
+    if(mounted)
     setState(() {
       showSpinner = true;
     });
@@ -71,6 +72,7 @@ class _BookInputState extends State<BookInput> {
       }
     }
     getDDC();
+    if(mounted)
     setState(() {
       showSpinner=false;
     });

@@ -1,9 +1,9 @@
 class Student{
   String branch;
   String name;
-  String year;
+  int year;
   String roll;
   String regNo;
-  var bookIssued=List<String>();
+  List books=[];//dynamic
   Student({this.name,this.roll,this.regNo,this.year});
 }
