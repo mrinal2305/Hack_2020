@@ -9,6 +9,8 @@ import { HompageComponent } from './hompage/hompage.component';
 import { AuthGuardService } from './auth-guard.service';
 import {  AdminAuthGuardService } from './admin-auth-guard.service';
 import { SuperAuthGuardService } from './super-auth-guard.service';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { from } from 'rxjs';
 
 const routes: Routes = [
   {path :"",           component : HompageComponent},
@@ -17,6 +19,7 @@ const routes: Routes = [
   {path :"man_book",   component : ManBookComponent},//canActivate :[AuthGuardService,AdminAuthGuardService]},
   {path :"book_ser",   component : BookSerComponent},//canActivate :[AuthGuardService]},
   {path :"regs",       component : RegComponent},//canActivate :[AuthGuardService]},  
+  {path : "upload" ,   component : FileUploadComponent}
 ];
 
 @NgModule({

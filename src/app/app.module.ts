@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { AppRoutingModule ,routingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,9 @@ import { FormsModule } from  '@angular/forms';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { SuperAuthGuardService } from './super-auth-guard.service';
 import { HamburgerComponent } from './hamburger/hamburger.component';
+import { DropzoneDirective } from './dropzone.directive';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileSizePipe } from './file-size.pipe';
 
 // import { CustomFormsModule } from 'ng2-validation';
 
@@ -21,12 +25,16 @@ import { HamburgerComponent } from './hamburger/hamburger.component';
     AppComponent,
     TitleBarComponent,
     routingComponents,
-    HamburgerComponent
+    HamburgerComponent,
+    DropzoneDirective,
+    FileUploadComponent,
+    FileSizePipe
   ],
   imports: [    // It happen for modules
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFireStorageModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule
