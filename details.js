@@ -19,29 +19,35 @@ router.get('/:isbn',(req,res,next)=>{
             var json = convert.xml2json(body,{compact:true})
             var output = JSON.parse(json);
 
-            var title,desc,publisher,pC,avgR,author;
+            var title,desc,namepublisher,pC,avgR,author;
 
             if(output.GoodreadsResponse.book.authors.author.name._text)  author = output.GoodreadsResponse.book.authors.author.name._text;
-            if(output.GoodreadsResponse.book.authors.author.name._cdata) author = output.GoodreadsResponse.book.authors.author.name._cdata;
-          
+            else if(output.GoodreadsResponse.book.authors.author.name._cdata) author = output.GoodreadsResponse.book.authors.author.name._cdata;
+            else author = 'null';
 
             if(output.GoodreadsResponse.book.title._text) title = output.GoodreadsResponse.book.title._text;
-            if(output.GoodreadsResponse.book.title._cdata) title = output.GoodreadsResponse.book.title._cdata;
+            else if(output.GoodreadsResponse.book.title._cdata) title = output.GoodreadsResponse.book.title._cdata;
+            else title = 'null';
 
             if(output.GoodreadsResponse.book.description._cdata) desc = output.GoodreadsResponse.book.description._cdata;
-            if(output.GoodreadsResponse.book.description._text) desc = output.GoodreadsResponse.book.description._text;
+            else if(output.GoodreadsResponse.book.description._text) desc = output.GoodreadsResponse.book.description._text;
+            else desc = 'null';
 
             if(output.GoodreadsResponse.book.num_pages._cdata) pC = output.GoodreadsResponse.book.num_pages._cdata;
-            if(output.GoodreadsResponse.book.num_pages._text)  pC = output.GoodreadsResponse.book.num_pages._text;
+            else if(output.GoodreadsResponse.book.num_pages._text)  pC = output.GoodreadsResponse.book.num_pages._text;
+            else pC = 'null';
 
             if(output.GoodreadsResponse.book.publisher._cdata) publisher = output.GoodreadsResponse.book.publisher._cdata;
-            if(output.GoodreadsResponse.book.publisher._text)  publisher = output.GoodreadsResponse.book.publisher._text;
+           else if(output.GoodreadsResponse.book.publisher._text)  publisher = output.GoodreadsResponse.book.publisher._text;
+            else publisher = 'null';
 
             if(output.GoodreadsResponse.book.average_rating._cdata) avgR = output.GoodreadsResponse.book.average_rating._cdata;
-            if(output.GoodreadsResponse.book.average_rating._text) avgR = output.GoodreadsResponse.book.average_rating._text;
+            else if(output.GoodreadsResponse.book.average_rating._text) avgR = output.GoodreadsResponse.book.average_rating._text;
+            else avgR = 'null';
+
             result = {
                 title  : title,
-                author : author,
+                author : output.GoodreadsResponse.book.authors.author,   // Retuning array check array and response 
                 isbn   : {
                         isbn_10 : output.GoodreadsResponse.book.isbn._cdata,
                         isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
