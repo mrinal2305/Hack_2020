@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class IssuedPage extends StatefulWidget {
-  static const id="issuedbooks_screens.dart";
+  static const String id="issued_books_screens.dart";
   @override
   _IssuedPageState createState() => _IssuedPageState();
 }
@@ -23,32 +23,11 @@ class _IssuedPageState extends State<IssuedPage> {
         child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                StudentInfo(imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQubH2Bcr7A-rVMRm4l91FShKAadvCOVgtlM0SgRw6YOZgKM9yg5g&s',studentName: 'Dev',rollNo: '1706022',branch: 'C.S.E',dob: '27/07/1999',mobileNumber: '9998877887',email: 'dev@gmail.com',),
                 Row(
                   children: <Widget>[
                     Text('Issued Books'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
 
-                        FloatingActionButton(
-                          mini: true,
-                          backgroundColor: Colors.teal,
-                          child: Icon(
-                              Icons.add
-                          ),
-                          onPressed: (){},
-                        ),
-                        FloatingActionButton(
-                          backgroundColor: Colors.teal,
-                          mini: true,
-                          child: Icon(
-                              Icons.minimize
-                          ),
-                          onPressed: (){},
-                        )
-                      ],
-                    )
+
 
                   ],
                 ),

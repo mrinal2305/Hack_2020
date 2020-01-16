@@ -52,60 +52,7 @@ class BookListScreen extends StatelessWidget {
   }
 }
 
-class MyCard extends StatelessWidget {
-  final String title;
-  final String author;
-  final String isbn;
-  final String imgUrl;
 
-  MyCard({this.title,this.author,this.isbn,this.imgUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    final data=MediaQuery.of(context);
-    return Card(
-      color: Color(0xddffffff),
-      elevation: 8,
-//        borderOnForeground: false,
-      child: Container(
-        width:data.size.width-50.0,
-        height: data.size.height/6,
-        margin: EdgeInsets.only(left: 8, top: 8, bottom: 8),
-        padding: EdgeInsets.all(12),
-        child: Row(
-//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Image(image: NetworkImage(imgUrl)),
-            Text(title,style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400
-            ),
-
-
-            ),
-//            SizedBox(
-//              width: 50,
-//            ),
-//            Text(author,style: TextStyle(
-//                fontSize: 20.0,
-//                fontWeight: FontWeight.w400
-//            ),),
-//            SizedBox(
-//              width: 20,
-//            ),Text(
-//              isbn,style: TextStyle(
-//                fontSize: 20.0,
-//                fontWeight: FontWeight.w400
-//            ),
-//            )
-          ],
-        ),
-//          height: 120.00,
-//          width: 300,
-      ),
-    );
-  }
-}
 
 class SavedBookDetails extends StatelessWidget {
   //final imgURl;

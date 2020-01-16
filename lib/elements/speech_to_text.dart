@@ -67,10 +67,10 @@ class _VoiceHomeState extends State<VoiceHome> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FloatingActionButton(
+              FlatButton(
                 child: Icon(Icons.cancel),
-                mini: true,
-                backgroundColor: Colors.deepOrange,
+
+                color: Colors.deepOrange,
                 onPressed: () {
                   if (_isListening)
                     _speechRecognition.cancel().then(
@@ -81,7 +81,7 @@ class _VoiceHomeState extends State<VoiceHome> {
                     );
                 },
               ),
-              FloatingActionButton(
+              FlatButton(
                 child: Icon(Icons.mic),
                 onPressed: () {
                   if (_isAvailable && !_isListening)
@@ -89,12 +89,11 @@ class _VoiceHomeState extends State<VoiceHome> {
                         .listen(locale: "en_US")
                         .then((result) => print('$result'));
                 },
-                backgroundColor: Colors.pink,
+                color: Colors.pink,
               ),
-              FloatingActionButton(
+              FlatButton(
                 child: Icon(Icons.stop),
-                mini: true,
-                backgroundColor: Colors.deepPurple,
+                color: Colors.deepPurple,
                 onPressed: () {
                   if (_isListening)
                     _speechRecognition.stop().then(
