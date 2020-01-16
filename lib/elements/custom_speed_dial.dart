@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lbs/constants.dart';
+import 'package:lbs/elements/speech_to_text.dart';
 import 'dart:async';
 
 class CustomSpeedDial extends StatelessWidget {
   final Function onISBNPressed;
   final Function onTitlePressed;
   final Function onBarPressed;
+  final Function onVoiceBarPressed;
 
-  CustomSpeedDial({this.onISBNPressed,this.onTitlePressed,this.onBarPressed});
+  CustomSpeedDial({this.onISBNPressed,this.onTitlePressed,this.onBarPressed,this.onVoiceBarPressed});
 
   //Dialog box
   Future<String> createAlertDialog(
@@ -19,7 +21,7 @@ class CustomSpeedDial extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.tealAccent,
+            backgroundColor: Colors.white,
             title: Text(heading),
             content: TextField(
               decoration: deco,
@@ -90,11 +92,14 @@ class CustomSpeedDial extends StatelessWidget {
         ),
         //adding book by speech
         SpeedDialChild(
+
           child: Icon(Icons.keyboard_voice),
           backgroundColor: Colors.green,
 //          label: 'Third',
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => print('THIRD CHILD'),
+          onTap: () {
+            Navigator.pushNamed(context,SpeechText.id);
+          },
         ),
         //adding book by ISBN
         SpeedDialChild(
@@ -110,6 +115,7 @@ class CustomSpeedDial extends StatelessWidget {
             ).then(onISBNPressed);
           },
         ),
+
       ],
     );
   }

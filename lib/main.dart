@@ -9,6 +9,7 @@ import 'package:lbs/screens/pdfViewer.dart';
 import 'package:lbs/screens/book_input.dart';
 import 'package:lbs/screens/issuedbooks_screens.dart';
 import 'package:lbs/screens/saved_books/personal_book_screen.dart';
+import 'package:lbs/elements/speech_to_text.dart';
 
 import 'package:lbs/elements/file_picker.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,9 @@ class MyApp extends StatelessWidget {
                    SearchBar.id: (context)=>SearchBar(),
                    PdfViewer.id: (context)=>PdfViewer(),
                    FilePickerDemo.id: (context) =>FilePickerDemo(),
-                   BookListScreen.id: (context) =>BookListScreen()
+                   BookListScreen.id: (context) =>BookListScreen(),
+                   SpeechText.id: (context) =>SpeechText()
+
 
                    }),
     );
