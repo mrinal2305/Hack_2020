@@ -47,7 +47,7 @@ router.get('/:isbn',(req,res,next)=>{
 
             result = {
                 title  : title,
-                author : output.GoodreadsResponse.book.authors.author,   // Retuning array check array and response 
+                author : output.GoodreadsResponse.book.authors.author.name._text,   // Retuning array check array and response 
                 isbn   : {
                         isbn_10 : output.GoodreadsResponse.book.isbn._cdata,
                         isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
