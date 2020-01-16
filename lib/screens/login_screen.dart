@@ -91,8 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           print('helloow1');
                          User toNavigate= await AuthService().validate(email,password);
                          print('hello');
-                         print('hello here $toNavigate');
-                         if(toNavigate.user!=null&&toNavigate.isLibrarian) {
+//                         print('hello here $toNavigate');
+                         if(toNavigate.isUserAvailable&&toNavigate.isLibrarian) {
                            Navigator.pushNamed(context, HomeScreen.id);
                          } else{
                            setState(() {
@@ -111,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                           print('here in email sign in exception');
                           print(e);
+                          print('outro signin in login');
                         }
                       },
                     ),

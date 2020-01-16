@@ -12,10 +12,11 @@ import 'package:librarian/models/nlp.dart';
 class User {
 //  String uid;
   bool isLibrarian;
-  FirebaseUser user;
+  bool  isUserAvailable;
   String errorType;
+  FirebaseUser user;
 
-  User({this.user, this.errorType});
+  User({this.isUserAvailable,this.isLibrarian, this.errorType});
 }
 
 class AuthService {
@@ -67,6 +68,7 @@ class AuthService {
       }
     } else{
       print('null');
+      u.isUserAvailable=false;
       u.isLibrarian=false;
       return u;
     }}catch(e){
@@ -76,7 +78,7 @@ class AuthService {
   }
   static Future signInWithEmailAndPassword(
       String email, String password) async {
-    User u;
+    User u=User();//initialize variables wasted 3 hrs throw called on null
     try {
       //gives status of sign in whether success or error for more details ctrl+click
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -86,6 +88,7 @@ class AuthService {
       FirebaseUser user = result.user;
       print(user.email);
       u.user=user;
+      u.isUserAvailable=true;
       u.errorType=null;
       return u;
     } on PlatformException catch (error) {
@@ -94,6 +97,7 @@ class AuthService {
       print(u);
       u=User();//very important wasted 2 hrs
       u.user=null;
+      u.isUserAvailable=false;
       u.errorType=error.message;
       print('outro of sign in');
       return u;
