@@ -9,11 +9,11 @@ class HomeCard extends StatelessWidget {
   final Function onTap;
   final String imgPath;
 
-  HomeCard(this.title, this.onTap,this.imgPath);
+  HomeCard(this.title, this.onTap, this.imgPath);
 
   @override
   Widget build(BuildContext context) {
-    final data=MediaQuery.of(context);
+    final data = MediaQuery.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -21,21 +21,24 @@ class HomeCard extends StatelessWidget {
         elevation: 8,
 //        borderOnForeground: false,
         child: Container(
-          width:data.size.width-50.0,
-          height: data.size.height/6,
+          width: data.size.width - 50.0,
+          height: data.size.height / 6,
           margin: EdgeInsets.only(left: 8, top: 8, bottom: 8),
           padding: EdgeInsets.all(12),
           child: Row(
 //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Image.asset(imgPath,scale: 10.0,),
+              Image.asset(
+                imgPath ?? imgIsNull,
+                scale: 10.0,
+              ),
               SizedBox(
                 width: 50,
               ),
-              Text(title,style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w400
-              ),),
+              Text(
+                title,
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+              ),
             ],
           ),
 //          height: 120.00,
@@ -43,6 +46,74 @@ class HomeCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class BookCard extends StatelessWidget {
+  final imgURL;
+  final title;
+  final author;
+  final isbn;
+
+  BookCard({this.title, this.author, this.isbn, this.imgURL});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Container(
+        width: double.infinity,
+        child: Row(
+          children: <Widget>[
+            Flexible(
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24.0),
+                  child: Card(
+                    elevation: 5.0,
+                    child: Image(
+                      image: NetworkImage(imgURL??imgIsNull),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 6,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    '$title',
+                    textAlign: TextAlign.justify,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                  ),
+                  Text(
+                    '$author',
+                    textAlign: TextAlign.justify,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                  ),
+                  Text(
+                    '$isbn',
+                    textAlign: TextAlign.justify,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      Divider(
+        color: Colors.grey.withOpacity(0.5),
+        height: 20.0,
+        indent: 20.0,
+        endIndent: 20.0,
+      )
+    ]);
   }
 }
 
@@ -165,12 +236,12 @@ class IssuedBookCard extends StatelessWidget {
 
   IssuedBookCard(
       {this.bookTitle,
-        this.imgUrl,
-        this.author,
-        this.isbn,
-        this.fine,
-        this.issueDate,
-        this.returnDate});
+      this.imgUrl,
+      this.author,
+      this.isbn,
+      this.fine,
+      this.issueDate,
+      this.returnDate});
 
   @override
   Widget build(BuildContext context) {
@@ -213,37 +284,37 @@ class IssuedBookCard extends StatelessWidget {
                     'Title : $bookTitle',
                     textAlign: TextAlign.end,
                     style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'Author : $author',
                     textAlign: TextAlign.end,
                     style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'ISBN : $isbn',
                     textAlign: TextAlign.end,
                     style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'Fine : $fine',
                     textAlign: TextAlign.end,
                     style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'IssueDate : $issueDate',
                     textAlign: TextAlign.end,
                     style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'ReturnDate : $returnDate',
                     textAlign: TextAlign.end,
                     style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                 ],
               ),

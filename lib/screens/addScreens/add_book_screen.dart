@@ -6,6 +6,7 @@ import 'package:librarian/screens/addScreens/book_input.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:librarian/models/book.dart';
+import 'package:librarian/elements/custom_cards.dart';
 
 class AddBookScreen extends StatefulWidget {
   static const id = 'add_book_screen';
@@ -139,7 +140,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                         Navigator.pushNamed(context, BookInput.id,arguments: booksInfo[index]??'1585424331');
                       },
                       child: BookCard(
-                        bookTitle: booksInfo[index].title,
+                        title: booksInfo[index].title,
                         imgURL: booksInfo[index].smallThumbnail,
                       ),
                     );
@@ -155,30 +156,4 @@ class _AddBookScreenState extends State<AddBookScreen> {
   }
 }
 
-class BookCard extends StatelessWidget {
-  final imgURL;
-  final bookTitle;
 
-  BookCard({this.bookTitle, this.imgURL});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-//      width: 200,
-      child: Column(
-        children: <Widget>[
-          Flexible(
-            child: Image(
-              image: NetworkImage(imgURL),
-            ),
-          ),
-          Text(
-            bookTitle,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}

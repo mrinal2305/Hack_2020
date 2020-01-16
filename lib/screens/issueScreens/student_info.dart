@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:librarian/models/student.dart';
-import 'package:librarian/elements/custom_card.dart';
+import 'package:librarian/elements/custom_cards.dart';
 import 'package:librarian/screens/issueScreens/book_issue.dart';
 
 class StudentInfo extends StatefulWidget {
@@ -26,6 +26,7 @@ class _StudentInfoState extends State<StudentInfo> {
     getStudentByRoll();
   }
 
+  //from firebase
   void getStudentByRoll() async {
     var db = Firestore.instance; //
     final studentCollection = db.collection('student');

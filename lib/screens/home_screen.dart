@@ -4,7 +4,7 @@ import 'package:librarian/constants.dart';
 import 'package:librarian/screens/addScreens/add_book_screen.dart';
 import 'package:librarian/screens/issueScreens/issue_screen.dart';
 import 'package:librarian/screens/search_screen.dart';
-import 'package:librarian/elements/custom_card.dart';
+import 'package:librarian/elements/custom_cards.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = 'home_screen';
