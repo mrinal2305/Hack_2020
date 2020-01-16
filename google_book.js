@@ -104,12 +104,27 @@ app.get('/isbn/:isbn',(req,res,next)=>{
             var json = convert.xml2json(body,{compact:true})
             var output = JSON.parse(json);
             var title;
+            var aut;
+            var author =  output.GoodreadsResponse.book.authors.author;
+            if(Array.isArray(author)) {
+                if(output.GoodreadsResponse.book.authors.author[0].name._text)  aut = output.GoodreadsResponse.book.authors.author[0].name._text;
+                else if(output.GoodreadsResponse.book.authors.author[0].name._cdata) aut = output.GoodreadsResponse.book.authors.author[0].name._cdata;
+                else aut = 'null';
+                console.log(aut);
+            }
+            else  {
+                if(output.GoodreadsResponse.book.authors.author.name._text)  aut = output.GoodreadsResponse.book.authors.author.name._text;
+                else if(output.GoodreadsResponse.book.authors.author.name._cdata) aut = output.GoodreadsResponse.book.authors.author.name._cdata;
+                else aut = 'null';
+                console.log(aut);
+            }
+
             if(output.GoodreadsResponse.book.title._cdata) title = output.GoodreadsResponse.book.title._cdata;
             if(output.GoodreadsResponse.book.title._text) title = output.GoodreadsResponse.book.title._text;       
             
             data = {
                 title : title,
-                author :output.GoodreadsResponse.book.authors.author.name._text,
+                author :aut,
                 isbn   : {
                         isbn_10 : output.GoodreadsResponse.book.isbn._cdata,
                         isbn_13 : output.GoodreadsResponse.book.isbn13._cdata
