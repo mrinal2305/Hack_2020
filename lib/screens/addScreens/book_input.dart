@@ -166,157 +166,169 @@ class _BookInputState extends State<BookInput>
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context).size;
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: kPrimaryColor,
-            title: Text('Book Details'),
-            bottom: TabBar(
-              tabs: <Widget>[
-                Tab(text: "Information"),
-                Tab(
-                  text: "NLP",
-                )
-              ],
+    return MaterialApp(
+      home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: kPrimaryColor,
+              title: Text('Book Details'),
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(text: "Information"),
+                  Tab(
+                    text: "NLP",
+                  )
+                ],
+              ),
             ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              ModalProgressHUD(
-                inAsyncCall: showSpinner,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Card(
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        children: <Widget>[
-                          Center(
-                            child: Container(
-                              height: data.height * 0.3,
-                              child: Card(
-                                child: Image.network(book.smallThumbnail ??
-                                    'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
+            body: TabBarView(
+              children: <Widget>[
+                ModalProgressHUD(
+                  inAsyncCall: showSpinner,
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Card(
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: <Widget>[
+                            Center(
+                              child: Container(
+                                height: data.height * 0.3,
+                                child: Card(
+                                  child: Image.network(book.smallThumbnail ??
+                                      'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  width: double.infinity,
-                                  child: BookField(
-                                    controller: titleController,
-                                    label: 'Title',
-                                  ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  child: BookField(
-                                    controller: authorController,
-                                    label: 'Author',
-                                  ),
-                                ),
-                                Container(
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
                                     width: double.infinity,
                                     child: BookField(
-                                      controller: ddcController,
-                                      label: 'DDC',
-                                    )),
-                                Container(
-                                  width: double.infinity,
-                                  child: BookField(
-                                    controller: isbnController10,
-                                    label: 'ISBN10',
+                                      controller: titleController,
+                                      label: 'Title',
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  child: BookField(
-                                    controller: isbnController13,
-                                    label: 'ISBN13',
-                                  ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  child: BookField(
-                                    controller: pageCountController,
-                                    label: 'Page Count',
-                                  ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 150,
-                                  child: SingleChildScrollView(
+                                  Container(
+                                    width: double.infinity,
                                     child: BookField(
-                                      controller: descriptionController,
-                                      label: 'Description',
+                                      controller: authorController,
+                                      label: 'Author',
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 100,
-                                  padding: EdgeInsets.all(8),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Text(
-                                          'Categories',
-                                          style: kTitleTextStyle,
-                                        ),
-                                        Text('${category[0]}'),
-                                        Text('${category[1]}'),
-                                        Text('${category[2]}'),
-                                      ],
+                                  Container(
+                                      width: double.infinity,
+                                      child: BookField(
+                                        controller: ddcController,
+                                        label: 'DDC',
+                                      )),
+                                  Container(
+                                    width: double.infinity,
+                                    child: BookField(
+                                      controller: isbnController10,
+                                      label: 'ISBN10',
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    width: double.infinity,
+                                    child: BookField(
+                                      controller: isbnController13,
+                                      label: 'ISBN13',
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    child: BookField(
+                                      controller: pageCountController,
+                                      label: 'Page Count',
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 150,
+                                    child: SingleChildScrollView(
+                                      child: BookField(
+                                        controller: descriptionController,
+                                        label: 'Description',
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 100,
+                                    padding: EdgeInsets.all(8),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'Categories',
+                                            style: kTitleTextStyle,
+                                          ),
+                                          Text('${category[0]}'),
+                                          Text('${category[1]}'),
+                                          Text('${category[2]}'),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                            RoundIconButton(
+                              width: 150.0,
+                              height: 40.0,
+                              title: 'ADD This Info',
+                              onPress: () async {
+                                await DatabaseService().updateBookData(book);
+//                                final snackBar = SnackBar(
+//                                  content: Text('Book Added!'),
+//                                  action: SnackBarAction(
+//                                    label: 'Undo',
+//                                    onPressed: () {
+//                                      // Some code to undo the change.
+//                                    },
+//                                  ),
+//                                );
+//                                Scaffold.of(context).showSnackBar(snackBar);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                ModalProgressHUD(
+                  inAsyncCall: showSpinner,
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Card(
+                      child: Column(
+                        children: <Widget>[
+                          NlpCard(title: 'Concept'),
+                          NlpCard(title: 'Emotions'),
+                          NlpCard(title: 'Sentiment'),
+                          NlpCard(title: 'Sub Category'),
                           RoundIconButton(
+                            title: 'Add this Info',
                             width: 150.0,
                             height: 40.0,
-                            title: 'ADD This Info',
-                            onPress: () async {
-                              await DatabaseService().updateBookData(book);
+                            onPress: () {
+
                             },
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ),
-              ModalProgressHUD(
-                inAsyncCall: showSpinner,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Card(
-                    child: Column(
-                      children: <Widget>[
-                        NlpCard(title: 'Concept'),
-                        NlpCard(title: 'Emotions'),
-                        NlpCard(title: 'Sentiment'),
-                        NlpCard(title: 'Sub Category'),
-                        RoundIconButton(
-                          title: 'Add this Info',
-                          width: 150.0,
-                          height: 40.0,
-                          onPress: () {
-
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
+                )
+              ],
+            ),
+          )),
+    );
   }
 
   void submit() {

@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +11,7 @@ class SearchService {
     print('in searchbytitle $searchField');
     return Firestore.instance
         .collection('book')
-        .where('titleKey',
-        isEqualTo: searchField.substring(0, 1).toLowerCase())
+        .where('titleKey', isEqualTo: searchField.substring(0, 1).toLowerCase())
         .getDocuments();
   }
 }
@@ -21,11 +19,11 @@ class SearchService {
 class User {
 //  String uid;
   bool isLibrarian;
-  bool  isUserAvailable;
+  bool isUserAvailable;
   String errorType;
   FirebaseUser user;
 
-  User({this.isUserAvailable,this.isLibrarian, this.errorType});
+  User({this.isUserAvailable, this.isLibrarian, this.errorType});
 }
 
 class AuthService {
@@ -56,38 +54,42 @@ class AuthService {
 //  }
 
   // sign in with email and password
-  Future<User> validate(String email,String password)async{
-    User u=await signInWithEmailAndPassword(email, password);
-    try{
-    if(u.user!=null) {
-      final CollectionReference checkCollection =
-      Firestore.instance.collection('check');
-      final checkExist = await checkCollection.document(u.user.uid).get();
-      print(u.user.email);
-      print(u.user.uid);
-      print(checkExist.exists);
-      if (checkExist.exists) {
-        print('inif');
-        u.isLibrarian=true;
-        return u;
+  Future<User> validate(String email, String password) async {
+    User u = await signInWithEmailAndPassword(email, password);
+    try {
+      if (u.user != null) {
+        final CollectionReference checkCollection =
+            Firestore.instance.collection('check');
+        final checkExist = await checkCollection.document(u.user.uid).get();
+        print(u.user.email);
+        print(u.user.uid);
+        print(checkExist.exists);
+        if (checkExist.exists) {
+          print('inif');
+          u.isLibrarian = true;
+          return u;
+        } else {
+          print('inelse');
+          u.isLibrarian = false;
+          return u;
+        }
       } else {
-        print('inelse');
-        u.isLibrarian=false;
+        print('null');
+        u.isUserAvailable = false;
+        u.isLibrarian = false;
         return u;
       }
-    } else{
-      print('null');
-      u.isUserAvailable=false;
-      u.isLibrarian=false;
-      return u;
-    }}catch(e){
+    } catch (e) {
       print('invalidate try');
       print(e);
     }
   }
+
   static Future signInWithEmailAndPassword(
       String email, String password) async {
-    User u=User();//initialize variables wasted 3 hrs throw called on null
+    email = email.trim();
+    password=password.trim();
+    User u = User(); //initialize variables wasted 3 hrs throw called on null
     try {
       //gives status of sign in whether success or error for more details ctrl+click
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -96,18 +98,18 @@ class AuthService {
       print('above result');
       FirebaseUser user = result.user;
       print(user.email);
-      u.user=user;
-      u.isUserAvailable=true;
-      u.errorType=null;
+      u.user = user;
+      u.isUserAvailable = true;
+      u.errorType = null;
       return u;
     } on PlatformException catch (error) {
       print('in catch of sign in');
       print(error.message);
       print(u);
-      u=User();//very important wasted 2 hrs
-      u.user=null;
-      u.isUserAvailable=false;
-      u.errorType=error.message;
+      u = User(); //very important wasted 2 hrs
+      u.user = null;
+      u.isUserAvailable = false;
+      u.errorType = error.message;
       print('outro of sign in');
       return u;
     }
@@ -162,6 +164,7 @@ class DatabaseService {
     final checkExist = await singleBookCollection.get();
     if (!checkExist.exists) {
       await singleBookCollection.setData({
+        'titleKey': book.title[0].toLowerCase(),
         'title': book.title,
         'author': book.author,
         'smallThumbnail': book.smallThumbnail,
@@ -339,7 +342,6 @@ class DatabaseService {
 //        strength: snapshot.data['strength']
 //    );
 //  }
-
 
 // get user doc stream
 //  Stream<UserData> get userData {
