@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:librarian/models/book.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:librarian/constants.dart';
-import 'package:librarian/services/firebase_helpers.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:librarian/elements/book_field.dart';
 
