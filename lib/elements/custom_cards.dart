@@ -83,27 +83,31 @@ class BookCard extends StatelessWidget {
             ),
             Flexible(
               flex: 6,
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    '$title',
-                    textAlign: TextAlign.justify,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                  ),
-                  Text(
-                    '$author',
-                    textAlign: TextAlign.justify,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                  ),
-                  Text(
-                    '$isbn',
-                    textAlign: TextAlign.justify,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '$title',
+                      textAlign: TextAlign.justify,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0,),
+                    ),
+                    Text(
+                      '$author',
+                      textAlign: TextAlign.justify,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w300, fontSize: 18.0),
+                    ),
+                    Text(
+                      '$isbn',
+                      textAlign: TextAlign.justify,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 18.0),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

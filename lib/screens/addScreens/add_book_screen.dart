@@ -21,6 +21,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
   String imgUrl =
       'http://books.google.com/books/content?id=8bbMjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api';
   String title = 'hello';
+  String author;
   String isbn;
   bool showSpinner = false; //used to check whether to show spinner or not
 
@@ -41,6 +42,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
           //
 //          print(i);
           title = bookData[i]['title'];
+          author=bookData[i]['author'];
           imgUrl = bookData[i]['imageLinks']['smallThumbnail'];
           isbn=bookData[i]['isbn']['isbn_10'];
 //          print(title);
@@ -51,7 +53,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         }
         setState(() {
           showSpinner = false;
-          booksInfo.add(Book(title: title,smallThumbnail: imgUrl,isbn_10: isbn));
+          booksInfo.add(Book(title: title,author: author,smallThumbnail: imgUrl,isbn_10: isbn));
         });
       }
     }
@@ -68,6 +70,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
        bookData = await BookModel().getBookDetailsByISBN(bookISBN);
       try {
         title = bookData['title'];
+        author=bookData['author'];
         imgUrl = bookData['image']['smallThumbnail'];
         isbn=bookData['isbn']['isbn_10'];
 //        print(title);
@@ -78,7 +81,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       }
       setState(() {
         showSpinner = false;
-        booksInfo.add(Book(title:title, smallThumbnail: imgUrl,isbn_10: isbn));
+        booksInfo.add(Book(title:title,author: author, smallThumbnail: imgUrl,isbn_10: isbn));
       });
     }
   }
@@ -141,6 +144,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       },
                       child: BookCard(
                         title: booksInfo[index].title,
+                        author: booksInfo[index].author,
+                        isbn: booksInfo[index].isbn_10,
                         imgURL: booksInfo[index].smallThumbnail,
                       ),
                     );

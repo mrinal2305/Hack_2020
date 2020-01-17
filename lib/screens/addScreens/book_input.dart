@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:librarian/elements/round_icon_button.dart';
 import 'package:librarian/models/book.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:librarian/constants.dart';
+import 'package:librarian/services/firebase_helpers.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:librarian/elements/book_field.dart';
 
@@ -12,9 +14,12 @@ class BookInput extends StatefulWidget {
   _BookInputState createState() => _BookInputState();
 }
 
-class _BookInputState extends State<BookInput> {
+class _BookInputState extends State<BookInput>
+    with SingleTickerProviderStateMixin {
   final formKey = GlobalKey<FormState>();
-  bool toCall=true;
+  bool toCall = true;
+
+//  TabController tabController;
 
   final titleController = TextEditingController();
   final isbnController10 = TextEditingController();
@@ -33,6 +38,7 @@ class _BookInputState extends State<BookInput> {
 
   bool showSpinner = false;
   Book book = Book();
+  List<String> category = ['a', 'b', 'c'];
 
   @override
   void initState() {
@@ -41,16 +47,17 @@ class _BookInputState extends State<BookInput> {
   }
 
   @override
-  void didChangeDependencies() {//it get called whenever anything changes
+  void didChangeDependencies() {
+    //it get called whenever anything changes
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     final bookInfoFromPeace = ModalRoute.of(context).settings.arguments as Book;
     book.smallThumbnail = bookInfoFromPeace.smallThumbnail;
     book.title = bookInfoFromPeace.title;
     book.isbn_10 = bookInfoFromPeace.isbn_10;
-    if(toCall){
-      toCall=false;
-      getBookFullDetails();//whenever text changes it get called
+    if (toCall) {
+      toCall = false;
+      getBookFullDetails(); //whenever text changes it get called
     }
   }
 
@@ -85,6 +92,7 @@ class _BookInputState extends State<BookInput> {
         print(e);
       }
     }
+    getCategory();
     getDDC();
     setState(() {
       showSpinner = false;
@@ -132,6 +140,20 @@ class _BookInputState extends State<BookInput> {
     }
   }
 
+  void getCategory() async {
+    if (book.title != null) {
+      var bookData = await BookModel().getBookCategory(book.title);
+      try {
+        category[0] = (bookData['message']);
+        category[1] = (bookData['categories'][0]);
+        category[2] = (bookData['categories'][1]);
+      } catch (e) {
+        print('in category');
+        print(e);
+      }
+    }
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -144,126 +166,212 @@ class _BookInputState extends State<BookInput> {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context).size;
-    return MaterialApp(
-      home: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: kPrimaryColor,
-              title: Text('Book Details'),
-              bottom: TabBar(
-                tabs: <Widget>[
-                  Tab(icon: Icon(Icons.info), text: "Information"),
-                  Tab(
-                    icon: Icon(Icons.description),
-                    text: "NLP",
-                  )
-                ],
-              ),
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Text('Book Details'),
+            bottom: TabBar(
+              tabs: <Widget>[
+                Tab(text: "Information"),
+                Tab(
+                  text: "NLP",
+                )
+              ],
             ),
-            body: TabBarView(
-              children: <Widget>[
-                ModalProgressHUD(
-                  inAsyncCall: showSpinner,
-                  child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Card(
-                        child: Form(
-                          key: formKey,
-                          child: Column(
-                            children: <Widget>[
-                              Center(
-                                child: Container(
-                                  height: data.height * 0.3,
-                                  child: Card(
-                                    child: Image.network(book.smallThumbnail ??
-                                        'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      child: BookField(
-                                        controller: titleController,
-                                        label: 'Title',
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      child: BookField(
-                                        controller: authorController,
-                                        label: 'Author',
-                                      ),
-                                    ),
-                                    Container(
-                                        width: double.infinity,
-                                        child: BookField(
-                                          controller: ddcController,
-                                          label: 'DDC',
-                                        )),
-                                    Container(
-                                      width: double.infinity,
-                                      child: BookField(
-                                        controller: isbnController10,
-                                        label: 'ISBN10',
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      child: BookField(
-                                        controller: isbnController13,
-                                        label: 'ISBN13',
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      child: BookField(
-                                        controller: pageCountController,
-                                        label: 'Page Count',
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      child: BookField(
-                                        controller: descriptionController,
-                                        label: 'Description',
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )),
-                ),
-                ModalProgressHUD(
-                  inAsyncCall: showSpinner,
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Card(
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              ModalProgressHUD(
+                inAsyncCall: showSpinner,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Card(
+                    child: Form(
+                      key: formKey,
                       child: Column(
                         children: <Widget>[
-                          Container(),
-                          Container(),
-                          Container()
+                          Center(
+                            child: Container(
+                              height: data.height * 0.3,
+                              child: Card(
+                                child: Image.network(book.smallThumbnail ??
+                                    'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  width: double.infinity,
+                                  child: BookField(
+                                    controller: titleController,
+                                    label: 'Title',
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: BookField(
+                                    controller: authorController,
+                                    label: 'Author',
+                                  ),
+                                ),
+                                Container(
+                                    width: double.infinity,
+                                    child: BookField(
+                                      controller: ddcController,
+                                      label: 'DDC',
+                                    )),
+                                Container(
+                                  width: double.infinity,
+                                  child: BookField(
+                                    controller: isbnController10,
+                                    label: 'ISBN10',
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: BookField(
+                                    controller: isbnController13,
+                                    label: 'ISBN13',
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: BookField(
+                                    controller: pageCountController,
+                                    label: 'Page Count',
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 150,
+                                  child: SingleChildScrollView(
+                                    child: BookField(
+                                      controller: descriptionController,
+                                      label: 'Description',
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 100,
+                                  padding: EdgeInsets.all(8),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          'Categories',
+                                          style: kTitleTextStyle,
+                                        ),
+                                        Text('${category[0]}'),
+                                        Text('${category[1]}'),
+                                        Text('${category[2]}'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          RoundIconButton(
+                            width: 150.0,
+                            height: 40.0,
+                            title: 'ADD This Info',
+                            onPress: () async {
+                              await DatabaseService().updateBookData(book);
+                            },
+                          ),
                         ],
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
-          )),
-    );
+                ),
+              ),
+              ModalProgressHUD(
+                inAsyncCall: showSpinner,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Card(
+                    child: Column(
+                      children: <Widget>[
+                        NlpCard(title: 'Concept'),
+                        NlpCard(title: 'Emotions'),
+                        NlpCard(title: 'Sentiment'),
+                        NlpCard(title: 'Sub Category'),
+                        RoundIconButton(
+                          title: 'Add this Info',
+                          width: 150.0,
+                          height: 40.0,
+                          onPress: () {
+
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   void submit() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
     }
+  }
+}
+
+class NlpCard extends StatelessWidget {
+  final String title;
+
+  NlpCard({this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 150,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                    'https://images.unsplash.com/photo-1523726491678-bf852e717f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'),
+              )),
+            ),
+          ),
+          ExpansionTile(
+            title: Text(title),
+            children: <Widget>[
+              Text(
+                'Text : Function',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                'relevance : 095824',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                'dbpdeia_resource : jhsdjhdsjhjdkshkjsd',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0),
+                textAlign: TextAlign.start,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -2,20 +2,15 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
-  NetworkHelper({this.titleURL, this.isbnURl, this.ddcURL,this.isbnForDetailsUrl});
-
-  final String titleURL;
-  final String isbnURl;
-  final String ddcURL;
-  final String isbnForDetailsUrl;
   //work on json array and return list of json
-  Future getBookDataByTitle() async {
+  static Future getBookDataByTitle(String titleURL) async {
     try {
       http.Response response = await http.get(titleURL);
       if (response.statusCode == 200) {
         String jsonArrayData = response.body;
         return jsonDecode(jsonArrayData) as List;
       } else {
+        print('in book by title');
         print(response.statusCode);
       }
     } catch (e) {
@@ -24,9 +19,9 @@ class NetworkHelper {
   }
 
   //write function carefully
-  Future getBookDataByISBN() async {
+  static Future getBookDataByISBN(String isbnURL) async {
     try {
-      http.Response response = await http.get(isbnURl);
+      http.Response response = await http.get(isbnURL);
       if (response.statusCode == 200) {
         String jsonData = response.body;
 //        print(jsonData);
@@ -35,7 +30,7 @@ class NetworkHelper {
         else
           print('null received');
       } else {
-        print('response code error');
+        print('response code error in bookIsbn');
         print(response.statusCode);
       }
     } catch (e) {
@@ -44,7 +39,7 @@ class NetworkHelper {
   }
 
   //for getting ddc
-  Future getBookDDc() async {
+  static Future getBookDDC(String ddcURL) async {
     try {
       http.Response response = await http.get(ddcURL);
       if (response.statusCode == 200) {
@@ -54,7 +49,7 @@ class NetworkHelper {
         else
           print('null received');
       } else {
-        print('response code erroe');
+        print('response code error in bookDDC');
         print(response.statusCode);
       }
     } catch (e) {
@@ -63,9 +58,9 @@ class NetworkHelper {
   }
 
   //for getting book complete details by nameless fortress by isbn
-  Future getBookDetails() async {
+  static Future getBookDetails(String isbnForDetailsURL) async {
     try {
-      http.Response response = await http.get(isbnForDetailsUrl);
+      http.Response response = await http.get(isbnForDetailsURL);
       if (response.statusCode == 200) {
         String jsonData = response.body;
         if (jsonData != null)
@@ -78,6 +73,25 @@ class NetworkHelper {
       }
     } catch (e) {
       print('in try of bookdetails by isbn');
+      print(e);
+    }
+  }
+
+  static Future getBookCategory(String titleURL) async {
+    try {
+      http.Response response = await http.get(titleURL);
+      if (response.statusCode == 200) {
+        String jsonData = response.body;
+        if (jsonData != null)
+          return jsonDecode(jsonData);
+        else
+          print('null recieved in bookCategory');
+      } else {
+        print('response code error for category');
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print('in try of bookCategory');
       print(e);
     }
   }
