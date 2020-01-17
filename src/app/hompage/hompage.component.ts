@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from 'angularfire2/storage';
+
 
 @Component({
   selector: 'app-hompage',
@@ -7,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HompageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private afStorage: AngularFireStorage) { }
+ 
   ngOnInit() {
   }
 

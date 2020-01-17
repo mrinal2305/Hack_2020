@@ -1,0 +1,58 @@
+.level{
+    padding-top: 1.7em;
+    padding-bottom: 1.5em;
+}
+
+.hero{
+    background-color: #3ab397;
+}
+
+.level{
+    padding-left: 1em;
+}
+
+.list{
+    background-color: red;
+    width: 100%;
+    text-align: right;
+    border: 2px solid black ;
+}
+
+.abc:hover{
+    background-color: blueviolet;
+}
+
+.login{
+    background-color: grey;
+    border          : 2px solid blue;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .input{
+      background-color: hotpink ;
+  }
+
+ /* .buton{
+     padding-top: 23em;
+ } */
+
+/* 
+TO DO CSS
+1. Change hamburger button to angular material button
+2. Chage size of each icon
+3. Change color of text to black and largen its size
+4. Put deepu's icon and imagae instead of smart library text
+5. Use CSS to make it more beautiful,On hover,etc
+6. Apply style to all
+7. Make the CSS ATTRACTING and add AUTHENTICATION
+8. Make drop-down button and "Login" text of same level
+*/  

@@ -6,10 +6,11 @@ import { RegComponent } from './reg/reg.component';
 import { StuInfoComponent } from './stu-info/stu-info.component';
 import { AuthComponent } from './auth/auth.component';
 import { HompageComponent } from './hompage/hompage.component';
+
 import { AuthGuardService } from './auth-guard.service';
 import {  AdminAuthGuardService } from './admin-auth-guard.service';
 import { SuperAuthGuardService } from './super-auth-guard.service';
-import { FileUploadComponent } from './file-upload/file-upload.component';
+import { UploadComponent } from './upload/upload.component';;
 import { from } from 'rxjs';
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   {path :"man_book",   component : ManBookComponent},//canActivate :[AuthGuardService,AdminAuthGuardService]},
   {path :"book_ser",   component : BookSerComponent},//canActivate :[AuthGuardService]},
   {path :"regs",       component : RegComponent},//canActivate :[AuthGuardService]},  
-  {path : "upload" ,   component : FileUploadComponent}
+  {path : "upload" ,   component : UploadComponent}
 ];
 
 @NgModule({

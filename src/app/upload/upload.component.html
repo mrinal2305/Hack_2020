@@ -1,0 +1,27 @@
+<div >
+    <div class="container">
+        <div class="card">
+          <div class="card-header">
+            Firebase Cloud Storage & Angular 5
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Select a file for upload:</h5>
+            <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+          </div>
+        </div>
+      </div>
+    
+      <div *ngIf="(uploadProgress$ | async); let uploadProgress">
+      <div *ngIf="showBar" class="progress">
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="uploadProgress+ '%'" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+    </div>
+    
+    <div *ngIf="!showBar">Success</div>
+    
+    <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
+        File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
+    </div>
+    
+    
