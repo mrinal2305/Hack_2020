@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
                    //SavedBooks.id: (context)=>SavedBooks(),
 
                    IssuedPage.id: (context) =>IssuedPage(),
-                   //LoginScreen.id: (context) =>LoginScreen(),
+                   LoginScreen.id: (context) =>LoginScreen(),
                    HomePage.id: (context) =>HomePage(),
                    AddBookScreen.id: (context)=>AddBookScreen(),
                    BookInput.id: (context) => BookInput(),

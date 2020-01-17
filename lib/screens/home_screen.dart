@@ -10,14 +10,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final email = ModalRoute.of(context).settings.arguments as String;
+    print(email);
     final data=MediaQuery.of(context);
     return Scaffold(
 
       backgroundColor: kPrimaryColor,
-        appBar: AppBar(
-          title: Text('Home'),
-          backgroundColor: kPrimaryColor,
-        ),
+      appBar: AppBar(
+        title: Text('Home'),
+        backgroundColor: kPrimaryColor,
+      ),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -71,7 +73,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MyCard('Library',(){
-              Navigator.pushNamed(context,IssuedPage.id );
+              Navigator.pushNamed(context,IssuedPage.id ,arguments: email);
             },'images/libr.png',),
             MyCard('Personal',(){
               Navigator.pushNamed(context,AddBookScreen.id);

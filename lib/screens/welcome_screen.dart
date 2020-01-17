@@ -16,7 +16,9 @@ class WelcomeScreen extends StatelessWidget {
         home: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('images/login.png')),
+                image: AssetImage('images/login.png'),
+            fit: BoxFit.fill
+            ),
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -48,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                     RoundIconButton(
                       title: 'SIGN IN',
                       onPress: () {
-                        //Navigator.pushNamed(context, LoginScreen.id);
+                        Navigator.pushNamed(context, LoginScreen.id);
                       },
                     ),
                   ],

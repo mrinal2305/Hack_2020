@@ -48,6 +48,7 @@ class _BookInputState extends State<BookInput> {
 
   bool showSpinner = false;
   Book book = Book();
+  bool toCall =true;
 
   @override
   void initState() {
@@ -63,7 +64,9 @@ class _BookInputState extends State<BookInput> {
     book.smallThumbnail=bookInfoFromPeace.smallThumbnail;
     book.title=bookInfoFromPeace.title;
     book.isbn_10=bookInfoFromPeace.isbn_10;
-    getBookFullDetails();
+    if(toCall){
+      toCall=false;
+    getBookFullDetails();}
 
 
   }

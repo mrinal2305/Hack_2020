@@ -2,6 +2,7 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lbs/elements/custom_speed_dial.dart';
+import 'package:lbs/providers/saved_books.dart';
 import 'package:lbs/screens/book_input.dart';
 import 'package:lbs/services/book_model.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
