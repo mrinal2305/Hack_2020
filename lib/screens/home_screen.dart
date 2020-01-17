@@ -33,19 +33,29 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: Text('Profile'),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title:Text('Notices'),
+              onTap: (){},
+            ),
+            ListTile(
+              title: Text('Saved Books'),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
+            ListTile(
+              title: Text('Pdf'),
+              onTap: (){
+
+              },
+            )
           ],
         ),
       ),

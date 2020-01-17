@@ -3,7 +3,7 @@ import 'package:lbs/elements/round_icon_button.dart';
 import 'package:lbs/screens/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  static const id = 'welcome_screen';
+  static const String id = 'welcome_screen';
 
 //  MyHomePage()
 //  final String title;
@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
         home: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("images/login.png"), fit: BoxFit.cover),
+                image: AssetImage('images/login.png')),
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -48,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
                     RoundIconButton(
                       title: 'SIGN IN',
                       onPress: () {
-                        Navigator.pushNamed(context, LoginScreen.id);
+                        //Navigator.pushNamed(context, LoginScreen.id);
                       },
                     ),
                   ],
