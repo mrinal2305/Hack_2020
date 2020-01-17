@@ -16,8 +16,23 @@ class _BookInputState extends State<BookInput> {
   final formKey = GlobalKey<FormState>();
 
   final titleController = TextEditingController();
-  final isbnController = TextEditingController();
+  final isbnController10 = TextEditingController();
   final ddcController = TextEditingController();
+  final authorController = TextEditingController();
+  final lccController = TextEditingController();
+  //final lcc2Controller = TextEditingController();
+//  final ddc1Controller = TextEditingController();
+//  final ddc2Controller = TextEditingController();
+  final publisherController = TextEditingController();
+  final pageCountController = TextEditingController();
+  final isbnController13 = TextEditingController();
+  final descriptionController =TextEditingController();
+  final ratingController =TextEditingController();
+
+
+
+
+
 
   bool showSpinner = false;
   Book book = Book();
@@ -42,10 +57,9 @@ class _BookInputState extends State<BookInput> {
   }
   void getBookFullDetails() async {
 
-    isbnController.text = book.isbn_10;
+    isbnController10.text = book.isbn_10;
     titleController.text = book.title;
     ddcController.text = book.ddc1;
-    if(mounted)
     setState(() {
       showSpinner = true;
     });
@@ -56,6 +70,7 @@ class _BookInputState extends State<BookInput> {
       try {
         book.author = bookData['author'];
         book.avgRating = bookData['averageRating'];
+        print(book.avgRating);
         book.description = bookData['description'];
         book.isbn_10 = bookData['isbn']['isbn_10'];
         book.isbn_13 = bookData['isbn']['isbn_13'];
@@ -64,6 +79,7 @@ class _BookInputState extends State<BookInput> {
         book.pageCount = bookData['pageCount'];
         book.publisher = bookData['publisher'];
         book.title = bookData['title'];
+
 //        print(book.title);
 //            book.totalCopy=
       } catch (e) {
@@ -72,10 +88,16 @@ class _BookInputState extends State<BookInput> {
       }
     }
     getDDC();
-    if(mounted)
     setState(() {
       showSpinner=false;
     });
+    isbnController13.text=book.isbn_13;
+    authorController.text=book.author;
+    publisherController.text=book.publisher;
+
+    pageCountController.text=book.pageCount;
+    ratingController.text=book.avgRating;
+    descriptionController.text=book.description;
   }
 
   void getDDC() async {
@@ -88,19 +110,21 @@ class _BookInputState extends State<BookInput> {
       var bookData = await BookModel().getBookDDC(book.title);
       try {
 //        print(book.title);
-          try {
+        try {
 
-            book.ddc1=bookData[0]['ddc'];
-            book.ddc2=bookData[1]['ddc'];
-            book.lcc1=bookData[0]['lcc'];
-            book.lcc2=bookData[1]['lcc'];
+          book.ddc1=bookData[0]['ddc'];
+          book.ddc2=bookData[1]['ddc'];
+          book.lcc1=bookData[0]['lcc'];
+          book.lcc2=bookData[1]['lcc'];
+          ddcController.text=book.ddc1;
+          lccController.text=book.lcc1;
 //          ddcController.text = book.ddc;
-          } catch (e){
-            print('in inner try');
-            print(bookData[0]);
-            print(e);
-          }
-          print(book.ddc1);
+        } catch (e){
+          print('in inner try');
+          print(bookData[0]);
+          print(e);
+        }
+        print(book.ddc1);
 
       } catch (e) {
         print('in ddc');
@@ -118,98 +142,119 @@ class _BookInputState extends State<BookInput> {
     super.dispose();
     titleController.dispose();
     ddcController.dispose();
-    isbnController.dispose();
+    isbnController10.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text('Book Details'),
-        ),
-        body: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Form(
-                key: formKey,
-                child: Container(
-                  child: ListView(
-                    children: <Widget>[
-                      Image.network(book.smallThumbnail??'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
-                      BookField(titleController: titleController),
-                      TextFormField(
-                        initialValue: book.author,
-                        decoration: InputDecoration(
-                          labelText: 'Author:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                      TextFormField(
-                        initialValue: book.isbn_10,
-                        decoration: InputDecoration(
-                          labelText: 'ISBN:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                      TextFormField(
-                        controller: ddcController,
-                        decoration: InputDecoration(
-                          labelText: 'DDC:',
-                          alignLabelWithHint: true,
-                        ),
-                        validator: (input) => input.length < 8
-                            ? 'You need at least 8 characters'
-                            : null,
-//                      onSaved: (input) => _password = input,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: RaisedButton(
-                              onPressed: () {
-                                getBookFullDetails();
-                              },
-                              color: Colors.yellowAccent,
-                              child: Text('Save'),
-                            ),
+    final data=MediaQuery.of(context).size;
+    return MaterialApp(
+      home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: kPrimaryColor,
+              title: Text('Book Details'),
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(icon: Icon(Icons.info),text:"Information"),
+                  Tab(icon: Icon(Icons.description),text: "NLP",)
+
+                ],
+              ),
+
+
+            ),
+            body: TabBarView(
+              children: <Widget>[
+                ModalProgressHUD(
+                  inAsyncCall: showSpinner,
+                  child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Card(
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                  height: data.height*0.3,
+                                  child: Card(
+                                    child: Image.network(book.smallThumbnail??'http://books.google.com/books/content?id=_l-PjpBOv9gC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'),
+
+                                  ),
+
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      child: BookFieldTitle(titleController: titleController,),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      child: BookFieldAuthor(authorController: authorController,),
+                                    ),
+                                    Container(
+                                        width: double.infinity,
+                                        child: BookFieldDdc(ddcController: ddcController,)
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      child: BookFieldIsbn10(isbn10Controller: isbnController10,),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      child: BookFieldIsbn13(isbn13Controller: isbnController13,),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      child: BookFieldPageCount(pageCountController: pageCountController,),
+                                    ),
+                                    Container(
+                                      width:double.infinity,
+                                      child: BookFieldDescription(descriptionController: descriptionController,),
+                                    )
+
+                                  ],
+                                ),
+                              )
+//for images title author pages
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: RaisedButton(
-                              onPressed: () async {
-//                                  DatabaseService().getBookData();
-//                                DatabaseService().booksStream();
-                              Book newBook=Book();
-//                                await DatabaseService().updateBookData(newBook);
-//                            print(bookData);
-//                            print(title);
-                              },
-                              color: Colors.red,
-                              child: Text('Add'),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+                        ),)
+
+
+
+
                   ),
                 ),
-              ),
+                ModalProgressHUD(
+                  inAsyncCall: showSpinner,
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Card(
+                      child: Column(
+                        children: <Widget>[
+                          Container(),
+                          Container(),
+                          Container()
+                        ],
+                      ),
+
+                    ),
+                  ),
+                )
+
+              ],
             ),
-          ),
-        ));
+
+          )
+      ),
+    );
+
   }
 
   void submit() {
@@ -219,8 +264,9 @@ class _BookInputState extends State<BookInput> {
   }
 }
 
-class BookField extends StatelessWidget {
-  BookField({this.titleController});
+class BookFieldTitle extends StatelessWidget {
+
+  BookFieldTitle({this.titleController});
 
   final TextEditingController titleController;
 
@@ -228,11 +274,228 @@ class BookField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: titleController,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
       decoration: InputDecoration(
         labelText: 'Title:',
         alignLabelWithHint: true,
       ),
       validator: (input) => input.contains('') ? 'Not a valid Title' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+
+class BookFieldAuthor extends StatelessWidget {
+
+  BookFieldAuthor({this.authorController});
+
+  final TextEditingController authorController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: authorController,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      decoration: InputDecoration(
+        labelText: 'Author:',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Not a valid Author' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+
+  }
+}
+
+class BookFieldIsbn10 extends StatelessWidget {
+  BookFieldIsbn10({this.isbn10Controller});
+
+  final TextEditingController isbn10Controller;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: isbn10Controller,
+      decoration: InputDecoration(
+        labelText: 'Isbn 10:',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.length < 10
+          ? 'You need at least 10 characters'
+          : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class BookFieldIsbn13 extends StatelessWidget {
+  BookFieldIsbn13({this.isbn13Controller});
+
+  final TextEditingController isbn13Controller;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: isbn13Controller,
+      decoration: InputDecoration(
+        labelText: 'Isbn 13:',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.length < 13
+          ? 'You need at least 13 characters'
+          : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class BookFieldPublisher extends StatelessWidget {
+  BookFieldPublisher({this.publisherController});
+
+  final TextEditingController publisherController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: publisherController,
+      decoration: InputDecoration(
+        labelText: 'Publisher:',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Not a valid Publisher' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class BookFieldDescription extends StatelessWidget {
+  BookFieldDescription({this.descriptionController});
+
+  final TextEditingController descriptionController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: descriptionController,
+      decoration: InputDecoration(
+        labelText: 'Description :',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Not a valid Description' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class BookFieldPageCount extends StatelessWidget {
+  BookFieldPageCount({this.pageCountController});
+
+  final TextEditingController pageCountController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: pageCountController,
+      decoration: InputDecoration(
+        labelText: 'Pages :',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Page numbers not valid' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class BookFieldAverageRating extends StatelessWidget {
+  BookFieldAverageRating({this.ratingController});
+
+  final TextEditingController ratingController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: ratingController,
+      decoration: InputDecoration(
+        labelText: 'Ratings :',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Ratings is not valid' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class BookFieldDdc extends StatelessWidget {
+  BookFieldDdc({this.ddcController});
+
+  final TextEditingController ddcController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: ddcController,
+      decoration: InputDecoration(
+        labelText: 'Ddc :',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Ddc is not valid' : null,
+      onChanged: (value) {
+//                          title = value;
+      },
+//                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+
+class BookFieldLcc extends StatelessWidget {
+  BookFieldLcc({this.lccController});
+
+  final TextEditingController lccController;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      controller: lccController,
+      decoration: InputDecoration(
+        labelText: 'Lcc :',
+        alignLabelWithHint: true,
+      ),
+      validator: (input) => input.contains('') ? 'Lcc is not valid' : null,
       onChanged: (value) {
 //                          title = value;
       },

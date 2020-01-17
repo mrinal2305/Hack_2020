@@ -15,6 +15,7 @@ class BookIssue extends StatefulWidget {
 }
 
 class _BookIssueState extends State<BookIssue> {
+  List<dynamic> rollAndOp = [];
   final isbnController = TextEditingController();
   String isbn;
   String title;
@@ -22,6 +23,8 @@ class _BookIssueState extends State<BookIssue> {
   String imgUrl;
   String roll;
   var db = Firestore.instance; //
+  bool isVisible=false;
+
 
   void getBookIsbnByBar() async {
     try {
@@ -56,6 +59,7 @@ class _BookIssueState extends State<BookIssue> {
         title = bookData['title'];
         author = bookData['author'];
         imgUrl = bookData['smallThumbnails'];
+        isVisible=true;
       });
 //    } catch (e) {
 //      print('in getStudentByRoll ${e.message}');
@@ -63,26 +67,41 @@ class _BookIssueState extends State<BookIssue> {
   }
 
   void addBookToStudent() async {
-    Map<String, String> issuedBook = {'isbn': isbn,
+    Map<String, String> issuedBook = {
+      'isbn': isbn,
       'title': title,
       'issueDate': '12-01-20',
       'returnDate': '12-02-20',
     };
     print(issuedBook);
-    roll='1706011';
+    roll = '1706011';
     final studentCollection = db.collection('student');
-     await studentCollection.document(roll).updateData({
-    'books': FieldValue.arrayUnion([issuedBook])
+    await studentCollection.document(roll).updateData({
+      'books': FieldValue.arrayUnion([issuedBook])
     });
   }
 
+  void removeBookFromStudent() async {
+    Map<String, String> issuedBook = {
+      'isbn': isbn,
+      'title': title,
+      'issueDate': '12-01-20',
+      'returnDate': '12-02-20',
+    };
+    print(issuedBook);
+    var roll = '1706011';
+    final studentCollection = db.collection('student');
+    await studentCollection.document(roll).updateData({
+      'books': FieldValue.arrayRemove([issuedBook])
+    });
+  }
+
+  void reissueBookToStudent() async {}
+
   @override
   Widget build(BuildContext context) {
-    roll = ModalRoute
-        .of(context)
-        .settings
-        .arguments as String;
-    print('in book issue $roll');
+    rollAndOp = ModalRoute.of(context).settings.arguments as List;
+    print('in book issue ${rollAndOp[0]} and ${rollAndOp[1]}');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -122,12 +141,15 @@ class _BookIssueState extends State<BookIssue> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: BookCard(
-                      title: title,
-                      isbn: isbn,
-                      author: author,
+                  Visibility(
+                    visible: isVisible,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: BookCard(
+                        title: title,
+                        isbn: isbn,
+                        author: author,
+                      ),
                     ),
                   ),
                   Padding(
@@ -135,9 +157,11 @@ class _BookIssueState extends State<BookIssue> {
                     child: RoundIconButton(
                       width: double.infinity,
                       onPress: () {
-                        addBookToStudent();
+                        if (rollAndOp[1] == 'add') addBookToStudent();
+                        if (rollAndOp[1] == 'return') removeBookFromStudent();
+                        if (rollAndOp[1] == 'reissue') reissueBookToStudent();
                       },
-                      title: 'Add',
+                      title: rollAndOp[1].toUpperCase() ?? 'Add',
                     ),
                   )
                 ],

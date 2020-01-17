@@ -235,11 +235,9 @@ class IssuedBookCard extends StatelessWidget {
   final issueDate;
   final returnDate;
   final fine;
-  final toRemove;
 
   IssuedBookCard(
-      {@required this.toRemove,
-      this.bookTitle,
+      {this.bookTitle,
       this.imgUrl,
       this.author,
       this.isbn,
@@ -247,21 +245,21 @@ class IssuedBookCard extends StatelessWidget {
       this.issueDate,
       this.returnDate});
 
-  void removeBookFromStudent() async {
-    var db=Firestore.instance;
-    Map<String, String> issuedBook = {
-      'isbn': isbn,
-      'title': bookTitle,
-      'issueDate': '12-01-20',
-      'returnDate': '12-02-20',
-    };
-    print(issuedBook);
-    var roll = '1706011';
-    final studentCollection = db.collection('student');
-    await studentCollection.document(roll).updateData({
-      'books': FieldValue.arrayRemove([issuedBook])
-    });
-  }
+//  void removeBookFromStudent() async {
+//    var db=Firestore.instance;
+//    Map<String, String> issuedBook = {
+//      'isbn': isbn,
+//      'title': bookTitle,
+//      'issueDate': '12-01-20',
+//      'returnDate': '12-02-20',
+//    };
+//    print(issuedBook);
+//    var roll = '1706011';
+//    final studentCollection = db.collection('student');
+//    await studentCollection.document(roll).updateData({
+//      'books': FieldValue.arrayRemove([issuedBook])
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -296,17 +294,6 @@ class IssuedBookCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Visibility(
-                    visible: toRemove ?? false,
-                    child: RoundIconButton(
-                      title: 'Remove',
-                      width: 100.0,
-                      height: 30.0,
-                      onPress: () {
-                        removeBookFromStudent();
-                      },
-                    ),
-                  )
                 ],
               ),
             ),

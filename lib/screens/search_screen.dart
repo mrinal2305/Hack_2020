@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
 import 'package:librarian/services/firebase_helpers.dart';
-import 'package:barcode_scan/barcode_scan.dart';
-
 
 class SearchScreen extends StatefulWidget {
-  static const id='search_screen';
+  static const id = 'search_screen';
+
   @override
   _SearchScreenState createState() => new _SearchScreenState();
 }
+
 
 class _SearchScreenState extends State<SearchScreen> {
   var queryResultSet = [];
@@ -48,13 +48,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar:  AppBar(
+        appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text('Book search'),
         ),
-        body: ListView(children: <Widget>[
+        body: Column(children: <Widget>[
           Padding(
-            padding:  EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: TextField(
               onChanged: (val) {
                 initiateSearch(val);
@@ -75,34 +75,105 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           SizedBox(height: 10.0),
-          GridView.count(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-              crossAxisCount: 2,
-              crossAxisSpacing: 4.0,
-              mainAxisSpacing: 4.0,
-              primary: false,
-              shrinkWrap: true,
-              children: tempSearchStore.map((element) {
-                return buildResultCard(element);
-              }).toList())
+          ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+//                        print(index);
+//                        print(bookData[index]);
+                  //checking for null
+                },
+                child: BuildResultCard(bookTitle: 'hello'),
+              );
+            },
+            itemCount: tempSearchStore.length,
+          ),
         ]));
   }
 }
 
-Widget buildResultCard(data) {
-  return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      elevation: 2.0,
-      child: Container(
-          child: Center(
-              child: Text((data['title'])??'hello',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
+class BuildResultCard extends StatelessWidget {
+  //final imgURL;
+  final bookTitle;
+
+  BuildResultCard({this.bookTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Container(
+        color: Color(0xd3d3d3),
+        //height: 100,
+//      width: 200,
+        width: double.infinity,
+        child: Row(
+          children: <Widget>[
+            Flexible(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                child: Column(
+//              child: Image(
+//                image: NetworkImage(imgURL),
+//              ),
+
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(24.0),
+                      child: Card(
+                        elevation: 5.0,
+                        child: Image(
+                          image: NetworkImage(
+                              'https://img1.od-cdn.com/ImageType-400/0211-1/84F/DEA/86/%7B84FDEA86-2E03-4EC5-B3ED-B966A8C3025D%7DImg400.jpg'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )
-          )
+              ),
+            ),
+            Flexible(
+                flex: 6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      bookTitle,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontFamily: ('Nunito'),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18.0),
+                    ),
+                    Text(
+                      'Author J K Rowling',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                          fontFamily: ('Nunito'),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18.0),
+                    ),
+                    Text(
+                      'isbn 123243434343',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                          fontFamily: ('Nunito'),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18.0),
+                    ),
+                  ],
+                )),
+          ],
+        ),
+      ),
+      Divider(
+        color: Colors.grey.withOpacity(0.5),
+        height: 20.0,
+        indent: 20.0,
+        endIndent: 20.0,
       )
-  );
+    ]);
+  }
 }

@@ -42,7 +42,7 @@ class _StudentInfoState extends State<StudentInfo> {
     if (mounted)
       setState(() {
         student.name = studentData['Name'];
-        student.roll = studentData['Roll '];//remove space later
+        student.roll = studentData['Roll'];//remove space later
         student.year = studentData['Year'];
         student.branch = studentData['branch'];
         student.regNo = studentData['reg_No'];
@@ -98,18 +98,23 @@ class _StudentInfoState extends State<StudentInfo> {
                         color: Colors.teal,
                         icon: Icon(FontAwesomeIcons.plus),
                         onPressed: () {
-                          Navigator.pushNamed(context, BookIssue.id,arguments: student.roll);
+                          Navigator.pushNamed(context, BookIssue.id,arguments: [student.roll,'add']);
                         },
                       ),
                       IconButton(
                         color: Colors.teal,
                         icon: Icon(FontAwesomeIcons.minus),
                         onPressed: () {
-                          setState(() {
-                            toRemove=true;
-                          });
-                        },
-                      )
+                          Navigator.pushNamed(context, BookIssue.id,arguments: [student.roll,'return']);
+                        }
+                      ),
+                      IconButton(
+                        color: Colors.teal,
+                        icon: Icon(FontAwesomeIcons.sync),
+                        onPressed: () {
+                          Navigator.pushNamed(context, BookIssue.id,arguments: [student.roll,'reissue']);
+                        }
+                      ),
                     ],
                   )
                 ],
@@ -128,7 +133,6 @@ class _StudentInfoState extends State<StudentInfo> {
                         getStudentByRoll();
                       },
                       child: IssuedBookCard(
-                        toRemove: toRemove,
                         bookTitle: student.books[index]['title'],
                         author: student.books[index]['author'],
                         isbn: student.books[index]['isbn'],
