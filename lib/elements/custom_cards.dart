@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:librarian/elements/round_icon_button.dart';
 
 const imgIsNull =
     'https://assets.wordpress.envato-static.com/uploads/2018/02/Harry-Potter-Original-Covers.png';
@@ -73,7 +75,7 @@ class BookCard extends StatelessWidget {
                   child: Card(
                     elevation: 5.0,
                     child: Image(
-                      image: NetworkImage(imgURL??imgIsNull),
+                      image: NetworkImage(imgURL ?? imgIsNull),
                     ),
                   ),
                 ),
@@ -233,15 +235,33 @@ class IssuedBookCard extends StatelessWidget {
   final issueDate;
   final returnDate;
   final fine;
+  final toRemove;
 
   IssuedBookCard(
-      {this.bookTitle,
+      {@required this.toRemove,
+      this.bookTitle,
       this.imgUrl,
       this.author,
       this.isbn,
       this.fine,
       this.issueDate,
       this.returnDate});
+
+  void removeBookFromStudent() async {
+    var db=Firestore.instance;
+    Map<String, String> issuedBook = {
+      'isbn': isbn,
+      'title': bookTitle,
+      'issueDate': '12-01-20',
+      'returnDate': '12-02-20',
+    };
+    print(issuedBook);
+    var roll = '1706011';
+    final studentCollection = db.collection('student');
+    await studentCollection.document(roll).updateData({
+      'books': FieldValue.arrayRemove([issuedBook])
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -254,25 +274,40 @@ class IssuedBookCard extends StatelessWidget {
           children: <Widget>[
             Flexible(
               flex: 4,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 22.0),
-                child: Column(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 22.0),
+                    child: Column(
 //              child: Image(
 //                image: NetworkImage(imgURL),
 //              ),
 
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(18.0),
-                      child: Card(
-                        elevation: 5.0,
-                        child: Image(
-                          image: NetworkImage(imgUrl ?? imgIsNull),
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(18.0),
+                          child: Card(
+                            elevation: 5.0,
+                            child: Image(
+                              image: NetworkImage(imgUrl ?? imgIsNull),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Visibility(
+                    visible: toRemove ?? false,
+                    child: RoundIconButton(
+                      title: 'Remove',
+                      width: 100.0,
+                      height: 30.0,
+                      onPress: () {
+                        removeBookFromStudent();
+                      },
+                    ),
+                  )
+                ],
               ),
             ),
             Flexible(

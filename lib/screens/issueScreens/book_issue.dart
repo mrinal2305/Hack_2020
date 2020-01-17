@@ -20,6 +20,8 @@ class _BookIssueState extends State<BookIssue> {
   String title;
   String author;
   String imgUrl;
+  String roll;
+  var db = Firestore.instance; //
 
   void getBookIsbnByBar() async {
     try {
@@ -44,7 +46,6 @@ class _BookIssueState extends State<BookIssue> {
 
   //from firebase
   void getBookByIsbn() async {
-    var db = Firestore.instance; //
     final bookCollection = db.collection('book');
     final books = await bookCollection.document(isbn).get();
     print(books.data);
@@ -61,9 +62,27 @@ class _BookIssueState extends State<BookIssue> {
 //    }
   }
 
+  void addBookToStudent() async {
+    Map<String, String> issuedBook = {'isbn': isbn,
+      'title': title,
+      'issueDate': '12-01-20',
+      'returnDate': '12-02-20',
+    };
+    print(issuedBook);
+    roll='1706011';
+    final studentCollection = db.collection('student');
+     await studentCollection.document(roll).updateData({
+    'books': FieldValue.arrayUnion([issuedBook])
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    roll = ModalRoute
+        .of(context)
+        .settings
+        .arguments as String;
+    print('in book issue $roll');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -115,7 +134,9 @@ class _BookIssueState extends State<BookIssue> {
                     padding: EdgeInsets.all(4.0),
                     child: RoundIconButton(
                       width: double.infinity,
-                      onPress: () {},
+                      onPress: () {
+                        addBookToStudent();
+                      },
                       title: 'Add',
                     ),
                   )
