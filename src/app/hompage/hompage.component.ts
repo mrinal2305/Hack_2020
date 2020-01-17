@@ -8,10 +8,17 @@ import { AngularFireStorage } from 'angularfire2/storage';
   styleUrls: ['./hompage.component.css']
 })
 export class HompageComponent implements OnInit {
-
+  isActive = false;
   constructor(private afStorage: AngularFireStorage) { }
  
   ngOnInit() {
   }
 
+  mouseEnter(){
+    this.isActive = !this.isActive;
+  }
+
+  mouseLeave(){
+    this.isActive = !this.isActive;
+  }
 }

@@ -9,7 +9,7 @@ import {FormControl, Validators} from '@angular/forms';
 
 export class TitleBarComponent implements OnInit {
   showFiller = false;
-  show  : boolean = true;
+  show  : boolean = false;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,

@@ -1,1 +1,84 @@
-home-page works
+ <div class="home">
+ <div class="row">
+     <div class="col">
+         <!---->
+         <mat-card (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" class="example-card card"
+[class.mat-elevation-z2]="!isActive"
+[class.mat-elevation-z8]="isActive">
+    <mat-card-header>
+      <mat-card-title>Manage Books</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+          Text Field
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a routerLink="/man_book" mat-raised-button color="primary">Try</a>
+    </mat-card-actions> 
+    </mat-card>
+     </div>
+
+     <div clas="col">
+        <mat-card (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" class="example-card card"
+        [class.mat-elevation-z2]="!isActive"
+        [class.mat-elevation-z8]="isActive">
+            <mat-card-header>
+              <mat-card-title>Registration</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                Text 
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <a routerLink="/regs" mat-raised-button color="primary">Try</a>
+            </mat-card-actions>
+        </mat-card> 
+    </div>
+ </div>
+
+
+ <div class="row home">
+    <div class="col">
+        <!---->
+        <mat-card (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" class="example-card card"
+[class.mat-elevation-z2]="!isActive"
+[class.mat-elevation-z8]="isActive">
+   <mat-card-header>
+     <mat-card-title>Student Info</mat-card-title>
+   </mat-card-header>
+   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+   <mat-card-content>
+     <p>
+       Text
+     </p>
+   </mat-card-content>
+   <mat-card-actions>
+     <a routerLink='/stu_info' mat-raised-button color="primary">Try</a>
+   </mat-card-actions> 
+   </mat-card>
+    </div>
+
+    <div clas="col">
+       <mat-card (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" class="example-card card"
+       [class.mat-elevation-z2]="!isActive"
+       [class.mat-elevation-z8]="isActive">
+           <mat-card-header>
+             <mat-card-title>Search </mat-card-title>
+           </mat-card-header>
+           <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+           <mat-card-content>
+             <p>
+               Text 
+             </p>
+           </mat-card-content>
+           <mat-card-actions>
+             <a routerLink="/book_ser" mat-raised-button color="primary">Try</a>
+           </mat-card-actions>
+       </mat-card> 
+   </div>
+</div>
+</div>

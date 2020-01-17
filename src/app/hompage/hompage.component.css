@@ -1,0 +1,21 @@
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  .example-container {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+.home{
+    padding-top: 4em;
+}  
+
+/* Change text field
+Add hover effect, correct hover effect
+chane image */
