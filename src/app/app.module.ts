@@ -23,6 +23,9 @@ import { FormBookComponent } from './form-book/form-book.component';
 import { BookService } from './book.service';
 import { IsbnDetailsService } from './isbn-details.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RegStuComponent } from './reg/reg-stu/reg-stu.component';
+import { RegMemComponent } from './reg/reg-mem/reg-mem.component';
+import { DetailsComponent } from './stu-info/details/details.component';
  // import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
@@ -34,7 +37,11 @@ import { HttpClientModule } from '@angular/common/http';
     DropzoneDirective,
     FileSizePipe,
     UploadComponent,
-    FormBookComponent
+    FormBookComponent,
+    RegStuComponent,
+    RegMemComponent,
+    DetailsComponent
+  
   ],
   imports: [    // It happen for modules
     AngularFireModule.initializeApp(environment.firebase),

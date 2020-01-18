@@ -10,7 +10,7 @@ export class FormBookComponent implements OnInit {
   constructor(private db:IsbnDetailsService) { }
 
   ngOnInit() {
-    this.db.test().subscribe(x => console.log(x));
+    // this.db.test().subscribe(x => console.log(x));
   }
 
 }

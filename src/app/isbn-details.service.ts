@@ -8,7 +8,8 @@ export class IsbnDetailsService {
 
   constructor(public http: HttpClient) { }
 
-  test(){
+  details(isbn){
     return this.http.get('http://nameless-fortress-08601.herokuapp.com/details/0253346568');
   }
+  
 }

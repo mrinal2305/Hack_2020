@@ -1,1 +1,27 @@
-<p>stu-info works!</p>
+
+<div class="row abc">
+
+  <div class="input-group input-group-lg" style="padding-bottom: 2em;">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>
+    </div>
+    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+  </div>
+
+    <div class='col' *ngFor="let stud of studs">
+        <mat-card class="example-card">
+            <mat-card-header>
+             
+              <mat-card-title>{{stud.Name}}</mat-card-title>
+              <mat-card-subtitle>{{stud.Branch}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="{{stud.image}}" alt="Photo of a Shiba Inu">
+            {{stud.roll}}
+            <mat-card-actions>
+                <a mat-raised-button color="primary" [routerLink]="['/stu_info/details']" [queryParams]="{id: stud.roll}"> More</a>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+</div>
+
+<!-- For now show 3 images manually, Then add logic -->

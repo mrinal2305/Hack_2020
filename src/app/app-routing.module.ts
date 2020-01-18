@@ -12,6 +12,9 @@ import {  AdminAuthGuardService } from './admin-auth-guard.service';
 import { SuperAuthGuardService } from './super-auth-guard.service';
 import { UploadComponent } from './upload/upload.component';;
 import { from } from 'rxjs';
+import { RegMemComponent } from './reg/reg-mem/reg-mem.component';
+import { RegStuComponent } from './reg/reg-stu/reg-stu.component';
+import { DetailsComponent } from './stu-info/details/details.component';
 
 const routes: Routes = [
   {path :"",           component : HompageComponent},
@@ -21,8 +24,12 @@ const routes: Routes = [
   {path :"book_ser",   component : BookSerComponent},//canActivate :[AuthGuardService]},
   {path :"regs",       component : RegComponent},//canActivate :[AuthGuardService]},  
   {path :"upload" ,   component : UploadComponent},
-  {path : "man_book/edit" ,component : FormBookComponent},
+  {path : "man_book/edit" ,component : FormBookComponent}, 
   {path : "man_book/edit/:id" ,component : FormBookComponent},
+  {path : "regs/mem" ,component:RegMemComponent},
+  {path : "regs/stu" , component:RegStuComponent},
+  {path : "stu_info/details",component:DetailsComponent},
+  {path : "stu_info/details/:id",component:DetailsComponent}
 ];
 
 @NgModule({
