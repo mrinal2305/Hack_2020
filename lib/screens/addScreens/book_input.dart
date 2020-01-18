@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:librarian/elements/round_icon_button.dart';
 import 'package:librarian/models/book.dart';
+import 'package:librarian/screens/addScreens/add_book_screen.dart';
+import 'package:librarian/screens/home_screen.dart';
 import 'package:librarian/services/book_model.dart';
 import 'package:librarian/constants.dart';
 import 'package:librarian/services/firebase_helpers.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:librarian/elements/book_field.dart';
+import 'package:librarian/elements/custom_dialog.dart';
 
 class BookInput extends StatefulWidget {
   static const id = 'book_input';
@@ -166,8 +169,8 @@ class _BookInputState extends State<BookInput>
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context).size;
-    return MaterialApp(
-      home: DefaultTabController(
+    return SafeArea(
+      child: DefaultTabController(
           length: 2,
           child: Scaffold(
             appBar: AppBar(
@@ -282,17 +285,23 @@ class _BookInputState extends State<BookInput>
                               height: 40.0,
                               title: 'ADD This Info',
                               onPress: () async {
+                                setState(() {
+                                  showSpinner=true;
+                                });
                                 await DatabaseService().updateBookData(book);
-//                                final snackBar = SnackBar(
-//                                  content: Text('Book Added!'),
-//                                  action: SnackBarAction(
-//                                    label: 'Undo',
-//                                    onPressed: () {
-//                                      // Some code to undo the change.
-//                                    },
-//                                  ),
-//                                );
-//                                Scaffold.of(context).showSnackBar(snackBar);
+                               setState(() {
+                                 showSpinner=false;
+                               });
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CustomDialog(title: 'Successful',
+                                        message: 'Book Added',
+                                        onPress: (){
+                                      Navigator.pushNamed(context,HomeScreen.id);
+                                        },);
+                                  },
+                                );
                               },
                             ),
                           ],
@@ -356,10 +365,10 @@ class NlpCard extends StatelessWidget {
               height: 150,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    'https://images.unsplash.com/photo-1523726491678-bf852e717f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'),
-              )),
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        'https://images.unsplash.com/photo-1523726491678-bf852e717f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'),
+                  )),
             ),
           ),
           ExpansionTile(

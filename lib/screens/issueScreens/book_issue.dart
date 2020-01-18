@@ -6,6 +6,8 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:librarian/elements/custom_cards.dart';
 import 'package:librarian/elements/round_icon_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:librarian/elements/custom_dialog.dart';
+import 'package:librarian/screens/home_screen.dart';
 
 class BookIssue extends StatefulWidget {
   static const id = 'book_issue';
@@ -23,8 +25,7 @@ class _BookIssueState extends State<BookIssue> {
   String imgUrl;
   String roll;
   var db = Firestore.instance; //
-  bool isVisible=false;
-
+  bool isVisible = false;
 
   void getBookIsbnByBar() async {
     try {
@@ -59,7 +60,7 @@ class _BookIssueState extends State<BookIssue> {
         title = bookData['title'];
         author = bookData['author'];
         imgUrl = bookData['smallThumbnails'];
-        isVisible=true;
+        isVisible = true;
       });
 //    } catch (e) {
 //      print('in getStudentByRoll ${e.message}');
@@ -160,6 +161,18 @@ class _BookIssueState extends State<BookIssue> {
                         if (rollAndOp[1] == 'add') addBookToStudent();
                         if (rollAndOp[1] == 'return') removeBookFromStudent();
                         if (rollAndOp[1] == 'reissue') reissueBookToStudent();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CustomDialog(
+                              title: 'Successful',
+                              message: 'Book Added',
+                              onPress: () {
+                                Navigator.pushNamed(context, HomeScreen.id);
+                              },
+                            );
+                          },
+                        );
                       },
                       title: rollAndOp[1].toUpperCase() ?? 'Add',
                     ),

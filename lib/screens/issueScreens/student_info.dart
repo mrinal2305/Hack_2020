@@ -17,6 +17,7 @@ class _StudentInfoState extends State<StudentInfo> {
   Student student = Student();
   bool toRemove=false;
   bool showSpinner=false;
+  bool toCall=true;
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
@@ -25,7 +26,10 @@ class _StudentInfoState extends State<StudentInfo> {
     student.roll = roll;
     print(roll);
     if(mounted)
-    getStudentByRoll();
+      if(toCall) {
+        toCall=false;
+        getStudentByRoll();
+      }
   }
 
   //from firebase

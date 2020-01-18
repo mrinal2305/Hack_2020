@@ -7,8 +7,8 @@ class Book {
   String ddc1='340';
   String ddc2='123';
   String description='description';
-  String isbn_10='isbn_10';
-  String isbn_13='isbn_13';
+  String isbn_10;
+  String isbn_13;
   int issued=1;
 //  List<String> lcc=List<String>();
   String lcc1='lcc1';

@@ -7,7 +7,7 @@ import 'package:librarian/models/student.dart';
 import 'package:librarian/models/nlp.dart';
 
 class SearchService {
-  searchByTitle(String searchField) {
+  static searchByTitle(String searchField) {
     print('in searchbytitle $searchField');
     return Firestore.instance
         .collection('book')

@@ -19,7 +19,7 @@ class HomeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        color: Color(0xddffffff),
+        color: Colors.white,
         elevation: 8,
 //        borderOnForeground: false,
         child: Container(
