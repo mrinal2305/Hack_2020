@@ -44,6 +44,7 @@ class _IssueScreenState extends State<IssueScreen> {
       child: Stack(
         children: <Widget>[
           Container(
+            width: double.infinity,
             height: double.infinity,
             child: Image.asset(
               'images/back.jpeg',

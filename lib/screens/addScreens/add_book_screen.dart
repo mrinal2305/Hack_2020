@@ -226,6 +226,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       child: Stack(
         children: <Widget>[
           Container(
+            width: double.infinity,
             height: double.infinity,
             child: Image.asset(
               'images/back.jpeg',

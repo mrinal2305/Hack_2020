@@ -28,8 +28,10 @@ class _BookIssueState extends State<BookIssue> {
 
   var db = Firestore.instance; //
   bool isVisible = false;
+  bool isError=false;
   bool showSpinner = false;
 
+  String errorMessage;
   String getStringFromDate(String date) {
     String temp = '';
     for (int i = 0; i < date.length; i++) {
@@ -62,6 +64,10 @@ class _BookIssueState extends State<BookIssue> {
     } catch (e) {
       print('in issuedBookbyisbn');
     }
+    setState(() {
+      errorMessage='Not your book';
+      isError=true;
+    });
     return null;
   }
 
@@ -105,6 +111,10 @@ class _BookIssueState extends State<BookIssue> {
 //      print('in getStudentByRoll ${e.message}');
 //    }
     } catch (e) {
+      setState(() {
+        errorMessage='This book is not available in library';
+        isError=true;
+      });
       print('This book is not available in library\n');
     }
   }
@@ -166,7 +176,63 @@ class _BookIssueState extends State<BookIssue> {
     });
   }
 
-  void reissueBookToStudent() async {}
+  void reissueBookToStudent() async {
+    Map issuedBook=await getIssuedBookByIsbn(isbn);
+    if(issuedBook==null){
+      print('Not your book');
+      return;
+    }
+    DateTime now=DateTime.now();
+    DateTime issueNowDate = DateTime(now.year, now.month, now.day);
+    DateTime reissue = DateTime(now.year, now.month, now.day + 15);
+    print(issueNowDate.toString());
+    String issuedDate = issueNowDate.toString();
+    String returnDate = reissue.toString();
+    issuedDate = getStringFromDate(issuedDate);
+    returnDate = getStringFromDate(returnDate);
+//    print(myDatetime.difference(mySecondDate).inDays.toString());
+    print(issuedDate);
+    print(returnDate);
+    Map<String, String> newIssuedBook = {
+      'smallThumbnail': imgUrl ?? imgIsNull,
+      'isbn': isbn,
+      'title': title,
+      'author': author,
+      'issueDate': issuedDate,
+      'returnDate': returnDate,
+    };
+    print(newIssuedBook);
+    int days=issueNowDate.difference(DateTime.parse(issuedBook['returnDate'])).inDays;
+    if(days<0){
+      days=0;
+    }
+    print(days);
+    removeBookFromStudent();
+    newIssuedBook['fine']=(days*2).toString();
+    final studentCollection = db.collection('student');
+    try {
+      await studentCollection.document(roll).updateData({
+        'books': FieldValue.arrayUnion([newIssuedBook])
+      });
+    } catch (e) {
+      print(e);
+      print('in reissuebook setdata');
+      try {
+        print(roll);
+        final student = studentCollection.document(roll);
+        final sData = await student.get();
+        print(sData.data);
+        student.updateData({
+          'books': [newIssuedBook],
+        });
+      } catch (e) {
+        print(e);
+        print('books not available in reissue book');
+      }
+    }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +245,7 @@ class _BookIssueState extends State<BookIssue> {
         child: Stack(
           children: <Widget>[
             Container(
+              width: double.infinity,
               height: double.infinity,
               child: Image.asset(
                 'images/back.jpeg',
@@ -241,6 +308,10 @@ class _BookIssueState extends State<BookIssue> {
                               author: author,
                             ),
                           ),
+                        ),
+                        Visibility(
+                          visible: isError,
+                            child: Text('$errorMessage'),
                         ),
                         Padding(
                           padding: EdgeInsets.all(4.0),
