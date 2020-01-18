@@ -21,7 +21,8 @@ import { routingModule } from './material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FormBookComponent } from './form-book/form-book.component';
 import { BookService } from './book.service';
-
+import { IsbnDetailsService } from './isbn-details.service';
+import { HttpClientModule } from '@angular/common/http';
  // import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
@@ -41,13 +42,14 @@ import { BookService } from './book.service';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     AngularFireStorageModule,
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     routingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [AuthService,AuthGuardService,AdminAuthGuardService,SuperAuthGuardService,BookService],       // It happens for services
+  providers: [AuthService,AuthGuardService,AdminAuthGuardService,SuperAuthGuardService,BookService,IsbnDetailsService],       // It happens for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }

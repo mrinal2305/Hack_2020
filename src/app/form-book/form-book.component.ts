@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { IsbnDetailsService } from './../isbn-details.service';
 @Component({
   selector: 'app-form-book',
   templateUrl: './form-book.component.html',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormBookComponent implements OnInit {
 
-  constructor() { }
+  constructor(private db:IsbnDetailsService) { }
 
   ngOnInit() {
+    this.db.test().subscribe(x => console.log(x));
   }
 
 }
