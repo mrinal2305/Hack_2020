@@ -1,6 +1,7 @@
 .level{
-    padding-top: 1.7em;
-    padding-bottom: 1.5em;
+    padding-top: 0.9em;
+    padding-bottom: 0.2em;
+    font-size: 38px;
 }
 
 .hero{
@@ -8,7 +9,7 @@
 }
 
 .level{
-    padding-left: 1em;
+    padding-left: 0em;
 }
 
 .list{
@@ -23,14 +24,15 @@
 }
 
 .login{
-    background-color: grey;
-    border          : 2px solid blue;
+    background-color:#E1E2E1;
+    border          : 1px solid #757575;
 }
 
 .example-form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
+    padding-left: 50px;
   }
   
   .example-full-width {
@@ -38,8 +40,40 @@
   }
 
   .input{
-      background-color: hotpink ;
+      background-color: #F5F5F6 ;
   }
+  .va{
+      padding-left: 400px;
+      padding-right: 400px;
+  }
+button{
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+.bb{
+    
+        padding-top: 5px;
+        
+        padding-bottom: 22px;
+   
+}
+.but{
+
+    padding-left: 225px;
+    padding-bottom: 10px;;
+    
+}
+.vaish{
+    padding-left: 190px;
+}
+.iim{
+    padding-left: 59px;
+}
+.link is-info{
+    padding-left: 50px;
+}
 
  /* .buton{
      padding-top: 23em;

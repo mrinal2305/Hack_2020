@@ -1,64 +1,72 @@
-  <section class="hero is-primary">
+<section class="hero is-primary">
    
-      <!-- <div class="container"> -->
+  <!-- <div class="container"> -->
 
-        <nav class="level">
+    <nav class="level">
 
-            <p class="level-item has-text-centered">
-              <a class="link is-info"> <i class="fas fa-home"></i></a>
-              <a class="link is-info"> Home </a>
-            </p>
-           
-            <p class="level-item has-text-centered">
-              SMART LIBRARY
-            </p>
-           
-            <div class="level-item has-text-centered">
-              <button class="buton" mat-button [matMenuTriggerFor]="menu" class="link is-info" (click)="onClick()">  
-                <i class="fas fa-sort-down"> </i>
-                <mat-menu #menu="matMenu">
-                    <a mat-menu-item>Details</a>
-                    <a mat-menu-item>Logout</a>
-                </mat-menu>
-            </button>
-              <p>  Login  </p>
-            </div>
+        <p  class="level-item has-text-centered">
+          
+          <a class="link is-info"> <i class="fas fa-home"></i></a>
+          <a class="link is-info"> Home </a>
+          
+        </p>
+        
+       
+        <div >
+          <img src="https://firebasestorage.googleapis.com/v0/b/smart-library-55e4d.appspot.com/o/WhatsApp%20Image%202020-01-18%20at%2010.22.37%20AM%20(1).jpeg?alt=media&token=f6ae7c20-11b2-481c-a97e-b734d87d5eb4" alt="logo" height="100px" width="250px">  <!--Logo of our software-->
+      </div>
+      
+       
+        <div class="level-item has-text-centered">
+          <div class="bb"><button class="buton" mat-button [matMenuTriggerFor]="menu" class="link is-info" (click)="onClick()">  
+            <i class="fas fa-sort-down"> </i>
+            <mat-menu #menu="matMenu">
+                <a mat-menu-item>Details</a>
+                <a mat-menu-item>Logout</a>
+            </mat-menu>
+        </button></div>
+          <p>  Login  </p>
+        </div>
 
-          </nav>
-     
-  </section>
-  
+      </nav>
+ 
+</section>
+<div class="va">
 <!-- LOGIN FORM  -->
 <div class="login" *ngIf="show">
-    <div class="container">
-
-        <div clas="row">      <!--Text-->
-            Please Login First
-        </div>
-        <div>
-            <img src="" alt="logo">  <!--Logo of our software-->
-        </div>
-        <div class="row">
-         <form class="example-form">
-             <!-- EMAIL -->
-            <mat-form-field class="example-full-width">
-              <input class="input" matInput placeholder="Email" [formControl]="emailFormControl">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-
-            <!-- PASSWORD -->
-            <mat-form-field class="example-full-width">
-                <input class="input" matInput placeholder="Password">
-            </mat-form-field>
-          </form>
-        </div>
-        <div class="row">
-            <button mat-raised-button color="primary">Submit</button>
-        </div>
+<div class="container">
+<div class="vaish">
+    <div clas="row">      <!--Text-->
+        <b>Please Login First</b>
     </div>
+    <div class="iim">
+        <img src="https://firebasestorage.googleapis.com/v0/b/smart-library-55e4d.appspot.com/o/WhatsApp%20Image%202020-01-18%20at%2010.22.37%20AM.jpeg?alt=media&token=cb118742-a855-4d53-9b86-00dce7e5997c" alt="logo" height="50px" width="50px">  <!--Logo of our software-->
+    </div>
+</div>
+    <div class="row">
+     <form class="example-form">
+         <!-- EMAIL -->
+        <mat-form-field class="example-full-width">
+          <input class="input" matInput placeholder="Email" [formControl]="emailFormControl">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- PASSWORD -->
+        <mat-form-field class="example-full-width">
+            <input class="input" matInput placeholder="Password">
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="row">
+      <div class="but">
+        <button mat-raised-button color="primary">Submit</button>
+    </div>
+    </div>
+</div>
+</div>
 </div>
