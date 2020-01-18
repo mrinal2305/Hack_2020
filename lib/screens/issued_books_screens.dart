@@ -49,7 +49,9 @@ class _IssuedPageState extends State<IssuedPage> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text('Issued Books'),
+                  Text('Issued Books',style: TextStyle(
+                    fontSize: 20.0
+                  ),),
                 ],
               ),
               Divider(
@@ -71,7 +73,7 @@ class _IssuedPageState extends State<IssuedPage> {
                      final books=snapshot.data['books'];
                      List<IssuedBookCard> book=[];
                      for(var b in books){
-                       book.add(IssuedBookCard(bookTitle: b['title'],issueDate: b['issueDate'],isbn: b['isbn'],fine: b['fine'],author: b['author'],returnDate: b['returnDate'],));
+                       book.add(IssuedBookCard(bookTitle: b['title'],issueDate: b['issueDate'],isbn: b['isbn'],fine: b['fine'],author: b['author'],returnDate: b['returnDate'],imgUrl: b['smallThumbnail'],));
                      }
                      return Column(
                        children: book,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:lbs/chatbot/fact_message.dart';
+import 'package:lbs/constants.dart';
 
 class FlutterFactsDialogFlow extends StatefulWidget {
   static const String id="virtual_lib.dart";
@@ -51,7 +52,7 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
     FactsMessage message = FactsMessage(
       text: response.getMessage() ??
           CardDialogflow(response.getListMessage()[0]).title,
-      name: "Flutter Bot",
+      name: "Virtual Lib",
       type: false,
     );
     setState(() {
@@ -77,7 +78,8 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Flutter Facts"),
+        title: Text("Virtual Librarian"),
+        backgroundColor: kPrimaryColor ,
       ),
       body: Column(children: <Widget>[
         Flexible(

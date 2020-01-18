@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lbs/constants.dart';
 
 class FactsMessage extends StatelessWidget {
   FactsMessage({this.text, this.name, this.type});
@@ -11,7 +12,8 @@ class FactsMessage extends StatelessWidget {
     return <Widget>[
       Container(
         margin: const EdgeInsets.only(right: 16.0),
-        child: CircleAvatar(child: Text('Bot')),
+        child: CircleAvatar(child: Text('Bot',style: TextStyle(color: Colors.white)),radius: 25.0,
+        backgroundColor: kPrimaryColor,),
       ),
       Expanded(
         child: Column(
@@ -45,7 +47,7 @@ class FactsMessage extends StatelessWidget {
       ),
       Container(
         margin: const EdgeInsets.only(left: 16.0),
-        child: CircleAvatar(child: new Text(this.name[0])),
+        child: CircleAvatar(child: new Text(this.name[0],style: TextStyle(color: Colors.white),),radius: 25.0,backgroundColor: kPrimaryColor,),
       ),
     ];
   }

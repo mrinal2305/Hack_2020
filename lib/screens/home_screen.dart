@@ -8,6 +8,8 @@ import 'package:lbs/screens/personel_screen.dart';
 import 'package:lbs/constants.dart';
 import 'package:lbs/screens/search_screen.dart';
 import 'package:lbs/screens/saved_books/personal_book_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lbs/chatbot/virtual_lib.dart';
 
 class HomePage extends StatelessWidget {
   static const id = 'home_screen';
@@ -67,10 +69,19 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(FontAwesomeIcons.robot),
+        backgroundColor: kPrimaryColor,
+        hoverColor: Colors.green,
+        onPressed: (){
+          Navigator.pushNamed(context,FlutterFactsDialogFlow.id);
+
+        },
+      ),
       body: Container(
         height: data.size.height,
         width: data.size.width,
-        margin: EdgeInsets.only(top: data.size.height/6),
+        margin: EdgeInsets.only(top: data.size.height/9),
         decoration: BoxDecoration(
             color: Color(0xfff7f7f7),
             borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
@@ -91,6 +102,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

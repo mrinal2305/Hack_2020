@@ -79,13 +79,13 @@ class IssuedBookCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Title : $bookTitle',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                     TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'Author : $author',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                     TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
@@ -97,19 +97,19 @@ class IssuedBookCard extends StatelessWidget {
                   ),
                   Text(
                     'Fine : $fine',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                     TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'IssueDate : $issueDate',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                     TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'ReturnDate : $returnDate',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                     TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
