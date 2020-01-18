@@ -118,9 +118,15 @@ class _AddBookScreenState extends State<AddBookScreen> {
     return SafeArea(
       child: Stack(
         children: <Widget>[
-          Center(child: Image.asset('images/add.png')),
+          Container(
+            height: double.infinity,
+            child: Image.asset(
+              'images/back.jpeg',
+              fit: BoxFit.fill,
+            ),
+          ),
           Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xbbffffff),
             appBar: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),

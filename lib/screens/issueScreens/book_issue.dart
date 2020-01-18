@@ -28,7 +28,7 @@ class _BookIssueState extends State<BookIssue> {
 
   var db = Firestore.instance; //
   bool isVisible = false;
-  bool showSpinner=false;
+  bool showSpinner = false;
 
   String getStringFromDate(String date) {
     String temp = '';
@@ -98,7 +98,7 @@ class _BookIssueState extends State<BookIssue> {
         setState(() {
           title = bookData['title'];
           author = bookData['author'];
-          imgUrl = bookData['smallThumbnail'];//or check for smallThumbnails
+          imgUrl = bookData['smallThumbnail']; //or check for smallThumbnails
           isVisible = true;
         });
 //    } catch (e) {
@@ -125,7 +125,7 @@ class _BookIssueState extends State<BookIssue> {
       'smallThumbnail': imgUrl ?? imgIsNull,
       'isbn': isbn,
       'title': title,
-      'author':author,
+      'author': author,
       'issueDate': issuedDate,
       'returnDate': returnDate,
     };
@@ -140,13 +140,13 @@ class _BookIssueState extends State<BookIssue> {
       print(e);
       print('in addbook setdata');
       try {
-      print(roll);
-      final student= studentCollection.document(roll);
-      final sData=await student.get();
-      print(sData.data);
-      student.updateData({
-        'books':[issuedBook],
-      });
+        print(roll);
+        final student = studentCollection.document(roll);
+        final sData = await student.get();
+        print(sData.data);
+        student.updateData({
+          'books': [issuedBook],
+        });
       } catch (e) {
         print(e);
         print('books not available in add book');
@@ -172,101 +172,116 @@ class _BookIssueState extends State<BookIssue> {
   Widget build(BuildContext context) {
     rollAndOp = ModalRoute.of(context).settings.arguments as List;
     print('in book issue ${rollAndOp[0]} and ${rollAndOp[1]}');
-    roll=rollAndOp[0];//very important don't forget
+    roll = rollAndOp[0]; //very important don't forget
     return SafeArea(
       child: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: kPrimaryColor,
-            title: Text('Book Issue'),
-          ),
-          body: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: isbnController,
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter ISBN or Search by Barcode',
-                    hintMaxLines: 2,
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        getBookIsbnByBar();
-                      },
-                      icon: Icon(
-                        FontAwesomeIcons.barcode,
-                      ),
-                    ),
-                  ),
-                ),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: double.infinity,
+              child: Image.asset(
+                'images/back.jpeg',
+                fit: BoxFit.fill,
               ),
-              RoundIconButton(
-                title: 'Search',
-                onPress: () {
-                  isbn = isbnController.text;
-                  print(isbn);
-                  setState(() {
-                    showSpinner=true;
-                  });
-                  getBookByIsbn();
-                  setState(() {
-                    showSpinner=false;
-                  });
-                },
+            ),
+            Scaffold(
+              backgroundColor: Color(0xbbffffff),
+              appBar: AppBar(
+                backgroundColor: kPrimaryColor,
+                title: Text('Book Issue'),
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Visibility(
-                      visible: isVisible,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: BookCard(
-                          title: title,
-                          isbn: isbn,
-                          imgURL: imgUrl,
-                          author: author,
+              body: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: isbnController,
+                      decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Enter ISBN or Search by Barcode',
+                        hintMaxLines: 2,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            getBookIsbnByBar();
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.barcode,
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: RoundIconButton(
-                        width: double.infinity,
-                        onPress: () {
-                          setState(() {
-                            showSpinner=true;
-                          });
-                          if (rollAndOp[1] == 'add') addBookToStudent();
-                          if (rollAndOp[1] == 'return') removeBookFromStudent();
-                          if (rollAndOp[1] == 'reissue') reissueBookToStudent();
-                          setState(() {
-                            showSpinner=false;
-                          });
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return CustomDialog(
-                                title: 'Successful',
-                                message: 'Book ${rollAndOp[1]}',
-                                onPress: () {
-                                  Navigator.pushNamed(context, HomeScreen.id);
+                  ),
+                  RoundIconButton(
+                    title: 'Search',
+                    onPress: () {
+                      isbn = isbnController.text;
+                      print(isbn);
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      getBookByIsbn();
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Visibility(
+                          visible: isVisible,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: BookCard(
+                              title: title,
+                              isbn: isbn,
+                              imgURL: imgUrl,
+                              author: author,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: RoundIconButton(
+                            width: double.infinity,
+                            onPress: () {
+                              setState(() {
+                                showSpinner = true;
+                              });
+                              if (rollAndOp[1] == 'add') addBookToStudent();
+                              if (rollAndOp[1] == 'return')
+                                removeBookFromStudent();
+                              if (rollAndOp[1] == 'reissue')
+                                reissueBookToStudent();
+                              setState(() {
+                                showSpinner = false;
+                              });
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CustomDialog(
+                                    title: 'Successful',
+                                    message: 'Book ${rollAndOp[1]}',
+                                    onPress: () {
+                                      Navigator.pushNamed(
+                                          context, HomeScreen.id);
+                                    },
+                                  );
                                 },
                               );
                             },
-                          );
-                        },
-                        title: rollAndOp[1].toUpperCase() ?? 'Add',
-                      ),
-                    )
-                  ],
-                ),
+                            title: rollAndOp[1].toUpperCase() ?? 'Add',
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

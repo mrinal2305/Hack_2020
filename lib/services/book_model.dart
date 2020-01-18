@@ -43,4 +43,9 @@ class BookModel{
     var bookDetails=await NetworkHelper.getSubCategory(desc);
     return bookDetails;
   }
+
+  Future<dynamic> getBookConcept(String desc) async{
+    var bookDetails=await NetworkHelper.getConcept(desc);
+    return bookDetails;
+  }
 }

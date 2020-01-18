@@ -16,6 +16,7 @@ class IssueScreen extends StatefulWidget {
 class _IssueScreenState extends State<IssueScreen> {
   final rollController = TextEditingController();
   String roll;
+
   void getRollByBar() async {
     try {
       String result = await BarcodeScanner.scan();
@@ -40,41 +41,54 @@ class _IssueScreenState extends State<IssueScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text('Issue Screen'),
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: rollController,
-                decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Enter Roll or Search by Barcode',
-                  hintMaxLines: 2,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      getRollByBar();
-                    },
-                    icon: Icon(
-                      FontAwesomeIcons.barcode,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: double.infinity,
+            child: Image.asset(
+              'images/back.jpeg',
+              fit: BoxFit.fill,
+            ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: kPrimaryColor,
+              title: Text('Issue Screen'),
+            ),
+            body: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: rollController,
+                    decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Enter Roll or Search by Barcode',
+                      hintMaxLines: 2,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          getRollByBar();
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.barcode,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                RoundIconButton(
+                  title: 'Search',
+                  onPress: () {
+                    roll = rollController.text;
+                    print(roll);
+                    Navigator.pushNamed(context, StudentInfo.id,
+                        arguments: roll);
+                  },
+                ),
+              ],
             ),
-            RoundIconButton(
-              title: 'Search',
-              onPress: () {
-                roll=rollController.text;
-                print(roll);
-                Navigator.pushNamed(context, StudentInfo.id,arguments: roll);
-              },
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

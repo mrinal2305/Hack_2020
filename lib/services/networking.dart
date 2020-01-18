@@ -99,9 +99,9 @@ class NetworkHelper {
   }
 
   static Future getSubCategory(String descUrl) async {
-    String SubCategoryUrl='https://intense-thicket-08147.herokuapp.com/subCategory/?text=';
+    String subCategoryUrl='https://intense-thicket-08147.herokuapp.com/subCategory/?text=';
     try {
-      http.Response response = await http.get(SubCategoryUrl+descUrl);
+      http.Response response = await http.get(subCategoryUrl+descUrl);
       if (response.statusCode == 200) {
         String jsonData = response.body;
         if (jsonData != null)
@@ -114,6 +114,26 @@ class NetworkHelper {
       }
     } catch (e) {
       print('in try of subcategory');
+      print(e);
+    }
+  }
+
+  static Future getConcept(String descUrl) async {
+    String conceptUrl='https://intense-thicket-08147.herokuapp.com/concept/?text=';
+    try {
+      http.Response response = await http.get(conceptUrl+descUrl);
+      if (response.statusCode == 200) {
+        String jsonData = response.body;
+        if (jsonData != null)
+          return jsonDecode(jsonData);
+        else
+          print('null recieved in concept');
+      } else {
+        print('response code error for concept');
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print('in try of concept');
       print(e);
     }
   }

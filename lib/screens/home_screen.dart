@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text('Drawer Header'),
+                      Text('Profile'),
                       Flexible(
                         child: Image.asset('images/personal.png'),
                       ),
@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text('Item 1'),
+                  title: Text('Name'),
                   onTap: () {
                     // Update the state of the app
                     // ...
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text('Item 2'),
+                  title: Text('Post'),
                   onTap: () {
                     // Update the state of the app
                     // ...

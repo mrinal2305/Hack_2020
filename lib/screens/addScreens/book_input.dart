@@ -84,9 +84,26 @@ class _BookInputState extends State<BookInput>
     }
   }
 
+  void getConceptDetails() async {
+    print(book.description);
+    var bookData = await BookModel().getBookConcept(book.description);
+    print('inConcept');
+    print(bookData);
+
+    for (int i = 0; i < bookData['concept'].length; i++) {
+      setState(() {
+        nlp.concept.add({
+          'text': bookData['concept'][i]['text'],
+          'relevance': bookData['concept'][i]['relevance'].toString()
+        });
+      });
+    }
+  }
+
   void getBookFullDetails() async {
     isbnController10.text = book.isbn_10;
-    titleController.text = book.title;
+    nlp.isbn=book.isbn_10;//for nlp
+        titleController.text = book.title;
     ddcController.text = book.ddc1;
     setState(() {
       showSpinner = true;
@@ -117,6 +134,7 @@ class _BookInputState extends State<BookInput>
     }
     print('bookdesc     ${book.description}');
     getSubCategoryDetails();
+    getConceptDetails();
     getCategory();
     getDDC();
     setState(() {
@@ -320,8 +338,7 @@ class _BookInputState extends State<BookInput>
                                     title: 'Successful',
                                     message: 'Book Added',
                                     onPress: () {
-                                      Navigator.pushNamed(
-                                          context, HomeScreen.id);
+                                      Navigator.pop(context);
                                     },
                                   );
                                 },
@@ -354,11 +371,48 @@ class _BookInputState extends State<BookInput>
                         },
                       ),
                     ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: nlp.concept.length,
+                        itemBuilder: (context, index) {
+                          return NlpCard(
+                            title: 'Concept',
+                            score: nlp.concept.isEmpty
+                                ? 'empty'
+                                : nlp.concept[index]['text'],
+                            label: nlp.concept.isEmpty
+                                ? 'empty'
+                                : nlp.concept[index]['relevance'],
+                          );
+                        },
+                      ),
+                    ),
                     RoundIconButton(
                       title: 'Add this Info',
                       width: 150.0,
                       height: 40.0,
-                      onPress: () {},
+                      onPress: () async {
+                        setState(() {
+                          showSpinner = true;
+                        });
+                        await DatabaseService().updateNlpData(nlp);
+                        setState(() {
+                          showSpinner = false;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CustomDialog(
+                              title: 'Successful',
+                              message: 'Nlp info Added',
+                                    onPress: () {
+                                      Navigator.pushNamed(
+                                          context, HomeScreen.id);
+                                    },
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),

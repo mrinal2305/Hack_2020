@@ -246,18 +246,34 @@ class DatabaseService {
 
   //for nlp collection
   Future<void> updateNlpData(Nlp nlp) async {
+////   Book book = Book.initialize();
+//    final singleNlpCollection = nlpCollection.document(nlp.isbn);
+////    print(singleBookCollection.exists);
+//    final checkExist = await singleNlpCollection.get();
+//    if (!checkExist.exists) {
+//      await singleNlpCollection
+//          .setData({'concept': nlp.concept, 'sentiment': nlp.concept});
+//    } else {
+////      await singleStudentCollection.updateData({
+////        'totalCopy':FieldValue.increment(1),
+////      });
+//      print('update');
+//    }
+
 //   Book book = Book.initialize();
     final singleNlpCollection = nlpCollection.document(nlp.isbn);
 //    print(singleBookCollection.exists);
     final checkExist = await singleNlpCollection.get();
     if (!checkExist.exists) {
-      await singleNlpCollection
-          .setData({'concept': nlp.concept, 'sentiment': nlp.concept});
+      await singleNlpCollection.setData({
+        'concept': nlp.concept,
+        'subCategory': nlp.subCategory,
+      });
     } else {
-//      await singleStudentCollection.updateData({
-//        'totalCopy':FieldValue.increment(1),
+//      await singleNlpCollection.updateData({
+//        'totalCopy': FieldValue.increment(1),
 //      });
-      print('update');
+      print('in update of nlp');
     }
   }
 

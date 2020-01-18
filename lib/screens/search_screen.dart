@@ -52,51 +52,67 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: kPrimaryColor,
-            title: Text('Book search'),
+    return SafeArea(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: double.infinity,
+            child: Image.asset(
+              'images/back.jpeg',
+              fit: BoxFit.fill,
+            ),
           ),
-          body: Column(children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: TextField(
-                onChanged: (val) {
-                  initiateSearch(val);
-                },
-                decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      color: Colors.black,
-                      icon: Icon(Icons.search),
-                      iconSize: 20.0,
-                      onPressed: () {
+          Scaffold(
+            backgroundColor: Color(0x22ffffff),
+            appBar: AppBar(
+              backgroundColor: kPrimaryColor,
+              title: Text('Book search'),
+            ),
+            body: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextField(
+                    onChanged: (val) {
+                      initiateSearch(val);
+                    },
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          color: Colors.black,
+                          icon: Icon(Icons.search),
+                          iconSize: 20.0,
+                          onPressed: () {
 //                      Navigator.pop(context);
-                      },
-                    ),
-                    contentPadding: EdgeInsets.only(left: 25.0),
-                    hintText: 'Search by title',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0))),
-              ),
+                          },
+                        ),
+                        contentPadding: EdgeInsets.only(left: 25.0),
+                        hintText: 'Search by title',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0))),
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return BuildResultCard(
+                        bookTitle: tempSearchStore[index]['title'] ?? 'null',
+                        author: tempSearchStore[index]['author'] ?? 'null',
+                        isbn: tempSearchStore[index]['isbn_10'] ?? 'null',
+                        imgUrl: tempSearchStore[index]['smallThumbnail'] ??
+                            imgIsNull,
+                      );
+                    },
+                    itemCount: tempSearchStore.length,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 10.0),
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return BuildResultCard(
-                    bookTitle: tempSearchStore[index]['title'] ?? 'null',
-                    author: tempSearchStore[index]['author'] ?? 'null',
-                    isbn: tempSearchStore[index]['isbn_10'] ?? 'null',
-                    imgUrl: tempSearchStore[index]['smallThumbnail'] ?? imgIsNull,
-                  );
-                },
-                itemCount: tempSearchStore.length,
-              ),
-            ),
-          ])),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -124,7 +140,7 @@ class BuildResultCard extends StatelessWidget {
               Flexible(
                 flex: 4,
                 child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 22.0),
+                  padding: EdgeInsets.symmetric(horizontal: 22.0),
                   child: Column(
 //              child: Image(
 //                image: NetworkImage(imgURL),
