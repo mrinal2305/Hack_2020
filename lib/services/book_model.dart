@@ -10,6 +10,8 @@ class BookModel{
   static const String DetailsUrl='https://nameless-fortress-08601.herokuapp.com/details/';
   //for category of books
   static const String CategoryUrl='https://nameless-fortress-08601.herokuapp.com/category/';
+  //for subcategory of books
+
 
   Future<dynamic> getBookDetailsByTitle(String bookTitle) async {
     var bookDetails=await NetworkHelper.getBookDataByTitle(TitleUrl+bookTitle);
@@ -34,6 +36,11 @@ class BookModel{
 
   Future<dynamic> getBookCategory(String bookTitle)async{
     var bookDetails=await NetworkHelper.getBookCategory(CategoryUrl+bookTitle);
+    return bookDetails;
+  }
+
+  Future<dynamic> getBookSubCategory(String desc) async{
+    var bookDetails=await NetworkHelper.getSubCategory(desc);
     return bookDetails;
   }
 }

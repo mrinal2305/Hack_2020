@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -92,6 +94,26 @@ class NetworkHelper {
       }
     } catch (e) {
       print('in try of bookCategory');
+      print(e);
+    }
+  }
+
+  static Future getSubCategory(String descUrl) async {
+    String SubCategoryUrl='https://intense-thicket-08147.herokuapp.com/subCategory/?text=';
+    try {
+      http.Response response = await http.get(SubCategoryUrl+descUrl);
+      if (response.statusCode == 200) {
+        String jsonData = response.body;
+        if (jsonData != null)
+          return jsonDecode(jsonData);
+        else
+          print('null recieved in subcategory');
+      } else {
+        print('response code error for subcategory');
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print('in try of subcategory');
       print(e);
     }
   }

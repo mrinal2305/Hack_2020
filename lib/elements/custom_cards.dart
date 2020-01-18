@@ -249,22 +249,6 @@ class IssuedBookCard extends StatelessWidget {
       this.issueDate,
       this.returnDate});
 
-//  void removeBookFromStudent() async {
-//    var db=Firestore.instance;
-//    Map<String, String> issuedBook = {
-//      'isbn': isbn,
-//      'title': bookTitle,
-//      'issueDate': '12-01-20',
-//      'returnDate': '12-02-20',
-//    };
-//    print(issuedBook);
-//    var roll = '1706011';
-//    final studentCollection = db.collection('student');
-//    await studentCollection.document(roll).updateData({
-//      'books': FieldValue.arrayRemove([issuedBook])
-//    });
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
@@ -308,37 +292,37 @@ class IssuedBookCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Title : $bookTitle',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'Author : $author',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'ISBN : $isbn',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
-                  Text(
-                    'Fine : $fine',
-                    textAlign: TextAlign.end,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-                  ),
+//                  Text(
+//                    'Fine : $fine',
+//                    textAlign: TextAlign.start,
+//                    style:
+//                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+//                  ),
                   Text(
                     'IssueDate : $issueDate',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
                   Text(
                     'ReturnDate : $returnDate',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
