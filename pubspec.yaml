@@ -35,6 +35,8 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   #bar code spinner
   barcode_scan: ^1.0.0
+  #speech
+  speech_recognition: "^0.3.0"
 
 dev_dependencies:
   flutter_test:
