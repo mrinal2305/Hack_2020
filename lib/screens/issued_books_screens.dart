@@ -38,48 +38,59 @@ class _IssuedPageState extends State<IssuedPage> {
     print(email);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Library Reissue'),
+        title: Text('Library Issued Books'),
         backgroundColor: Colors.teal,
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text('Issued Books'),
-              ],
-            ),
-            Divider(
-              height: 20.0,
-              color: Colors.black,
-              endIndent: 20.0,
-              indent: 20.0,
-            ),
-            StreamBuilder<DocumentSnapshot>(
-              stream: DatabaseService().studentStream(roll),
-              builder: (context, snapshot) {
-                print(snapshot.data);
-                if(!snapshot.hasData){
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                final books=snapshot.data['books'];
-                List<SavedBookDetails> book=[];
-                for(var b in books){
-                  book.add( SavedBookDetails(
-                    bookTitle: b['title'],
-                    author: b['author'],
-                    isbn: b['isbn'],
-                    imgUrl: b['imgUrl'],
-                  ));
-                }
-                return Column(
-                  children: book,
-                );
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text('Issued Books'),
+                ],
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.black,
+                endIndent: 20.0,
+                indent: 20.0,
+              ),
+              StreamBuilder<DocumentSnapshot>(
+                stream: DatabaseService().studentStream(roll),
+                builder: (context, snapshot) {
+                   try{
+                     print(snapshot.data);
+                     if(!snapshot.hasData){
+                       return Center(
+                         child: CircularProgressIndicator(),
+                       );
+                     }
+                     final books=snapshot.data['books'];
+                     List<SavedBookDetails> book=[];
+                     for(var b in books){
+                       book.add( SavedBookDetails(
+                         bookTitle: b['title'],
+                         author: b['author'],
+                         isbn: b['isbn'],
+                         imgUrl: b['imgUrl'],
+                       ));
+                     }
+                     return Column(
+                       children: book,
+                     );
+                   }catch(e){
+                     print(e);
+                     return Center(child: Text('No Issued Books',style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold),));
+                   }
+
+
+
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

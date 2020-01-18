@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tourist-bot-hilapp",
+  "private_key_id": "f69f18d549ca772f6b777e56e6d6a6d04775e663",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCXiXjh9PsndFJg\nwtW6689fV3s+Zx8SxCZ9n0nHRGZ+uqqet0McdqQyDf5OBmmJE7TBtpNEbgKLrx+Q\nZQZPqdtTJdbjl4VAstFRM9eVFjAFAfjdqJCTHsBOSZF/pYqRkVMNF27R90othGC/\nj4Pu7SO4g9pzgpXiosAXXoPv/H9QOoiAHDrVn5+M8Ehy52DpKhBnp0EqSMDzQNpn\nyfi7psxpIpLf4HxQrsDtbDZLscS4JCsok8z+0g5R9OhGnIPOC5l7uy5I30CAp+pf\nxctT2FoX2bCg/S/VK3eLFrPsgZrob46np1KV0U9d+rc4Iizox+RXwjkcw4eOqjmA\n1dQGsXNPAgMBAAECggEAI2erJp/mTkGPPaxH43RU7yGxWdMeH3RUyeT9h+EjUVir\npImM1Imjs04xrGkzHyPLh7bwkXxie+Ber43q+5Hj/HlKy8ILECK3ZRGHvP2CGqlr\nS96maLk2lRP7OqeiyH/7t4NSERyF6DyVniwZ1yjwv5uO3o4UFu+PkeYzTU7hMA0g\n5+FszE1Zc81idap6aLlum20LgjYK35An/raJ8kkPjQcSj0oJuZyon1lt9VUX8TrL\n3MMin7iXl8sTfkYylFsv8zsjBCjG136ZTJy3WPqAXZ5Jtxd7JslF0EyS/QsKi3nQ\n0XfrVLyvrZNaIEcR0XDPOzlhW9jtPwuZt7tt2K7BgQKBgQDJdfwW6nqdMwBfI7Xs\nSIVJ9KPTcA2fvcuZGjF84ou3c1L+AWg82Zsmz1TaldN67VSrfY96i1GeWX5SHoog\nc0ppGuWiwe+wPWy7xYnXHgggGsxOfqlk2GGtFDeoZ8fhysfr7siM+Aq3GsuxfLo5\n9XcnN4YwiVAwygKgq2qhvxQKiwKBgQDAj5IEqKJfJ8zDilzKLMA0lEGkCv2nIkfr\nuJ8GzUkPxp6irDxxsdIGylQgWHV5CNNK1/ldXvvmvDsDJCoueuRtZTJDlKYVeXF4\nx+Bm36WJkYnqvOx/2SLtFGPwVwP2Q9W1QjhwVsDnRYphKEJ2r9xdKKaOgeQSsHGu\ntpHkGalGzQKBgQCvXAngkJ3GM9zA876pO775zv7DTygswfJ1BD3LbQ8c0j+NZgAr\n52aL87Dyy7PXrroixBqeGqMi6Ndx969X68L7ljQI5jMS/4SkNaB0JWoBOBJayRn9\n8/OhypVf+2Ybfn1jOuhK/KWnGKXxipY3WRksg8JEgWHR9iUvYcZhoId7XQKBgCCG\nn8WFrpegI2hMMMw9ruGywTuyV5IpqjhY4RPHDTZK+HTF3xfdT3qyJm+oQX+GTBpy\nTL7G0onw9Y7cRvu+6mLIGytrKnqqHs6mBHOcB1wrZz5tVw1pYgrlzNPF/vdUEf8i\nBmKDZOYryuoKYN+naPObcDbWHe5CO5GlaRM8emlpAoGACjuqsot1Uev9UpCd1iMP\ne30RHytPNhWsESKE3HrzJV1BHIlK3UmhQ0ExO2rswNannWwGafvr5XRDnwo1C39V\nDVACpesi4rOw3nKr3l71cXR27lBTKBPja718kVjQ+VEvP/4XeRviWcO509IzoDO6\ncRxAnvui2hUBmpuvZsIeQPE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "dialogflow-mrswbq@tourist-bot-hilapp.iam.gserviceaccount.com",
+  "client_id": "105670391210086930111",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-mrswbq%40tourist-bot-hilapp.iam.gserviceaccount.com"
+}

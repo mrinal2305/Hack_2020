@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Sign in to Librarian',
+                      'Sign in to Student',
                       style: TextStyle(
                         color: Color(0xff3ab397),
                         fontWeight: FontWeight.bold,

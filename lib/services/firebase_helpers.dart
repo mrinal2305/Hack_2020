@@ -3,12 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
 class SearchService {
-  searchByTitle(String searchField) {
+  static searchByTitle(String searchField) {
     print('in searchbytitle $searchField');
     return Firestore.instance
         .collection('book')
-        .where('titleKey',
-        isEqualTo: searchField.substring(0, 1).toLowerCase())
+        .where('titleKey', isEqualTo: searchField.substring(0, 1).toLowerCase())
         .getDocuments();
   }
 }

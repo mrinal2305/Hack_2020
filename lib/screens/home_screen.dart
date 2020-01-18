@@ -5,6 +5,8 @@ import 'package:lbs/elements/my_card.dart';
 import 'package:lbs/screens/issued_books_screens.dart';
 import 'package:lbs/screens/personel_screen.dart';
 import 'package:lbs/constants.dart';
+import 'package:lbs/screens/search_screen.dart';
+
 class HomePage extends StatelessWidget {
   static const id = 'home_screen';
 
@@ -79,7 +81,9 @@ class HomePage extends StatelessWidget {
               Navigator.pushNamed(context,AddBookScreen.id);
             },'images/personal.png'),
 
-            MyCard('Search',(){},'images/search.png'),
+            MyCard('Search',(){
+              Navigator.pushNamed(context,SearchScreen.id);
+            },'images/search.png'),
           ],
         ),
       ),
