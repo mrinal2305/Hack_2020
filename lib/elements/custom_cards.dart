@@ -308,12 +308,12 @@ class IssuedBookCard extends StatelessWidget {
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
                   ),
-//                  Text(
-//                    'Fine : $fine',
-//                    textAlign: TextAlign.start,
-//                    style:
-//                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-//                  ),
+                  Text(
+                    fine!=null?'Fine : $fine':'Fine : 0',
+                    textAlign: TextAlign.start,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                  ),
                   Text(
                     'IssueDate : $issueDate',
                     textAlign: TextAlign.start,

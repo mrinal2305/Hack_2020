@@ -155,7 +155,7 @@ class _StudentInfoState extends State<StudentInfo> {
                         bookTitle: student.books[index]['title'],
                         author: student.books[index]['author'],
                         isbn: student.books[index]['isbn'],
-//                        fine: student.books[index]['fine'],
+                        fine: student.books[index]['fine'],
                       imgUrl: student.books[index]['smallThumbnail'],
                         issueDate: student.books[index]['issueDate'],
                         returnDate: student.books[index]['returnDate'],

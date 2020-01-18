@@ -204,6 +204,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
     try {
       String result = await BarcodeScanner.scan();
       print(result);
+      isbn=result;
+      print(isbn);
       getBooksByIsbn(result);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {

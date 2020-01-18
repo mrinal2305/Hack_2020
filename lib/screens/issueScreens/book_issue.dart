@@ -92,11 +92,22 @@ class _BookIssueState extends State<BookIssue> {
     }
   }
 
+  String toIsbn10(String isbn){
+    String temp='';
+    for(int i=3;i<isbn.length;i++){
+      temp+=isbn[i];
+    }
+    print('in toisbn10 $temp');
+    return temp;
+  }
+
   //from firebase
   void getBookByIsbn() async {
     final bookCollection = db.collection('book');
+    var books;
     try {
-      final books = await bookCollection.document(isbn).get();
+         books = await bookCollection.document(isbn).get();
+
       print(books.data);
       final bookData = books.data;
 //    try {
@@ -111,11 +122,28 @@ class _BookIssueState extends State<BookIssue> {
 //      print('in getStudentByRoll ${e.message}');
 //    }
     } catch (e) {
-      setState(() {
-        errorMessage='This book is not available in library';
-        isError=true;
-      });
-      print('This book is not available in library\n');
+
+      try {
+        print('in isbn10');
+        books = await bookCollection.document(toIsbn10(isbn)).get();
+        final bookData = books.data;
+//    try {
+        if (mounted)
+          setState(() {
+            title = bookData['title'];
+            author = bookData['author'];
+            imgUrl = bookData['smallThumbnail']; //or check for smallThumbnails
+            isVisible = true;
+          });
+
+//        print('This book is not available in library\n');
+      } catch(e){
+        setState(() {
+
+          errorMessage='This book is not available in library';
+          isError=true;
+        });
+      }
     }
   }
 
@@ -311,7 +339,15 @@ class _BookIssueState extends State<BookIssue> {
                         ),
                         Visibility(
                           visible: isError,
-                            child: Text('$errorMessage'),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text('$errorMessage',
+                            textAlign: TextAlign.center,
+                            style: kTitleTextStyle.copyWith(
+                              fontSize: 30,
+                            ),),
+                              ),),
                         ),
                         Padding(
                           padding: EdgeInsets.all(4.0),

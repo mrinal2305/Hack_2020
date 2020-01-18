@@ -5,6 +5,7 @@ class Student{
   String roll;
   String regNo;
   List books=[];//dynamic
+  int fine;
   String image;
   String doa;
   String dop;

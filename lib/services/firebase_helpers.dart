@@ -226,6 +226,17 @@ class DatabaseService {
     }
   }
 
+
+  //checking whether student is present or not
+  Future<bool> isStudent(String roll)async{
+    final singleStudentCollection = studentCollection.document(roll);
+//    print(singleBookCollection.exists);
+    final checkExist = await singleStudentCollection.get();
+    if(checkExist.exists){
+      return true;
+    }
+    return false;
+  }
   //just for checking not used anywhere
   void getStudentData() async {
     final students = await studentCollection.getDocuments();

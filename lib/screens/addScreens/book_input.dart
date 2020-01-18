@@ -60,6 +60,7 @@ class _BookInputState extends State<BookInput>
     book.smallThumbnail = bookInfoFromPeace.smallThumbnail;
     book.title = bookInfoFromPeace.title;
     book.isbn_10 = bookInfoFromPeace.isbn_10;
+//    book.isbn_13=bookInfoFromPeace.isbn_13;
     if (toCall) {
       toCall = false;
       getBookFullDetails(); //whenever text changes it get called
