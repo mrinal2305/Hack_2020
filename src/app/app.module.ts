@@ -26,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegStuComponent } from './reg/reg-stu/reg-stu.component';
 import { RegMemComponent } from './reg/reg-mem/reg-mem.component';
 import { DetailsComponent } from './stu-info/details/details.component';
+import { BookDetailsComponent } from './book-ser/book-details/book-details.component';
  // import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
@@ -40,7 +41,8 @@ import { DetailsComponent } from './stu-info/details/details.component';
     FormBookComponent,
     RegStuComponent,
     RegMemComponent,
-    DetailsComponent
+    DetailsComponent,
+    BookDetailsComponent
   
   ],
   imports: [    // It happen for modules

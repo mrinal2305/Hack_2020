@@ -15,6 +15,7 @@ import { from } from 'rxjs';
 import { RegMemComponent } from './reg/reg-mem/reg-mem.component';
 import { RegStuComponent } from './reg/reg-stu/reg-stu.component';
 import { DetailsComponent } from './stu-info/details/details.component';
+import { BookDetailsComponent } from './book-ser/book-details/book-details.component';
 
 const routes: Routes = [
   {path :"",           component : HompageComponent},
@@ -29,7 +30,9 @@ const routes: Routes = [
   {path : "regs/mem" ,component:RegMemComponent},
   {path : "regs/stu" , component:RegStuComponent},
   {path : "stu_info/details",component:DetailsComponent},
-  {path : "stu_info/details/:id",component:DetailsComponent}
+  {path : "stu_info/details/:id",component:DetailsComponent},
+  {path : "book_ser/details" ,component:BookDetailsComponent},
+  {path : "book_ser/details/:id" ,component:BookDetailsComponent}
 ];
 
 @NgModule({

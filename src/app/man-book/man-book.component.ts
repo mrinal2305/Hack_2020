@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from './../book.service';
 import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
-import { timer, combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
