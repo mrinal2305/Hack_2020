@@ -19,6 +19,8 @@ import { FileSizePipe } from './file-size.pipe';
 import { UploadComponent } from './upload/upload.component';
 import { routingModule } from './material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormBookComponent } from './form-book/form-book.component';
+import { BookService } from './book.service';
 
  // import { CustomFormsModule } from 'ng2-validation';
 
@@ -30,7 +32,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HamburgerComponent,
     DropzoneDirective,
     FileSizePipe,
-    UploadComponent
+    UploadComponent,
+    FormBookComponent
   ],
   imports: [    // It happen for modules
     AngularFireModule.initializeApp(environment.firebase),
@@ -44,7 +47,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [AuthService,AuthGuardService,AdminAuthGuardService,SuperAuthGuardService],       // It happens for services
+  providers: [AuthService,AuthGuardService,AdminAuthGuardService,SuperAuthGuardService,BookService],       // It happens for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }

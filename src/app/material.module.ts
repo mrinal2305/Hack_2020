@@ -5,6 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule, MatIcon} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
 
 export const routingModule =
  [ 
@@ -14,5 +15,6 @@ export const routingModule =
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule
 ];

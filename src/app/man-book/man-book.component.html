@@ -1,1 +1,31 @@
-<p>man-book works!</p>
+<div class="row book">
+    <a mat-raised-button color="primary">Add Book</a>
+    <div class="input-group input-group-lg Search">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>
+        </div>
+        
+        <input type="text" class="form-control abc" [(ngModel)]="searchterm" (keyup)="search($event)" placeholder="Search by Title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+      </div>    
+     
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">DDC</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        
+        <tbody *ngFor="let data of data_obj">
+          <tr>
+            <td>{{data.title}}</td>
+            <td>{{data.isbn_10}}</td>
+            <td>{{data.ddc[0]}}</td>
+            <td><a [routerLink]="['/man_book/edit']" [queryParams]="{id: data.isbn_10}">Edit</a></td>
+          </tr>
+        </tbody>    
+      </table>
+</div>
+

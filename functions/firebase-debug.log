@@ -1,0 +1,16 @@
+[debug] [2020-01-18T00:07:13.655Z] ----------------------------------------------------------------------
+[debug] [2020-01-18T00:07:13.656Z] Command:       /usr/local/bin/node /usr/local/bin/firebase functions:config:set algolia.appid=K23XJGW6PX algolia.apikey=4236b1f45262a67a8f879bbebe0bd060clear
+[debug] [2020-01-18T00:07:13.656Z] CLI Version:   7.11.0
+[debug] [2020-01-18T00:07:13.656Z] Platform:      linux
+[debug] [2020-01-18T00:07:13.656Z] Node Version:  v12.13.0
+[debug] [2020-01-18T00:07:13.657Z] Time:          Sat Jan 18 2020 05:37:13 GMT+0530 (India Standard Time)
+[debug] [2020-01-18T00:07:13.657Z] ----------------------------------------------------------------------
+[debug] [2020-01-18T00:07:13.657Z] 
+[debug] [2020-01-18T00:07:13.661Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-18T00:07:13.661Z] > authorizing via signed-in user
+[debug] [2020-01-18T00:07:13.662Z] [iam] checking project smart-library-55e4d for permissions ["firebase.projects.get","runtimeconfig.configs.create","runtimeconfig.configs.delete","runtimeconfig.configs.get","runtimeconfig.configs.list","runtimeconfig.configs.update","runtimeconfig.variables.create","runtimeconfig.variables.delete","runtimeconfig.variables.get","runtimeconfig.variables.list","runtimeconfig.variables.update"]
+[debug] [2020-01-18T00:07:13.663Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/smart-library-55e4d:testIamPermissions  
+
+[debug] [2020-01-18T00:07:15.865Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-18T00:07:15.868Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/smart-library-55e4d/services/runtimeconfig.googleapis.com  
+ 

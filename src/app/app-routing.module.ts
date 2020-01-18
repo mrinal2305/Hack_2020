@@ -6,7 +6,7 @@ import { RegComponent } from './reg/reg.component';
 import { StuInfoComponent } from './stu-info/stu-info.component';
 import { AuthComponent } from './auth/auth.component';
 import { HompageComponent } from './hompage/hompage.component';
-
+import { FormBookComponent } from './form-book/form-book.component';
 import { AuthGuardService } from './auth-guard.service';
 import {  AdminAuthGuardService } from './admin-auth-guard.service';
 import { SuperAuthGuardService } from './super-auth-guard.service';
@@ -20,11 +20,13 @@ const routes: Routes = [
   {path :"man_book",   component : ManBookComponent},//canActivate :[AuthGuardService,AdminAuthGuardService]},
   {path :"book_ser",   component : BookSerComponent},//canActivate :[AuthGuardService]},
   {path :"regs",       component : RegComponent},//canActivate :[AuthGuardService]},  
-  {path : "upload" ,   component : UploadComponent}
+  {path :"upload" ,   component : UploadComponent},
+  {path : "man_book/edit" ,component : FormBookComponent},
+  {path : "man_book/edit/:id" ,component : FormBookComponent},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash : true})],// unHash cause error
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
@@ -36,5 +38,6 @@ export const routingComponents =
   StuInfoComponent,
   ManBookComponent,
   BookSerComponent,
-  RegComponent
+  RegComponent,
+  FormBookComponent
 ];
