@@ -14,6 +14,7 @@ import 'package:lbs/screens/search_screen.dart';
 import 'package:lbs/elements/file_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:lbs/chatbot/virtual_lib.dart';
+import 'package:lbs/screens/userprofile/user_info.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
 
-          initialRoute: LoginScreen.id,
+          initialRoute: WelcomeScreen.id,
           routes: {
                    //SavedBooks.id: (context)=>SavedBooks(),
 
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
                    SpeechText.id: (context) =>SpeechText(),
                    WelcomeScreen.id: (context) =>WelcomeScreen(),
                    FlutterFactsDialogFlow.id: (context) =>FlutterFactsDialogFlow(),
-                   SearchScreen.id: (context) =>SearchScreen()
+                   SearchScreen.id: (context) =>SearchScreen(),
+                   StudentProfile.id: (context) =>StudentProfile()
 
 
                    }),

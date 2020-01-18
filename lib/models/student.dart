@@ -5,5 +5,6 @@ class Student{
   String roll;
   String regNo;
   var bookIssued=List<String>();
-  Student({this.name,this.roll,this.regNo,this.year});
+  String mobileNo;
+  Student({this.name,this.roll,this.regNo,this.year,this.branch,this.mobileNo});
 }

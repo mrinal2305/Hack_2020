@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
-  NetworkHelper({this.titleURL, this.isbnURl, this.ddcURL,this.isbnForDetailsUrl,});
+  NetworkHelper({this.titleURL, this.isbnURl, this.ddcURL,this.isbnForDetailsUrl});
 
   final String titleURL;
   final String isbnURl;
@@ -78,6 +78,26 @@ class NetworkHelper {
       }
     } catch (e) {
       print('in try of bookdetails by isbn');
+      print(e);
+    }
+  }
+
+  static Future getEmotion(String descUrl) async {
+    String EmotionUrl='https://intense-thicket-08147.herokuapp.com/emotion/?text=';
+    try {
+      http.Response response = await http.get(EmotionUrl+descUrl);
+      if (response.statusCode == 200) {
+        String jsonData = response.body;
+        if (jsonData != null)
+          return jsonDecode(jsonData);
+        else
+          print('null recieved in subcategory');
+      } else {
+        print('response code error for subcategory');
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print('in try of subcategory');
       print(e);
     }
   }

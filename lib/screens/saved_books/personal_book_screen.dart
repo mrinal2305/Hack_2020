@@ -99,15 +99,17 @@ class SavedBookDetails extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       'Title : $bookTitle',
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                           fontFamily: ('Nunito'),
                           fontWeight: FontWeight.w700,
                           fontSize: 18.0),
                     ),
+                    Divider(),
+
                     Text(
                       'Author : $author',
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                           fontFamily: ('Nunito'),
                           fontWeight: FontWeight.w700,
@@ -115,7 +117,7 @@ class SavedBookDetails extends StatelessWidget {
                     ),
                     Text(
                       'Isbn : $isbn',
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                           fontFamily: ('Nunito'),
                           fontWeight: FontWeight.w700,

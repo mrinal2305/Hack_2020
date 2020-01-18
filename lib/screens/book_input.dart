@@ -6,6 +6,8 @@ import 'package:lbs/elements/books.dart';
 import 'package:lbs/providers/saved_books.dart';
 import 'package:provider/provider.dart';
 import 'package:lbs/screens/saved_books/personal_book_screen.dart';
+import 'package:lbs/models/Nlp.dart';
+
 
 
 
@@ -48,6 +50,7 @@ class _BookInputState extends State<BookInput> {
 
   bool showSpinner = false;
   Book book = Book();
+  Nlp nlp=Nlp();
   bool toCall =true;
 
   @override
@@ -110,6 +113,8 @@ class _BookInputState extends State<BookInput> {
       }
     }
     getDDC();
+    //getEmotions();
+
     setState(() {
       showSpinner=false;
     });
@@ -157,6 +162,14 @@ class _BookInputState extends State<BookInput> {
 //      });
     }
   }
+//  void getEmotions() async {
+//    print(book.description);
+//    var bookData = await BookModel().getBookSubCategory(book.description);
+//    print('insubcategory');
+//    print(bookData);
+//    nlp.emotion=bookData['emotion'];
+//
+//  }
 
   @override
   void dispose() {
@@ -179,8 +192,8 @@ class _BookInputState extends State<BookInput> {
               title: Text('Book Details'),
               bottom: TabBar(
                 tabs: <Widget>[
-                  Tab(icon: Icon(Icons.info),text:"Information"),
-                  Tab(icon: Icon(Icons.description),text: "description",)
+                  Tab(text:"Information"),
+                  Tab(text: "description",)
                 ],
               ),
 
@@ -256,15 +269,31 @@ class _BookInputState extends State<BookInput> {
                   inAsyncCall: showSpinner,
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
-                    child: Card(
-                      child: Container(
-                        width:double.infinity,
-                        child: BookFieldDescription(descriptionController: descriptionController,),
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        Card(
+                          child: Container(
+                            width:double.infinity,
+                            child: BookFieldDescription(descriptionController: descriptionController,),
+                          ),
 
+                        ),
+//                        Column(
+//                          children: <Widget>[
+//                            Text(nlp.emotion['sadness']),
+//                            Text(nlp.emotion['joy']),
+//                            Text(nlp.emotion['fear']),
+//                            Text(nlp.emotion['disgust']),
+//                            Text(nlp.emotion['anger'])
+//                          ],
+//                        )
+
+
+                      ],
                     ),
                   ),
-                )
+                ),
+
 
               ],
             ),

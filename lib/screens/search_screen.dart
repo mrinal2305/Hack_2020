@@ -148,28 +148,28 @@ class BuildResultCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        '$bookTitle',
+                        'Title : $bookTitle',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontFamily: ('Nunito'),
                             fontWeight: FontWeight.w700,
-                            fontSize: 18.0),
+                            fontSize: 15.0),
                       ),
                       Text(
-                        '$author',
-                        textAlign: TextAlign.justify,
+                        'Author : $author',
+                        textAlign: TextAlign.start ,
                         style: TextStyle(
                             fontFamily: ('Nunito'),
                             fontWeight: FontWeight.w700,
-                            fontSize: 18.0),
+                            fontSize: 15.0),
                       ),
                       Text(
-                        '$isbn',
-                        textAlign: TextAlign.justify,
+                        'Isbn : $isbn',
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                             fontFamily: ('Nunito'),
                             fontWeight: FontWeight.w700,
-                            fontSize: 18.0),
+                            fontSize: 15.0),
                       ),
                     ],
                   )),

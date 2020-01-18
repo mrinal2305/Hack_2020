@@ -1,0 +1,4 @@
+class Nlp{
+  Map emotion={};
+
+}
