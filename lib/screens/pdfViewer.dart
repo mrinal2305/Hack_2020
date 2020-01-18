@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+import 'dart:io';
 
 
 class PdfViewer extends StatefulWidget {
@@ -38,7 +39,13 @@ class _PdfViewerState extends State<PdfViewer> {
                   onPressed: (){
                     loadFromURL();
                   },
-                ),)
+                )),
+                Expanded(child:MaterialButton(
+                  child: Text('File'),
+                  onPressed: (){
+                    loadFromFile();
+                  },
+                ))
               ],
             )
           ],
@@ -66,6 +73,14 @@ class _PdfViewerState extends State<PdfViewer> {
     setState(() {
       _isLoading=false;
     });
+  }
+  loadFromFile() async{
+    setState(() {
+      _isInit=false;
+      _isInit=true;
+    });
+    File file  = File("data/user/0/com.surajkumar.lbs/cache/Unit-2MPMC.pdf");
+    PDFDocument doc = await PDFDocument.fromFile(file);
   }
 
 

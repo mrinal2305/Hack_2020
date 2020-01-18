@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:lbs/elements/my_card.dart';
 import 'package:lbs/screens/issued_books_screens.dart';
+import 'package:lbs/screens/pdfViewer.dart';
 import 'package:lbs/screens/personel_screen.dart';
 import 'package:lbs/constants.dart';
 import 'package:lbs/screens/search_screen.dart';
+import 'package:lbs/screens/saved_books/personal_book_screen.dart';
 
 class HomePage extends StatelessWidget {
   static const id = 'home_screen';
@@ -45,18 +47,20 @@ class HomePage extends StatelessWidget {
             ),
             ListTile(
               title:Text('Notices'),
-              onTap: (){},
+              onTap: (){
+
+              },
             ),
             ListTile(
               title: Text('Saved Books'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.pushNamed(context, BookListScreen.id);
               },
             ),
             ListTile(
               title: Text('Pdf'),
               onTap: (){
+                Navigator.pushNamed(context, PdfViewer.id);
 
               },
             )

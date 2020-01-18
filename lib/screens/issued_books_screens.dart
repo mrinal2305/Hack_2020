@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lbs/services/firebase_helpers.dart';
 import 'saved_books/personal_book_screen.dart';
+import 'package:lbs/elements/issued_books.dart';
 
 class IssuedPage extends StatefulWidget {
   static const String id = "issued_books_screens.dart";
@@ -68,14 +69,9 @@ class _IssuedPageState extends State<IssuedPage> {
                        );
                      }
                      final books=snapshot.data['books'];
-                     List<SavedBookDetails> book=[];
+                     List<IssuedBookCard> book=[];
                      for(var b in books){
-                       book.add( SavedBookDetails(
-                         bookTitle: b['title'],
-                         author: b['author'],
-                         isbn: b['isbn'],
-                         imgUrl: b['imgUrl'],
-                       ));
+                       book.add(IssuedBookCard(bookTitle: b['title'],issueDate: b['issueDate'],isbn: b['isbn'],fine: b['fine'],author: b['author'],returnDate: b['returnDate'],));
                      }
                      return Column(
                        children: book,
@@ -336,3 +332,12 @@ class StudentBookCard extends StatelessWidget {
     ]);
   }
 }
+
+
+
+//SavedBookDetails(
+//bookTitle: b['title'],
+//author: b['author'],
+//isbn: b['isbn'],
+//imgUrl: b['imgUrl'],
+//)

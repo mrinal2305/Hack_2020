@@ -269,6 +269,8 @@ class _BookInputState extends State<BookInput> {
               ],
             ),
             floatingActionButton: FloatingActionButton(
+              child:Icon(Icons.add),
+              backgroundColor: kPrimaryColor,
               onPressed: (){
                 saveBook();
               },
