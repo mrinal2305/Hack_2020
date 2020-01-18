@@ -144,6 +144,9 @@ class _StudentInfoState extends State<StudentInfo> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
+                    if(student.books==null){
+                      return Center(child: Text('No books issued'));
+                    }
                     return GestureDetector(
                       onTap: () {
 //                        getStudentByRoll();

@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: HomeScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
