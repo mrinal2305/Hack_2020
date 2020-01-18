@@ -97,6 +97,7 @@ class _BookInputState extends State<BookInput> {
         book.avgRating = bookData['averageRating'];
         print(book.avgRating);
         book.description = bookData['description'];
+        print(book.description);
         book.isbn_10 = bookData['isbn']['isbn_10'];
         book.isbn_13 = bookData['isbn']['isbn_13'];
 //            book.issued=
@@ -113,7 +114,7 @@ class _BookInputState extends State<BookInput> {
       }
     }
     getDDC();
-    //getEmotions();
+    getEmotions();
 
     setState(() {
       showSpinner=false;
@@ -162,14 +163,15 @@ class _BookInputState extends State<BookInput> {
 //      });
     }
   }
-//  void getEmotions() async {
-//    print(book.description);
-//    var bookData = await BookModel().getBookSubCategory(book.description);
-//    print('insubcategory');
-//    print(bookData);
-//    nlp.emotion=bookData['emotion'];
-//
-//  }
+  void getEmotions() async {
+    print(book.description);
+    var bookData = await BookModel().getBookEmotion(book.description);
+    print('insubcategory');
+    print(bookData);
+    nlp.emotion=bookData['emotion'];
+    print(nlp.emotion);
+
+  }
 
   @override
   void dispose() {
@@ -182,8 +184,10 @@ class _BookInputState extends State<BookInput> {
 
   @override
   Widget build(BuildContext context) {
+
     final data=MediaQuery.of(context).size;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DefaultTabController(
           length: 2,
           child: Scaffold(
@@ -278,15 +282,21 @@ class _BookInputState extends State<BookInput> {
                           ),
 
                         ),
-//                        Column(
-//                          children: <Widget>[
-//                            Text(nlp.emotion['sadness']),
-//                            Text(nlp.emotion['joy']),
-//                            Text(nlp.emotion['fear']),
-//                            Text(nlp.emotion['disgust']),
-//                            Text(nlp.emotion['anger'])
-//                          ],
-//                        )
+                        Column(
+                          children: <Widget>[
+
+                              EmotionCard(title:'Sadness',value: nlp.emotion['sadness'].toString()),
+                            EmotionCard(title:'Joy',value: nlp.emotion['joy'].toString()),
+                            EmotionCard(title:'Fear',value: nlp.emotion['fear'].toString()),
+                            EmotionCard(title:'Disgust',value: nlp.emotion['disgust'].toString()),
+                            EmotionCard(title:'Anger',value: nlp.emotion['anger'].toString()),
+//                            Text(nlp.emotion['sadness'].toString()),
+//                            Text(nlp.emotion['joy'].toString()),
+//                            Text(nlp.emotion['fear'].toString()),
+//                            Text(nlp.emotion['disgust'].toString()),
+//                            Text(nlp.emotion['anger'].toString())
+                          ],
+                        )
 
 
                       ],
@@ -554,6 +564,49 @@ class BookFieldLcc extends StatelessWidget {
 //                          title = value;
       },
 //                      onSaved: (input) => _email = input,
+    );
+  }
+}
+
+class EmotionCard extends StatelessWidget {
+  final String title;
+  final String value;
+  EmotionCard({this.title,this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 150,
+              decoration: BoxDecoration(
+                  image:DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage('https://images.unsplash.com/photo-1523726491678-bf852e717f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'),
+                  )
+              ),
+            ),
+
+          ),
+          ExpansionTile(
+            title:Text(title),
+            children: <Widget>[
+
+              Text('$value',style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15.0
+              ),
+                textAlign: TextAlign.start,),
+
+            ],
+          )
+        ],
+      ),
     );
   }
 }

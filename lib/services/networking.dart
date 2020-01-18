@@ -91,13 +91,13 @@ class NetworkHelper {
         if (jsonData != null)
           return jsonDecode(jsonData);
         else
-          print('null recieved in subcategory');
+          print('null recieved in emotion');
       } else {
-        print('response code error for subcategory');
+        print('response code error for emotion');
         print(response.statusCode);
       }
     } catch (e) {
-      print('in try of subcategory');
+      print('in try of emotion');
       print(e);
     }
   }

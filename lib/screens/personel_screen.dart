@@ -7,6 +7,8 @@ import 'package:lbs/screens/book_input.dart';
 import 'package:lbs/services/book_model.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:lbs/elements/books.dart';
+import 'package:speech_recognition/speech_recognition.dart';
+import 'package:lbs/constants.dart';
 
 class AddBookScreen extends StatefulWidget {
   static const id = 'add_book_screen';
@@ -27,6 +29,108 @@ class _AddBookScreenState extends State<AddBookScreen> {
   bool showSpinner = false; //used to check whether to show spinner or not
 
   List<Book> booksInfo = [];
+  String voiceTitle;
+  SpeechRecognition speechRecognition;
+  bool isAvailable = false;
+  bool isListening = false;
+  TextEditingController dialogController = TextEditingController();
+  String resultText = "";
+
+  @override
+  void initState() {
+    super.initState();
+    initSpeechRecognizer();
+  }
+
+  void initSpeechRecognizer() {
+    speechRecognition = SpeechRecognition();
+
+    speechRecognition.setAvailabilityHandler(
+          (bool result) {
+        setState(() {
+          return isAvailable = result;
+        });
+      },
+    );
+
+    speechRecognition.setRecognitionStartedHandler(
+          () {
+        setState(() {
+          return isListening = true;
+        });
+      },
+    );
+
+    speechRecognition.setRecognitionResultHandler(
+          (String speech) {
+        setState(() {
+          resultText = speech;
+        });
+        dialogController.text = resultText;
+        return resultText;
+      },
+    );
+
+    speechRecognition.setRecognitionCompleteHandler(
+          () {
+        setState(() {
+          return isListening = false;
+        });
+      },
+    );
+
+    speechRecognition.activate().then(
+          (result) {
+        setState(() {
+          return isAvailable = result;
+        });
+      },
+    );
+  }
+
+
+
+
+  Future<String> getBookByVoice(
+      BuildContext context, String heading, InputDecoration deco) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.tealAccent,
+          title: Text(heading),
+          content: TextField(
+            decoration: deco.copyWith(
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    Icons.keyboard_voice,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    if (isAvailable && !isListening)
+                      speechRecognition.listen(locale: "en_US").then((result) {
+                        print('in pink $result');
+                      });
+                  },
+                )),
+            controller: dialogController,
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              elevation: 5.0,
+              child: Text('Submit'),
+              onPressed: () {
+                print(dialogController.text);
+                getBooksByTitle(dialogController.text);
+                var text=dialogController.text;
+                Navigator.of(context).pop(text);
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 
   void getBooksByTitle(String bookTitle) async {
     setState(() {
@@ -121,6 +225,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
           onBarPressed: (){
             getBookByBar();
           },
+            onVoicePressed: () {
+              getBookByVoice(context, 'Speech', kTextFieldDecoration);
+            }
         ),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,

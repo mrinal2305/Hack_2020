@@ -9,9 +9,9 @@ class CustomSpeedDial extends StatelessWidget {
   final Function onISBNPressed;
   final Function onTitlePressed;
   final Function onBarPressed;
-  final Function onVoiceBarPressed;
+  final Function onVoicePressed;
 
-  CustomSpeedDial({this.onISBNPressed,this.onTitlePressed,this.onBarPressed,this.onVoiceBarPressed});
+  CustomSpeedDial({this.onISBNPressed,this.onTitlePressed,this.onBarPressed,this.onVoicePressed});
 
   //Dialog box
   Future<String> createAlertDialog(
@@ -97,9 +97,8 @@ class CustomSpeedDial extends StatelessWidget {
           backgroundColor: Colors.green,
 //          label: 'Third',
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () {
-            Navigator.pushNamed(context,SpeechText.id);
-          },
+          onTap: onVoicePressed,
+
         ),
         //adding book by ISBN
         SpeedDialChild(
