@@ -41,12 +41,31 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
                 decoration: InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 4.0),
-              child: IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () => _submitQuery(_textController.text)),
-            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 4.0),
+                  child: IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: () => _submitQuery(_textController.text)),
+                  ),
+
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 4.0),
+                  child: IconButton(
+                    icon: Icon(Icons.keyboard_voice),
+                  ),
+                )
+              ],
+            )
+
+
+//            Container(
+//              margin: EdgeInsets.symmetric(horizontal: 4.0),
+//              child: IconButton(
+//                  icon: Icon(Icons.send),
+//                  onPressed: () => _submitQuery(_textController.text)),
+//            ),
           ],
         ),
       ),
