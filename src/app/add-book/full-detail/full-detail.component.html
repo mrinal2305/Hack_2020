@@ -1,0 +1,63 @@
+<div class="row abc">
+    <div class="col-md-6">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Image</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="{{obj_book.smallThumbnail}}" alt="Photo of a Shiba Inu">
+          </mat-card>
+    </div>
+    <div class="col-md-6">
+        <ul class="list-group">
+            <li *ngIf="obj_book.title" class="list-group-item"><b>Title</b>: {{obj_book.title}}</li>
+            <li *ngIf="obj_book.author" class="list-group-item">Author: {{obj_book.author}}</li>
+            <li *ngIf="obj_book.publisher" class="list-group-item">Publisher: {{obj_book.publisher}}</li>
+            <li *ngIf="obj_book.isbn_10" class="list-group-item">ISBN_10: {{obj_book.isbn_10}}</li>
+            <li *ngIf="obj_book.isbn_13" class="list-group-item">ISBN_13: {{obj_book.isbn_13}}</li>
+            <li *ngIf="obj_book.pageCount" class="list-group-item">PageCount: {{obj_book.pageCount}}</li>
+            <li *ngIf="obj_book.rating" class="list-group-item">Rating: {{obj_book.rating}}</li>
+            <li *ngIf="obj_book.ddc" class="list-group-item">DDC: {{obj_book.ddc[[0]]}} , {{obj_book.ddc[[1]]}} </li>
+          </ul>
+    </div>
+</div>
+
+<div class="row bcd">
+    <div class="col-md-12">
+        <ul class="list-group">
+            <li class="list-group-item">{{obj_book.description}}</li>
+          </ul>
+    </div>
+</div>
+
+  <div class="row">
+      <p>
+        <button class="btn btn-info efg" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Concept</button>
+        <button class="btn btn-info efg" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Sub Category</button>
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+        <ul *ngFor="let c of concept.concept" class="list-group">
+            <li class="list-group-item">{{c.text}} : {{c.relevance}}</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+        <ul *ngFor="let s of subCategory.subCategory" class="list-group">
+            <li class="list-group-item">{{s.score}} : {{s.label}}</li>
+          </ul>      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+<div class="row">
+    <div class="col">
+        <button (click)="click()">Submit</button>
+        
+    </div>
+</div>

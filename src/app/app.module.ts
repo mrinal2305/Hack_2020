@@ -27,6 +27,8 @@ import { RegStuComponent } from './reg/reg-stu/reg-stu.component';
 import { RegMemComponent } from './reg/reg-mem/reg-mem.component';
 import { DetailsComponent } from './stu-info/details/details.component';
 import { BookDetailsComponent } from './book-ser/book-details/book-details.component';
+import { AddBookComponent } from './add-book/add-book.component';
+import { FullDetailComponent } from './add-book/full-detail/full-detail.component';
  // import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
@@ -42,7 +44,9 @@ import { BookDetailsComponent } from './book-ser/book-details/book-details.compo
     RegStuComponent,
     RegMemComponent,
     DetailsComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    AddBookComponent,
+    FullDetailComponent
   
   ],
   imports: [    // It happen for modules

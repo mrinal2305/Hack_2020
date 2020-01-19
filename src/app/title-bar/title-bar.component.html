@@ -6,8 +6,8 @@
 
         <p  class="level-item has-text-centered">
           
-          <a class="link is-info"> <i class="fas fa-home"></i></a>
-          <a class="link is-info"> Home </a>
+          <a class="link is-info"> <i class="fas fa-home" style="color: black;"></i></a>
+          <a class="link is-info" routerLink='/' style="color: black;"> Home </a>
           
         </p>
         
@@ -19,13 +19,13 @@
        
         <div class="level-item has-text-centered">
           <div class="bb"><button class="buton" mat-button [matMenuTriggerFor]="menu" class="link is-info" (click)="onClick()">  
-            <i class="fas fa-sort-down"> </i>
+            <i class="fas fa-sort-down" style="color: black;"> </i>
             <mat-menu #menu="matMenu">
                 <a mat-menu-item>Details</a>
                 <a mat-menu-item>Logout</a>
             </mat-menu>
         </button></div>
-          <p>  Login  </p>
+          <p style="color: black;">  Login  </p>
         </div>
 
       </nav>

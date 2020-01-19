@@ -1,1 +1,92 @@
-<p>reg-stud-component works!</p>
+<div class="row abc" *ngIf="show">
+    <form>
+        <div class="form-row">
+
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="name" name="name" id="name" placeholder="Name">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Year</label>
+            <input type="number" class="form-control" [(ngModel)]="year" name="year" id="year" placeholder="Year" placeholder="Year">
+          </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputState">Brach</label>
+                <select [(ngModel)]="branch" name="branch" id="branch" placeholder="Branch" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>CSE</option>
+                  <option>ME</option>
+                  <option>ECE</option>
+                  <option>EE</option>
+                  <option>Civil</option>
+                  <option>Arch</option>
+                </select>
+            </div>
+            
+            <div class="form-group col-md-4">
+                <label for="inputCity">Roll No</label>
+                <input type="number" class="form-control" [(ngModel)]="rollno" name="rollno" id="Roll No" placeholder="Roll No">
+              </div>
+
+            <div class="form-group col-md-4">
+              <label for="inputZip">Registration No</label>
+              <input type="number" class="form-control" [(ngModel)]="regno" name="regno" id="Registration No" placeholder="Registration No">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">Year of Admisson</label>
+              <input type="date" class="form-control" [(ngModel)]="yoa" name="yoa" id="yoa" placeholder="Year of Admisson">
+            </div>
+            
+            <div class="form-group col-md-6">
+              <label for="inputZip">Year of Passing</label>
+              <input type="date" class="form-control" [(ngModel)]="yop" name="yop" id="yop" placeholder="Year of Passing">
+            </div>
+          </div>
+
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <input type="text" class="form-control" [(ngModel)]="adress" name="adress" id="adress" placeholder="Address" placeholder="1234 Main St">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" class="form-control" [(ngModel)]="city" name="city" id="city" placeholder="City">
+          </div>
+          
+          <div class="form-group col-md-6">
+            <label for="inputZip">Zip</label>
+            <input type="text" class="form-control" [(ngModel)]="zip" name="zip" id="zip" placeholder="Zip">
+          </div>
+        </div>
+
+        <button type="submit" (click)="Submit()" class="btn btn-primary">Register</button>
+      </form>
+</div>  
+
+<div class="row bcd" *ngIf="!show">
+  <div class="form-row">
+           
+    <div class="form-group col-md-6">
+      <label for="inputZip">Email</label>
+      <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" placeholder="Email">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="inputZip">Password</label>
+      <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password">
+    </div>
+
+    <button type="submit" (click)="Submit()" class="btn btn-primary">SignUp</button>
+  </div>
+</div>
+
+<p *ngIf="success">Success</p>
+<p *ngIf="error">Error</p>

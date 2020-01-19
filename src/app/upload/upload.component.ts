@@ -37,7 +37,9 @@ export class UploadComponent implements OnInit {
       })
     })
 
-    prom.then(val => console.log(val)); // SUCCESS GETTING BOOK
+    prom.then(val => {
+      console.log(val);
+    }); // SUCCESS GETTING BOOK
    
   }
 

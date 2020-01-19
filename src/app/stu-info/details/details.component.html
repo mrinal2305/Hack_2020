@@ -1,1 +1,47 @@
-<p>details works!</p>
+
+<div class="container">
+    <div class="jumbotron">
+      <ul>
+    <li><a class="active" href="#home">Student details</a></li>
+    
+    
+  </ul>
+  <div class="row">
+    <div class="column">
+      
+      <div class="card" style="width:400px">
+         <img class="card-img-top" src="{{data.image}}" alt="Card image" style="width:100%">
+      <div class="card-body">
+        <h4 class="card-title"><b>{{data.Name}}</b></h4>
+        
+    </div>
+    
+     
+  </div>
+  </div>
+  <div class="column">
+  <div class="card">
+      <div class="card-body"><ul class="list-group">
+    <li class="list-group-item"><b>Student Name :</b> {{data.Name}}</li>
+    <li class="list-group-item"><b>Roll No:</b>{{data.roll}}</li>
+    <li class="list-group-item"><b>Branch :</b>{{data.Branch}}</li>
+    <li class="list-group-item"><b>Year :</b>{{data.Year}}</li>
+    <li class="list-group-item"><b>Books :</b>{{data.books}}</li>
+    <li class="list-group-item"><b>CGPA: </b> {{data.cgpa}}</li>
+    <li class="list-group-item"><b>Date Of Admission</b>{{data.date_of_admisson}}</li>
+    <li class="list-group-item"><b>Date Of Passing</b>{{data.date_of_passing}}</li>
+    <li class="list-group-item"><b>Registration No:</b>{{data.reg_No}}</li>
+    
+    
+  </ul>
+  <button class="btn-btn-danger"><i class="fa fa-bars"></i> EDIT DETAILS</button></div>
+    </div>
+  </div>
+  </div>
+  
+  </div>
+  </div>
+
+  <ul *ngFor="let book of data.books">
+      <li>{{book.title}}</li>
+  </ul>
