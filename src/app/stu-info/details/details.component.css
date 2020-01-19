@@ -37,6 +37,7 @@ ul {
   .card{
    
     background-color: white;
+   
   }
   * {
     box-sizing: border-box;
@@ -91,3 +92,20 @@ ul {
   .card-body{
     border-radius: 15%;
   }
+table,th,td{
+  border: 1px solid black;
+}
+th,td{
+  padding:10px;
+}
+table{
+  padding-top: 10%;
+  margin-left: 100px;
+  padding-left: 100px;
+  margin-top: 10px;
+}
+.vaish{
+  padding-top: 50px;
+  
+  padding-left: 20px;
+}

@@ -3,7 +3,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>
         </div>
-        <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+        <input type="text" class="form-control abc" [(ngModel)]="searchterm" (keyup)="search($event)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
       </div>
 </div>
 

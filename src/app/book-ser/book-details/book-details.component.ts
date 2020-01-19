@@ -19,6 +19,18 @@ export class BookDetailsComponent implements OnInit {
     this.db.collection('book').doc(this.id).get().subscribe(val => {
       this.data = val.data();
       console.log(this.data);
+      var id = this.data.isbn_10 ;
+      console.log(this.id)
+      // ERROR SHOW NLP
+      this.db.collection('NLP').doc(id).get().subscribe(val => {
+        if(val.data() == undefined) {
+          this.db.collection('NLP').doc(this.data.isbn_13).get().subscribe(x => {
+            console.log(x.data());
+          })
+        }
+        else {}
+      });
+      
     })
   }
   

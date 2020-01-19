@@ -1,1 +1,94 @@
-<p>book-details works!</p>
+
+    <div class="container">
+    <div class="jumbotron">
+      
+  <div class="row">
+    <div class="column">
+      
+      <div class="card" style="width:400px">
+         <img class="card-img-top" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1442726934i/4865._UY2473_SS2473_.jpg" alt="Card image" style="width:100%" height="400px">
+      
+     
+  </div>
+  </div>
+  <div class="column">
+  <div class="card">
+      <div class="card-body"><ul class="list-group">
+    <li class="list-group-item"><b>author :</b> {{data.author}} </li>
+    
+    <li class="list-group-item"><b>DDC :</b> <ul><li>{{data.ddc[0]}}</li><li>{{data.ddc[1]}}</li></ul></li>
+    <li class="list-group-item"><b>ISBN_10 :</b> {{data.isbn_10}}</li>
+    <li class="list-group-item"><b>ISBN_13 :</b>{{data.isbn_13}}</li>
+    <li class="list-group-item"><b>Page Count :</b> {{data.pageCount}}</li>
+    <li class="list-group-item"><b>Publisher :</b> {{data.publisher}}</li>
+    <li class="list-group-item"><b>Title :</b> {{data.title}}</li>
+    <li class="list-group-item"><b>Issued Books </b>: {{data.issued}} </li>
+    <li class="list-group-item"><b>Title Key </b>: {{data.titleKey}} </li>
+    <li class="list-group-item"><b>Total Copy </b>: {{data.totalCopy}} </li>
+  
+  </ul>
+  <button class="btn"><i class="fa fa-bars"></i> EDIT DETAILS</button></div>
+    </div>
+  </div>
+  </div>
+  
+  <div class="container">
+    <a href="#demo" class="btn btn-info" data-toggle="collapse">Description</a>
+    <div id="demo" class="collapse">
+       {{data.description}}
+    </div>
+  </div>
+  <h3>prediction:</h3>
+  <div class="dropdown">
+  <a class="btn btn-success dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">Concept</a>
+  
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">writting : relevance</a>
+    <a class="dropdown-item" href="#">essay : relevance</a>
+    <a class="dropdown-item" href="#">short story : relevance</a>
+    <a class="dropdown-item" href="#">article : relevance</a>
+    <a class="dropdown-item" href="#">peer review : relevance</a>
+    
+    
+  </div>
+  </div>
+  <div class="dropdown">
+  <a class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">Sentiment</a>
+  
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">label :</a>
+    <a class="dropdown-item" href="#">score : </a>
+    
+  </div>
+  </div>
+  <!-- Basic dropdown -->
+  <div class="dropdown">
+  <a class="btn btn-warning dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">Emotion</a>
+  
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">sadness</a>
+    <a class="dropdown-item" href="#">joy</a>
+    <a class="dropdown-item" href="#">fear</a>
+    <a class="dropdown-item" href="#">disgust</a>
+    <a class="dropdown-item" href="#">anger</a>
+    
+  </div>
+  </div>
+  <div class="dropdown">
+  <a class="btn btn-danger dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">Subcategory</a>
+  
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">science/socail science/philosophy</a>
+    <a class="dropdown-item" href="#">bussiness and industrial/paper industry</a>
+    <a class="dropdown-item" href="#">art and entertainment/books and literature/poetry</a>
+    
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  

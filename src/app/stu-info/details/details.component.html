@@ -8,7 +8,7 @@
   </ul>
   <div class="row">
     <div class="column">
-      
+      <div class="vaish">
       <div class="card" style="width:400px">
          <img class="card-img-top" src="{{data.image}}" alt="Card image" style="width:100%">
       <div class="card-body">
@@ -19,6 +19,7 @@
      
   </div>
   </div>
+  </div>
   <div class="column">
   <div class="card">
       <div class="card-body"><ul class="list-group">
@@ -26,7 +27,9 @@
     <li class="list-group-item"><b>Roll No:</b>{{data.roll}}</li>
     <li class="list-group-item"><b>Branch :</b>{{data.Branch}}</li>
     <li class="list-group-item"><b>Year :</b>{{data.Year}}</li>
-    <li class="list-group-item"><b>Books :</b>{{data.books}}</li>
+    <li class="list-group-item"><b>Books :</b><ul *ngFor="let book of data.books">
+      <li>{{book.title}}</li>
+  </ul></li>
     <li class="list-group-item"><b>CGPA: </b> {{data.cgpa}}</li>
     <li class="list-group-item"><b>Date Of Admission</b>{{data.date_of_admisson}}</li>
     <li class="list-group-item"><b>Date Of Passing</b>{{data.date_of_passing}}</li>
@@ -38,10 +41,48 @@
     </div>
   </div>
   </div>
-  
+  <table>
+    <tr>
+     
+      <th>book title</th>
+      <th>issue date</th>
+      <th>return date</th>
+      <th>ISBN No.</th>
+      <th>fine</th>
+    </tr>
+    <tr>
+      
+      <td>
+        <ul *ngFor="let book of data.books">
+          <li>{{book.title}}  </li>
+      </ul>
+      </td>
+      <td>
+        <ul *ngFor="let book of data.books">
+          <li>{{book.issueDate}}  </li>
+      </ul>
+      </td>
+      <td>
+        <ul *ngFor="let book of data.books">
+          <li>{{book.returnDate}}  </li>
+      </ul>
+      </td>
+      <td>
+        <ul *ngFor="let book of data.books">
+          <li>{{book.isbn}}  </li>
+      </ul>
+      </td>
+      <td>
+        <ul *ngFor="let book of data.books">
+          <li>{{book.fine}}  </li>
+      </ul>
+      </td>
+      
+    </tr>
+  </table>
+
   </div>
   </div>
 
-  <ul *ngFor="let book of data.books">
-      <li>{{book.title}}</li>
-  </ul>
+  
+  

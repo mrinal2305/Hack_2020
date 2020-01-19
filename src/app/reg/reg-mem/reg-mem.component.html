@@ -1,3 +1,4 @@
+<div class="vaish">
 <div class="row abc" *ngIf="show">
     <form>
         <div class="form-row">
@@ -70,22 +71,23 @@
         <button type="submit" (click)="Submit()" class="btn btn-primary">Register</button>
       </form>
 </div>  
+</div>
 
 <div class="row bcd" *ngIf="!show">
   <div class="form-row">
            
     <div class="form-group col-md-6">
-      <label for="inputZip">Email</label>
+      <label for="inputZip"><b>Email</b></label>
       <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" placeholder="Email">
     </div>
 
     <div class="form-group col-md-6">
-      <label for="inputZip">Password</label>
+      <label for="inputZip"><b>Password</b></label>
       <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password">
     </div>
 
     
-    <button type="submit" (click)="Submit()" class="btn btn-primary">SignUp</button>
+    <button type="submit" (click)="Submit()" class="btn btn-primary">SignIn</button>
   </div>
 
 </div>

@@ -16,7 +16,7 @@ export class ManBookComponent implements OnInit {
   startAt = new Subject();
   endAt    = new Subject();
   
-  books = [];
+
 
   startObs = this.startAt.asObservable();
   endObs   = this.endAt.asObservable();
@@ -39,7 +39,6 @@ export class ManBookComponent implements OnInit {
    
     combineLatest(this.startObs, this.endObs).subscribe((value) => {
       this.firequery(value[0], value[1]).subscribe((books) => {
-        this.books = books;
         this.data_obj = books;
     })
    
