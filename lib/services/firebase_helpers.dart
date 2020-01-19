@@ -188,11 +188,12 @@ class DatabaseService {
   }
 
   //just for checking not used anywhere
-  void getBookData() async {
+  Future getBookData() async {
     final books = await bookCollection.getDocuments();
-    for (var book in books.documents) {
-      print(book.data);
-    }
+//    for (var book in books.documents) {
+//      print(book.data['title'].toLowerCase());
+//    }
+    return books;
   }
 
   void booksStream() async {
@@ -257,21 +258,6 @@ class DatabaseService {
 
   //for nlp collection
   Future<void> updateNlpData(Nlp nlp) async {
-////   Book book = Book.initialize();
-//    final singleNlpCollection = nlpCollection.document(nlp.isbn);
-////    print(singleBookCollection.exists);
-//    final checkExist = await singleNlpCollection.get();
-//    if (!checkExist.exists) {
-//      await singleNlpCollection
-//          .setData({'concept': nlp.concept, 'sentiment': nlp.concept});
-//    } else {
-////      await singleStudentCollection.updateData({
-////        'totalCopy':FieldValue.increment(1),
-////      });
-//      print('update');
-//    }
-
-//   Book book = Book.initialize();
     final singleNlpCollection = nlpCollection.document(nlp.isbn13);
 //    print(singleBookCollection.exists);
     final checkExist = await singleNlpCollection.get();

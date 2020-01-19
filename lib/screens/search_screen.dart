@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
 import 'package:librarian/services/firebase_helpers.dart';
+import 'package:speech_recognition/speech_recognition.dart';
 
 const imgIsNull =
     'https://assets.wordpress.envato-static.com/uploads/2018/02/Harry-Potter-Original-Covers.png';
@@ -16,6 +17,34 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   var queryResultSet = [];
   var tempSearchStore = [];
+
+//  String voiceTitle;
+  SpeechRecognition speechRecognition;
+  bool isAvailable = false;
+  bool isListening = false;
+  TextEditingController dialogController = TextEditingController();
+  String resultText = "";
+
+  void searchByVoice(String title) async {
+    var books = await DatabaseService().getBookData();
+    List titles = [];
+    for (var book in books.documents) {
+//      print(book.data);
+      print(book.data['title'].toLowerCase());
+      var titleFromDb = book.data['title'].toLowerCase();
+      title = title.toLowerCase();
+      if (titleFromDb.contains(title) || title.contains(titleFromDb)) {
+        tempSearchStore.add({
+          'title': book.data['title'],
+          'author': book.data['author'],
+          'isbn_10': book.data['isbn_10'],
+          'smallThumbnail': book.data['smallThumbnail'],
+        });
+      }
+
+      titles.add(book.data['title'].toLowerCase());
+    }
+  }
 
   initiateSearch(String value) {
     print('in initiatesearch $value');
@@ -50,6 +79,59 @@ class _SearchScreenState extends State<SearchScreen> {
     }
   }
 
+  void initSpeechRecognizer() {
+    speechRecognition = SpeechRecognition();
+
+    speechRecognition.setAvailabilityHandler(
+      (bool result) {
+        setState(() {
+          return isAvailable = result;
+        });
+      },
+    );
+
+    speechRecognition.setRecognitionStartedHandler(
+      () {
+        setState(() {
+          return isListening = true;
+        });
+      },
+    );
+
+    speechRecognition.setRecognitionResultHandler(
+      (String speech) {
+        setState(() {
+          resultText = speech;
+        });
+        dialogController.text = resultText;
+        return resultText;
+      },
+    );
+
+    speechRecognition.setRecognitionCompleteHandler(
+      () {
+        setState(() {
+          return isListening = false;
+        });
+      },
+    );
+
+    speechRecognition.activate().then(
+      (result) {
+        setState(() {
+          return isAvailable = result;
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initSpeechRecognizer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,15 +156,25 @@ class _SearchScreenState extends State<SearchScreen> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextField(
+                    controller: dialogController,
                     onChanged: (val) {
                       initiateSearch(val);
                     },
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
                           color: Colors.black,
-                          icon: Icon(Icons.search),
+                          icon: Icon(Icons.keyboard_voice),
                           iconSize: 20.0,
-                          onPressed: () {
+                          onPressed: ()async {
+                            if (isAvailable && !isListening)
+                              speechRecognition
+                                  .listen(locale: "en_US")
+                                  .then((result) {
+                                print('in listen $result');
+                              });
+                            await new Future.delayed(const Duration(seconds: 5));
+                            if(dialogController.text.isNotEmpty)
+                            searchByVoice(dialogController.text);
 //                      Navigator.pop(context);
                           },
                         ),

@@ -16,15 +16,28 @@ void main() {
   runApp(MyApp());
 }
 
-String getStringFromDate(String date) {
-  String temp = '';
-  for (int i = 0; i < date.length; i++) {
-    if (date[i] == ' ') {
-      break;
-    }
-    temp += date[i];
+class MyApp1 extends StatefulWidget {
+  @override
+  _MyApp1State createState() => _MyApp1State();
+}
+
+class _MyApp1State extends State<MyApp1> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: IconButton(
+            icon: Icon(Icons.add,
+            color: Colors.red,),
+              onPressed: ()async{
+              await DatabaseService().getBookData();
+              },
+          ),
+        ),
+      ),
+    );
   }
-  return temp;
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: SearchScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         HomeScreen.id: (context) => HomeScreen(),
