@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lbs/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:lbs/providers/saved_books.dart';
+import 'package:lbs/constants.dart';
 
 class BookListScreen extends StatelessWidget {
   static String imageUrl;
@@ -12,6 +13,7 @@ class BookListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Books'),
+        backgroundColor: kPrimaryColor,
       ),
       body: Center(
         child: FutureBuilder(

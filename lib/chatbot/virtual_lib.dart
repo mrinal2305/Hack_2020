@@ -21,8 +21,9 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
   final TextEditingController _textController = new TextEditingController();
   final FlutterTts flutterTts=FlutterTts();
   Future _speak(String rawText) async{
-    await flutterTts.setLanguage("en-US");
+    await flutterTts.setLanguage("en-IN");
     await flutterTts.setPitch(1);
+    await flutterTts.setSpeechRate(0.6);
     await flutterTts.speak(rawText);
 
 
