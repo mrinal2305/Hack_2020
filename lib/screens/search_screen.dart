@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:librarian/constants.dart';
+import 'package:librarian/elements/round_icon_button.dart';
 import 'package:librarian/services/firebase_helpers.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
@@ -17,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   var queryResultSet = [];
   var tempSearchStore = [];
+  var temp1SearchStore=[];
 
 //  String voiceTitle;
   SpeechRecognition speechRecognition;
@@ -24,27 +26,31 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isListening = false;
   TextEditingController dialogController = TextEditingController();
   String resultText = "";
-
-  void searchByVoice(String title) async {
-    var books = await DatabaseService().getBookData();
-    List titles = [];
-    for (var book in books.documents) {
-//      print(book.data);
-      print(book.data['title'].toLowerCase());
-      var titleFromDb = book.data['title'].toLowerCase();
-      title = title.toLowerCase();
-      if (titleFromDb.contains(title) || title.contains(titleFromDb)) {
-        tempSearchStore.add({
-          'title': book.data['title'],
-          'author': book.data['author'],
-          'isbn_10': book.data['isbn_10'],
-          'smallThumbnail': book.data['smallThumbnail'],
-        });
-      }
-
-      titles.add(book.data['title'].toLowerCase());
-    }
-  }
+//  bool searchVisible=false;
+//  bool toBuild=true;
+//
+//  void searchByVoice(String title) async {
+//    print(title);
+//    var books = await DatabaseService().getBookData();
+//    List titles = [];
+//    for (var book in books.documents) {
+////      print(book.data);
+////      print(book.data['title'].toLowerCase());
+//      var titleFromDb = book.data['title'].toLowerCase();
+//      title = title.toLowerCase();
+//      if (titleFromDb.contains(title) || title.contains(titleFromDb)||titleFromDb==title) {
+//        print(title);
+//        temp1SearchStore.add({
+//          'title': book.data['title'],
+//          'author': book.data['author'],
+//          'isbn_10': book.data['isbn_10'],
+//          'smallThumbnail': book.data['smallThumbnail'],
+//        });
+//      }
+//
+//      titles.add(book.data['title'].toLowerCase());
+//    }
+//  }
 
   initiateSearch(String value) {
     print('in initiatesearch $value');
@@ -163,18 +169,19 @@ class _SearchScreenState extends State<SearchScreen> {
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
                           color: Colors.black,
-                          icon: Icon(Icons.keyboard_voice),
+                          icon: Icon(Icons.search),
                           iconSize: 20.0,
-                          onPressed: ()async {
-                            if (isAvailable && !isListening)
-                              speechRecognition
-                                  .listen(locale: "en_US")
-                                  .then((result) {
-                                print('in listen $result');
-                              });
-                            await new Future.delayed(const Duration(seconds: 5));
-                            if(dialogController.text.isNotEmpty)
-                            searchByVoice(dialogController.text);
+                          onPressed: () {
+//                            if (isAvailable && !isListening)
+//                              speechRecognition
+//                                  .listen(locale: "en_US")
+//                                  .then((result) {
+//                                print('in listen $result');
+//                              });
+//                            toBuild=false;
+//                            setState(() {
+//                              searchVisible=true;
+//                            });
 //                      Navigator.pop(context);
                           },
                         ),
@@ -184,6 +191,19 @@ class _SearchScreenState extends State<SearchScreen> {
                             borderRadius: BorderRadius.circular(4.0))),
                   ),
                 ),
+//                Visibility(
+//                  visible: searchVisible,
+//                  child: RoundIconButton(
+//                    title: 'Search',
+//                    onPress: (){setState(() {
+//                      searchVisible=false;
+//                    });
+//                    toBuild=false;
+//                      searchByVoice(dialogController.text);
+//
+//                    },
+//                  ),
+//                ),
                 SizedBox(height: 10.0),
                 Expanded(
                   child: ListView.builder(
@@ -197,8 +217,16 @@ class _SearchScreenState extends State<SearchScreen> {
                         imgUrl: tempSearchStore[index]['smallThumbnail'] ??
                             imgIsNull,
                       );
+//                          :BuildResultCard(
+//                        bookTitle: temp1SearchStore[index]['title'] ?? 'null',
+//                        author: temp1SearchStore[index]['author'] ?? 'null',
+//                        isbn: temp1SearchStore[index]['isbn_10'] ?? 'null',
+//                        imgUrl: temp1SearchStore[index]['smallThumbnail'] ??
+//                            imgIsNull,
+//                      );
                     },
-                    itemCount: tempSearchStore.length,
+//                    itemCount: toBuild==true?tempSearchStore.length:temp1SearchStore.length,
+                  itemCount: tempSearchStore.length,
                   ),
                 ),
               ],
