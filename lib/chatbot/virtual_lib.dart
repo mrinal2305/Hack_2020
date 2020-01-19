@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:lbs/chatbot/fact_message.dart';
 import 'package:lbs/constants.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class FlutterFactsDialogFlow extends StatefulWidget {
   static const String id="virtual_lib.dart";
@@ -14,8 +15,18 @@ class FlutterFactsDialogFlow extends StatefulWidget {
 }
 
 class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
+  final String value='';
   final List<FactsMessage> _messages = <FactsMessage>[];
   final TextEditingController _textController = new TextEditingController();
+  final FlutterTts flutterTts=FlutterTts();
+  Future _speak(String rawText) async{
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(rawText);
+
+
+  }
+
 
   Widget _queryInputWidget(BuildContext context) {
     return Container(
@@ -55,6 +66,8 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
       name: "Virtual Lib",
       type: false,
     );
+    _speak(response.getMessage() ??
+        CardDialogflow(response.getListMessage()[0]).title);
     setState(() {
       _messages.insert(0, message);
     });

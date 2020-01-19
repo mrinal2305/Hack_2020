@@ -164,12 +164,19 @@ class _BookInputState extends State<BookInput> {
     }
   }
   void getEmotions() async {
-    print(book.description);
-    var bookData = await BookModel().getBookEmotion(book.description);
-    print('insubcategory');
-    print(bookData);
-    nlp.emotion=bookData['emotion'];
-    print(nlp.emotion);
+
+      print(book.description);
+      var bookData = await BookModel().getBookEmotion(book.description);
+      print('insubcategory');
+      print(bookData);
+      setState(() {
+        nlp.emotion=bookData['emotion'];
+        print(nlp.emotion);
+      });
+
+
+
+
 
   }
 

@@ -52,13 +52,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text('Book search'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(children: <Widget>[
+    return SafeArea(
+      child: new Scaffold(
+          appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Text('Book search'),
+          ),
+          body: Column(children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
               child: TextField(
@@ -81,21 +81,23 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             SizedBox(height: 10.0),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return BuildResultCard(
-                  bookTitle: tempSearchStore[index]['title'] ?? 'null',
-                  author: tempSearchStore[index]['author'] ?? 'null',
-                  isbn: tempSearchStore[index]['isbn_10'] ?? 'null',
-                  imgUrl: tempSearchStore[index]['smallThumbnail'] ?? imgIsNull,
-                );
-              },
-              itemCount: tempSearchStore.length,
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return BuildResultCard(
+                    bookTitle: tempSearchStore[index]['title'] ?? 'null',
+                    author: tempSearchStore[index]['author'] ?? 'null',
+                    isbn: tempSearchStore[index]['isbn_10'] ?? 'null',
+                    imgUrl: tempSearchStore[index]['smallThumbnail'] ?? imgIsNull,
+                  );
+                },
+                itemCount: tempSearchStore.length,
+              ),
             ),
-          ]),
-        ));
+          ])),
+    );
   }
 }
 
