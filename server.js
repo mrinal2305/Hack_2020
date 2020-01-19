@@ -1,12 +1,41 @@
-var admin = require('firebase-admin');     //Admin access firebase
+const express = require("express");        //requiring express
+const app = express();                     //declaring app
+const bodyParser = require("body-parser"); //requiring body-parser
 
-var serviceAccount = require("./serviceAccountKey");
+var stud_info = require('./stu_info');
+var port      = process.env.PORT || 3000;  // declaring port
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://smart-library-55e4d.firebaseio.com"
-  });
+app.use(bodyParser.urlencoded({ extended: false }));  //using body-parser
+app.use(bodyParser.json());                           //body-parser to parse json data
 
-var db = admin.firestore(); //Our database
+app.use((req, res, next) => {       // Accessing the header
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 
-db.settings({ timestampsInSnapshots : true }) // Setting of database
+app.get('/',(req,res)=>{
+  res.send({
+    message : "Welcome to backend Api for Smart library app",
+    detail  : "Add more ;/ URL"
+  })
+})
+
+app.use('/stud_list',stud_info);
+
+app.get('*',(req,res)=>{
+  res.send({
+    error : "Add Valid URL"
+  })
+})
+
+app.listen(port,()=>{
+  console.log('App is listening on port '+port);
+})
