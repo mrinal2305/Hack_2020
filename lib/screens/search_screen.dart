@@ -56,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Stack(
         children: <Widget>[
           Container(
+            width: double.infinity,
             height: double.infinity,
             child: Image.asset(
               'images/back.jpeg',
@@ -63,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Scaffold(
-            backgroundColor: Color(0x22ffffff),
+            backgroundColor: Color(0xd5ffffff),
             appBar: AppBar(
               backgroundColor: kPrimaryColor,
               title: Text('Book search'),

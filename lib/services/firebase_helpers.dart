@@ -159,7 +159,7 @@ class DatabaseService {
   //for book collection
   Future<void> updateBookData(Book book) async {
 //   Book book = Book.initialize();
-    final singleBookCollection = bookCollection.document(book.isbn_10);
+    final singleBookCollection = bookCollection.document(book.isbn_13);
 //    print(singleBookCollection.exists);
     final checkExist = await singleBookCollection.get();
     if (!checkExist.exists) {
@@ -272,7 +272,7 @@ class DatabaseService {
 //    }
 
 //   Book book = Book.initialize();
-    final singleNlpCollection = nlpCollection.document(nlp.isbn);
+    final singleNlpCollection = nlpCollection.document(nlp.isbn13);
 //    print(singleBookCollection.exists);
     final checkExist = await singleNlpCollection.get();
     if (!checkExist.exists) {

@@ -37,6 +37,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
   TextEditingController dialogController = TextEditingController();
   String resultText = "";
 
+  String tempIsbn; //used in barcode reader
+
   @override
   void initState() {
     super.initState();
@@ -89,9 +91,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
     );
   }
 
-
-
-
   Future<String> getBookByVoice(
       BuildContext context, String heading, InputDecoration deco) {
     return showDialog(
@@ -123,7 +122,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
               onPressed: () {
                 print(dialogController.text);
                 getBooksByTitle(dialogController.text);
-                var text=dialogController.text;
+                var text = dialogController.text;
                 Navigator.of(context).pop(text);
               },
             )
@@ -151,6 +150,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
           author = bookData[i]['author'];
           imgUrl = bookData[i]['imageLinks']['smallThumbnail'];
           isbn = bookData[i]['isbn']['isbn_10'];
+          tempIsbn = bookData[i]['isbn']['isbn_13'];
 //          print(title);
 //          print(url);
         } catch (e) {
@@ -163,13 +163,15 @@ class _AddBookScreenState extends State<AddBookScreen> {
               title: title,
               author: author,
               smallThumbnail: imgUrl,
-              isbn_10: isbn));
+              isbn_10: isbn,
+              isbn_13: tempIsbn));
         });
       }
     }
   }
 
   void getBooksByIsbn(String bookISBN) async {
+    isbn = bookISBN;
     setState(() {
       showSpinner = true;
       booksInfo = [];
@@ -182,7 +184,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
         title = bookData['title'];
         author = bookData['author'];
         imgUrl = bookData['image']['smallThumbnail'];
-        isbn = bookData['isbn']['isbn_10'];
+//        isbn = bookData['isbn']['isbn_10'];
+        tempIsbn = bookData['isbn']['isbn_10'];
 //        print(title);
 //        print(url);
       } catch (e) {
@@ -195,7 +198,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
             title: title,
             author: author,
             smallThumbnail: imgUrl,
-            isbn_10: isbn));
+            isbn_13: isbn,
+            isbn_10: tempIsbn));
       });
     }
   }
@@ -204,7 +208,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
     try {
       String result = await BarcodeScanner.scan();
       print(result);
-      isbn=result;
+      isbn = result;
       print(isbn);
       getBooksByIsbn(result);
     } on PlatformException catch (e) {
@@ -222,7 +226,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
   @override
   Widget build(BuildContext context) {
-     voiceTitle = ModalRoute.of(context).settings.arguments as String;
+    voiceTitle = ModalRoute.of(context).settings.arguments as String;
     print('in build $voiceTitle');
     return SafeArea(
       child: Stack(
@@ -236,7 +240,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
             ),
           ),
           Scaffold(
-            backgroundColor: Color(0xbbffffff),
+            backgroundColor: Color(0xd5ffffff),
             appBar: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -279,7 +283,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
                           child: BookCard(
                             title: booksInfo[index].title,
                             author: booksInfo[index].author,
-                            isbn: booksInfo[index].isbn_10,
+//                            isbn: booksInfo[index].isbn_10,//change later if breaks
+                            isbn: booksInfo[index].isbn_13,
                             imgURL: booksInfo[index].smallThumbnail,
                           ),
                         );

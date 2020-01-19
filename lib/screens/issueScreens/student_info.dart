@@ -144,7 +144,7 @@ class _StudentInfoState extends State<StudentInfo> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    if(student.books==null){
+                    if (student.books == null) {
                       return Center(child: Text('No books issued'));
                     }
                     return GestureDetector(
@@ -156,7 +156,7 @@ class _StudentInfoState extends State<StudentInfo> {
                         author: student.books[index]['author'],
                         isbn: student.books[index]['isbn'],
                         fine: student.books[index]['fine'],
-                      imgUrl: student.books[index]['smallThumbnail'],
+                        imgUrl: student.books[index]['smallThumbnail'],
                         issueDate: student.books[index]['issueDate'],
                         returnDate: student.books[index]['returnDate'],
                       ),

@@ -44,6 +44,7 @@ class Book {
     this.title,
     this.smallThumbnail,
     this.isbn_10,
+    this.isbn_13,
     this.author,
     this.description,
     this.ddc1,

@@ -66,7 +66,7 @@ class _IssueScreenState extends State<IssueScreen> {
               ),
             ),
             Scaffold(
-              backgroundColor: Colors.transparent,
+              backgroundColor: Color(0xd5ffffff),
               appBar: AppBar(
                 backgroundColor: kPrimaryColor,
                 title: Text('Issue Screen'),

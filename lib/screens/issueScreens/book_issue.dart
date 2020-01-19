@@ -281,7 +281,7 @@ class _BookIssueState extends State<BookIssue> {
               ),
             ),
             Scaffold(
-              backgroundColor: Color(0xbbffffff),
+              backgroundColor: Color(0xd5ffffff),
               appBar: AppBar(
                 backgroundColor: kPrimaryColor,
                 title: Text('Book Issue'),

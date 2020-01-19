@@ -27,13 +27,11 @@ class _BookInputState extends State<BookInput>
 
   final titleController = TextEditingController();
   final isbnController10 = TextEditingController();
-  final ddcController = TextEditingController();
+  final ddc1Controller = TextEditingController();
+  final ddc2Controller = TextEditingController();
   final authorController = TextEditingController();
-  final lccController = TextEditingController();
-
-  //final lcc2Controller = TextEditingController();
-//  final ddc1Controller = TextEditingController();
-//  final ddc2Controller = TextEditingController();
+  final lcc1Controller = TextEditingController();
+  final lcc2Controller = TextEditingController();
   final publisherController = TextEditingController();
   final pageCountController = TextEditingController();
   final isbnController13 = TextEditingController();
@@ -60,6 +58,7 @@ class _BookInputState extends State<BookInput>
     book.smallThumbnail = bookInfoFromPeace.smallThumbnail;
     book.title = bookInfoFromPeace.title;
     book.isbn_10 = bookInfoFromPeace.isbn_10;
+    book.isbn_13 = bookInfoFromPeace.isbn_13;
 //    book.isbn_13=bookInfoFromPeace.isbn_13;
     if (toCall) {
       toCall = false;
@@ -103,9 +102,9 @@ class _BookInputState extends State<BookInput>
 
   void getBookFullDetails() async {
     isbnController10.text = book.isbn_10;
-    nlp.isbn=book.isbn_10;//for nlp
-        titleController.text = book.title;
-    ddcController.text = book.ddc1;
+    nlp.isbn13 = book.isbn_13; //for nlp
+    titleController.text = book.title;
+    ddc1Controller.text = book.ddc1;
     setState(() {
       showSpinner = true;
     });
@@ -119,7 +118,7 @@ class _BookInputState extends State<BookInput>
         print(book.avgRating);
         book.description = bookData['description'];
         book.isbn_10 = bookData['isbn']['isbn_10'];
-        book.isbn_13 = bookData['isbn']['isbn_13'];
+//        book.isbn_13 = bookData['isbn']['isbn_13'];
 //            book.issued=
 
         book.pageCount = bookData['pageCount'];
@@ -160,13 +159,16 @@ class _BookInputState extends State<BookInput>
       var bookData = await BookModel().getBookDDC(book.title);
       try {
 //        print(book.title);
+      print(bookData);
         try {
           book.ddc1 = bookData[0]['ddc'];
           book.ddc2 = bookData[1]['ddc'];
           book.lcc1 = bookData[0]['lcc'];
           book.lcc2 = bookData[1]['lcc'];
-          ddcController.text = book.ddc1;
-          lccController.text = book.lcc1;
+          ddc1Controller.text = book.ddc1;
+          ddc2Controller.text = book.ddc2;
+          lcc2Controller.text = book.lcc2;
+          lcc1Controller.text = book.lcc1;
 //          ddcController.text = book.ddc;
         } catch (e) {
           print('in inner try');
@@ -203,8 +205,18 @@ class _BookInputState extends State<BookInput>
     // TODO: implement dispose
     super.dispose();
     titleController.dispose();
-    ddcController.dispose();
+    ddc1Controller.dispose();
     isbnController10.dispose();
+    isbnController13.dispose();
+    publisherController.dispose();
+    authorController.dispose();
+    descriptionController.dispose();
+    pageCountController.dispose();
+    ratingController.dispose();
+    ddc1Controller.dispose();
+    ddc2Controller.dispose();
+    lcc1Controller.dispose();
+    lcc2Controller.dispose();
   }
 
   @override
@@ -262,12 +274,48 @@ class _BookInputState extends State<BookInput>
                                     label: 'Author',
                                   ),
                                 ),
-                                Container(
-                                    width: double.infinity,
-                                    child: BookField(
-                                      controller: ddcController,
-                                      label: 'DDC',
-                                    )),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+//                                        width: double.infinity,
+                                          child: BookField(
+                                        controller: ddc1Controller,
+                                        label: 'DDC1',
+                                      )),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+//                                        width: double.infinity,
+                                        child: BookField(
+                                          controller: ddc2Controller,
+                                          label: 'DDC2',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+//                                        width: double.infinity,
+                                          child: BookField(
+                                        controller: lcc1Controller,
+                                        label: 'LCC1',
+                                      )),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+//                                        width: double.infinity,
+                                        child: BookField(
+                                          controller: lcc2Controller,
+                                          label: 'LCC2',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 Container(
                                   width: double.infinity,
                                   child: BookField(
@@ -406,10 +454,9 @@ class _BookInputState extends State<BookInput>
                             return CustomDialog(
                               title: 'Successful',
                               message: 'Nlp info Added',
-                                    onPress: () {
-                                      Navigator.pushNamed(
-                                          context, HomeScreen.id);
-                                    },
+                              onPress: () {
+                                Navigator.pushNamed(context, HomeScreen.id);
+                              },
                             );
                           },
                         );
