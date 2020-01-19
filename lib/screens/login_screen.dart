@@ -89,6 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         print(password);
                         try{
                           print('helloow1');
+                          email=email.trim();
+                          password=password.trim();
                           User toNavigate= await AuthService().validate(email,password);
                           print('hello');
 //                         print('hello here $toNavigate');

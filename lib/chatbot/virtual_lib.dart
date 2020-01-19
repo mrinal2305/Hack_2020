@@ -3,6 +3,7 @@ import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:lbs/chatbot/fact_message.dart';
 import 'package:lbs/constants.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_recognition/speech_recognition.dart';
 
 class FlutterFactsDialogFlow extends StatefulWidget {
   static const String id="virtual_lib.dart";
@@ -25,6 +26,64 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
     await flutterTts.speak(rawText);
 
 
+  }
+  String voiceTitle;
+  SpeechRecognition speechRecognition;
+  bool isAvailable = false;
+  bool isListening = false;
+  TextEditingController dialogController = TextEditingController();
+  String resultText = "";
+
+  @override
+  void initState() {
+    super.initState();
+    initSpeechRecognizer();
+  }
+
+  void initSpeechRecognizer() {
+    speechRecognition = SpeechRecognition();
+
+    speechRecognition.setAvailabilityHandler(
+          (bool result) {
+        setState(() {
+          return isAvailable = result;
+        });
+      },
+    );
+
+    speechRecognition.setRecognitionStartedHandler(
+          () {
+        setState(() {
+          return isListening = true;
+        });
+      },
+    );
+
+    speechRecognition.setRecognitionResultHandler(
+          (String speech) {
+        setState(() {
+          resultText = speech;
+        });
+        _textController.text = resultText;
+        return resultText;
+      },
+    );
+
+    speechRecognition.setRecognitionCompleteHandler(
+          () {
+        setState(() {
+          return isListening = false;
+        });
+      },
+    );
+
+    speechRecognition.activate().then(
+          (result) {
+        setState(() {
+          return isAvailable = result;
+        });
+      },
+    );
   }
 
 
@@ -53,6 +112,14 @@ class _FlutterFactsDialogFlowState extends State<FlutterFactsDialogFlow> {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 4.0),
                   child: IconButton(
+                    onPressed: (){
+                      if(isAvailable&&!isListening){
+                        speechRecognition.listen(locale: "en_us").then((result){
+
+                        });
+
+                      }
+                    },
                     icon: Icon(Icons.keyboard_voice),
                   ),
                 )
