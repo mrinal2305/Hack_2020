@@ -52,7 +52,21 @@ A smart app for librarians for managing Library related transaction like adding 
 6. Get Instant search about availablity of books in library on the basis of title.
 
 ##### ChatBot 
-1. Update by Shubham
+1. Update by Shubham Kumar.
+
+
+Dialogflow is a popular chatbot development platform by Google. It provides graphical interface to manage flow of chat conversation.
+
+Through this chat-bot we can get to know:
+
+1.Name of all books present in the library by a particular Author.
+
+2.Quantity of each book, no. of pages it has, publishing date,etc.
+
+3.One can also search Author name of a particular book.
+
+  <img src="https://github.com/mrinal2305/Hack_2020/blob/test-student/screenshots/chat_bot.jpg" width="140" height ="220">
+
 
 ##### Desktop Software and Website
 
